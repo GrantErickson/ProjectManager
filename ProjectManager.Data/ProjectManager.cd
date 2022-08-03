@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ProjectManager.Data.Models.ApplicationUser">
+    <Position X="6" Y="1.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ApplicationUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectManager.Data.Models.Client">
+    <Position X="10.25" Y="3.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAgAAAAAQAAQAAAAAAAAAAAQAAIYA=</HashCode>
+      <FileName>Models\Client.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Organization" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProjectManager.Data.Models.Project">
+    <Position X="12" Y="6" Width="2.5" />
+    <NestedTypes>
+      <Enum Name="ProjectManager.Data.Models.Project.ProjectStateEnum" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\Project.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAIgAAAAAAAIACAAgAACAASgBgAAAAgAACAAAEECAIQ=</HashCode>
+      <FileName>Models\Project.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Client" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProjectManager.Data.Models.Organization">
+    <Position X="10" Y="0.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAACAAAAQAAQAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Organization.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectManager.Data.Models.OrganizationUser">
+    <Position X="6.5" Y="4" Width="2" />
+    <NestedTypes>
+      <Enum Name="ProjectManager.Data.Models.OrganizationUser.EmploymentStatusEnum" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\OrganizationUser.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>EQIBAAAAAAAAAAAAEQAAAAgAAQAAAAAAAgBAAAEAIAA=</HashCode>
+      <FileName>Models\OrganizationUser.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Organization" />
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProjectManager.Data.Models.TimeEntry">
+    <Position X="6.75" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABEAAAABAwAAAAAAAACAAABAAAAAAAAAAAAkEAAAA=</HashCode>
+      <FileName>Models\TimeEntry.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Project" />
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProjectManager.Data.Models.Assignment">
+    <Position X="4" Y="8.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>QAABAAAAAAAgAAAAAAACCAAgBAACAAAAAAgAFEEAAAA=</HashCode>
+      <FileName>Models\Assignment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Project" />
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProjectManager.Data.Models.ProjectNote">
+    <Position X="15.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAABAAAAAAhAAEAAAEAAAA=</HashCode>
+      <FileName>Models\ProjectNote.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Project" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProjectManager.Data.Models.BillingPeriod">
+    <Position X="14.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAQgAQAAAAAAAAAAAEAAIAA=</HashCode>
+      <FileName>Models\BillingPeriod.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Organization" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProjectManager.Data.Models.Skill">
+    <Position X="1.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAQAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Skill.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectManager.Data.Models.UserSkill">
+    <Position X="1.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAABAAAAAAAAAAAgAAAAAAAAAAAAAQABAAAAAAEAAAA=</HashCode>
+      <FileName>Models\UserSkill.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Skill" />
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProjectManager.Data.Models.AssignmentSkill">
+    <Position X="1.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAgAAAAAAAAAQAAAAAAAQABAgAAAAAAAAA=</HashCode>
+      <FileName>Models\AssignmentSkill.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Skill" />
+      <Property Name="Assignment" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProjectManager.Data.Models.ProjectRole">
+    <Position X="9.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAwAAAAAAAACAAABAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Models\ProjectRole.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Project" />
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
