@@ -166,6 +166,7 @@ export const Assignment = domain.types.Assignment = {
       role: "referenceNavigation",
       get foreignKey() { return (domain.types.Assignment as ModelType).props.organizationUserId as ForeignKeyProperty },
       get principalKey() { return (domain.types.OrganizationUser as ModelType).props.organizationUserId as PrimaryKeyProperty },
+      get inverseNavigation() { return (domain.types.OrganizationUser as ModelType).props.assignments as ModelCollectionNavigationProperty },
       dontSerialize: true,
     },
     name: {
@@ -658,7 +659,9 @@ export const OrganizationUser = domain.types.OrganizationUser = {
         type: "model",
         get typeDef() { return (domain.types.Assignment as ModelType) },
       },
-      role: "value",
+      role: "collectionNavigation",
+      get foreignKey() { return (domain.types.Assignment as ModelType).props.organizationUserId as ForeignKeyProperty },
+      get inverseNavigation() { return (domain.types.Assignment as ModelType).props.user as ModelReferenceNavigationProperty },
       dontSerialize: true,
     },
     projectRoles: {
@@ -672,7 +675,9 @@ export const OrganizationUser = domain.types.OrganizationUser = {
         type: "model",
         get typeDef() { return (domain.types.ProjectRole as ModelType) },
       },
-      role: "value",
+      role: "collectionNavigation",
+      get foreignKey() { return (domain.types.ProjectRole as ModelType).props.organizationUserId as ForeignKeyProperty },
+      get inverseNavigation() { return (domain.types.ProjectRole as ModelType).props.user as ModelReferenceNavigationProperty },
       dontSerialize: true,
     },
     skills: {
@@ -686,7 +691,9 @@ export const OrganizationUser = domain.types.OrganizationUser = {
         type: "model",
         get typeDef() { return (domain.types.UserSkill as ModelType) },
       },
-      role: "value",
+      role: "collectionNavigation",
+      get foreignKey() { return (domain.types.UserSkill as ModelType).props.organizationUserId as ForeignKeyProperty },
+      get inverseNavigation() { return (domain.types.UserSkill as ModelType).props.user as ModelReferenceNavigationProperty },
       dontSerialize: true,
     },
   },
@@ -1012,6 +1019,7 @@ export const ProjectRole = domain.types.ProjectRole = {
       role: "referenceNavigation",
       get foreignKey() { return (domain.types.ProjectRole as ModelType).props.organizationUserId as ForeignKeyProperty },
       get principalKey() { return (domain.types.OrganizationUser as ModelType).props.organizationUserId as PrimaryKeyProperty },
+      get inverseNavigation() { return (domain.types.OrganizationUser as ModelType).props.projectRoles as ModelCollectionNavigationProperty },
       dontSerialize: true,
     },
     isManager: {
@@ -1208,6 +1216,7 @@ export const UserSkill = domain.types.UserSkill = {
       role: "referenceNavigation",
       get foreignKey() { return (domain.types.UserSkill as ModelType).props.organizationUserId as ForeignKeyProperty },
       get principalKey() { return (domain.types.OrganizationUser as ModelType).props.organizationUserId as PrimaryKeyProperty },
+      get inverseNavigation() { return (domain.types.OrganizationUser as ModelType).props.skills as ModelCollectionNavigationProperty },
       dontSerialize: true,
     },
     skillId: {

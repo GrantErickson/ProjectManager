@@ -197,6 +197,21 @@ export interface OrganizationUserViewModel extends $models.OrganizationUser {
 }
 export class OrganizationUserViewModel extends ViewModel<$models.OrganizationUser, $apiClients.OrganizationUserApiClient, number> implements $models.OrganizationUser  {
   
+  
+  public addToAssignments() {
+    return this.$addChild('assignments') as AssignmentViewModel
+  }
+  
+  
+  public addToProjectRoles() {
+    return this.$addChild('projectRoles') as ProjectRoleViewModel
+  }
+  
+  
+  public addToSkills() {
+    return this.$addChild('skills') as UserSkillViewModel
+  }
+  
   constructor(initialData?: DeepPartial<$models.OrganizationUser> | null) {
     super($metadata.OrganizationUser, new $apiClients.OrganizationUserApiClient(), initialData)
   }
