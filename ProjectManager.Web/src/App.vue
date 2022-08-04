@@ -11,12 +11,75 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item link to="/coalesce-example">
+        <v-list-item link to="/admin/Organization">
           <v-list-item-action>
-            <v-icon>fas fa-palette</v-icon>
+            <v-icon>fas fa-building</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Coalesce Example</v-list-item-title>
+            <v-list-item-title>Organizations</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item link to="/admin/Skill">
+          <v-list-item-action>
+            <v-icon>fas fa-list</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Skills</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item link to="/admin/ApplicationUser">
+          <v-list-item-action>
+            <v-icon>fas fa-user</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Login Users</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item link to="/admin/OrganizationUser">
+          <v-list-item-action>
+            <v-icon>fas fa-users</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Organization Users</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item link to="/admin/Client">
+          <v-list-item-action>
+            <v-icon>fas fa-user-tie</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Clients</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item link to="/admin/Project">
+          <v-list-item-action>
+            <v-icon>fas fa-box</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Projects</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item link to="/admin/Assignment">
+          <v-list-item-action>
+            <v-icon>fas fa-check-double</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Assignment</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item link to="/admin/TimeEntry">
+          <v-list-item-action>
+            <v-icon>fas fa-clock</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Time Entry</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>

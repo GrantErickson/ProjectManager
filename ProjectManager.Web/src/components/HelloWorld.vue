@@ -12,40 +12,25 @@
             </h2>
             <ol>
               <li>
-                <strong>Create your data model</strong> by adding classes to the
-                Models folder in your data project, and adding DbSet properties
-                on AppDbContext.
+                Add Skills you would like to track.
               </li>
               <li>
-                <strong>Create an EF migration</strong> by running
-                <code>dotnet ef migrations add MigrationName</code>
-                in your .Data project. The pages below will not work until you
-                do so.
+                Add Application Users and assign them to an Organization as an Organization User. You can add Skills to Organization Users.
               </li>
               <li>
-                <i class="fas fa-star" />
-                <strong> Implement a proper authentication mechanism</strong> in
-                Program.cs and remove the existing dummy authentication. Options
-                include
-                <a
-                  href="https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity"
-                >
-                  Identity
-                </a>
-                and
-                <a
-                  href="https://docs.microsoft.com/en-us/aspnet/core/security/authentication/windowsauth?view=aspnetcore-6.0#kestrel"
-                >
-                  Windows Authentication
-                </a>
-
-                <br />
-                <br />
-                This template authenticates all users as a dummy user to
-                facilitate rapid initial development. Since all Coalesce
-                endpoints require authentication by default, you would otherwise
-                have to setup a real authentication scheme before you could
-                begin development.
+                Add Clients and their associated Projects.
+              </li>
+              <li>
+                Add Assignments to Projects. Assignments can have skills.
+              </li>
+              <li>
+                Add Time Entries to Assignments to associate time with a User.
+              </li>
+              <li>
+                Add notes to projects.
+              </li>
+              <li>
+                Set up Billing Periods so be able to eventually do time approval.
               </li>
             </ol>
             <v-divider class="my-3" />
@@ -99,59 +84,6 @@
         </v-card>
       </v-col>
 
-      <v-col cols="12" lg="5">
-        <v-card>
-          <v-card-title> Quick Links </v-card-title>
-          <v-card-text class="black--text">
-            <h2 class="headline font-weight-light mb-3">Documentation</h2>
-            <ul>
-              <li>
-                <a href="https://vuejs.org/v2/guide/">Vue Documentation</a>
-              </li>
-              <li>
-                <a href="https://vitejs.dev/">Vite Documentation</a>
-              </li>
-              <li>
-                <a href="https://vuetifyjs.com/en/getting-started/quick-start/"
-                  >Vuetify Documentation</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://intellitect.github.io/Coalesce/stacks/vue/overview"
-                  >Coalesce Documentation</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://intellitect.github.io/Coalesce/stacks/vue/coalesce-vue-vuetify/overview"
-                  >Coalesce Vuetify Documentation</a
-                >
-              </li>
-            </ul>
-            <v-divider class="my-3" />
-            <h2 class="headline font-weight-light mb-3">Resources</h2>
-            <ul>
-              <li>
-                Check out
-                <a href="https://github.com/vuejs/awesome-vue" target="_blank"
-                  >🎉 awesome-vue</a
-                >
-                for Vue components, libraries, examples, and more!
-              </li>
-              <li>
-                Install
-                <a
-                  href="https://github.com/vuejs/vue-devtools#vue-devtools"
-                  target="_blank"
-                  >vue-devtools</a
-                >
-                for enhanced in-browser Vue development experience.
-              </li>
-            </ul>
-          </v-card-text>
-        </v-card>
-      </v-col>
     </v-row>
   </v-container>
 </template>
