@@ -12,11 +12,7 @@ using ProjectManager.Data;
 namespace ProjectManager.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-<<<<<<<< HEAD:ProjectManager.Data/Migrations/20220804022602_Initial.Designer.cs
     [Migration("20220804022602_Initial")]
-========
-    [Migration("20220803211625_Initial")]
->>>>>>>> 3505c8b5d3e08cf7c9239a53b767cd1a2a251602:ProjectManager.Data/Migrations/20220803211625_Initial.Designer.cs
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
