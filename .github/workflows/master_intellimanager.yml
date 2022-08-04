@@ -30,7 +30,7 @@ jobs:
 
       - name: Restore npm Packages
         working-directory: ./ProjectManager.web
-        run: npm -ci
+        run: npm ci
         
       - name: Run Tests
         run: dotnet test
