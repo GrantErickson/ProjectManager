@@ -21,9 +21,23 @@ jobs:
         with:
           dotnet-version: '6.0.x'
           include-prerelease: true
+          
+      - name: Restore nuget Packages
+        run: dotnet restore
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
+
+      - name: Restore npm Packages
+        working-directory: ./ProjectManager.web
+        run: npm -ci
+        
+      - name: Run Tests
+        run: dotnet test
+        
+      - name: Run npm build
+        working-directory: ./ProjectManager.web
+        run: npm run build
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
