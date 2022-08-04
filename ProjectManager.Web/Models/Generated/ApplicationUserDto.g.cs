@@ -12,12 +12,12 @@ namespace ProjectManager.Web.Models
     {
         public ApplicationUserDtoGen() { }
 
-        private int? _Id;
+        private string _Id;
         private string _Name;
         private string _Email;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.OrganizationUserDtoGen> _Organizations;
 
-        public int? Id
+        public string Id
         {
             get => _Id;
             set { _Id = value; Changed(nameof(Id)); }
@@ -74,7 +74,7 @@ namespace ProjectManager.Web.Models
 
             if (OnUpdate(entity, context)) return;
 
-            if (ShouldMapTo(nameof(Id))) entity.Id = (Id ?? entity.Id);
+            if (ShouldMapTo(nameof(Id))) entity.Id = Id;
             if (ShouldMapTo(nameof(Name))) entity.Name = Name;
             if (ShouldMapTo(nameof(Email))) entity.Email = Email;
         }

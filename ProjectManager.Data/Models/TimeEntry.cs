@@ -9,7 +9,7 @@ namespace ProjectManager.Data.Models;
 public class TimeEntry: TrackingBase
 {
     public int TimeEntryId { get; set; }
-    public int OrganizationUserId { get; set; }
+    public string OrganizationUserId { get; set; } = null!;
     [ForeignKey(nameof(OrganizationUserId))]
     public OrganizationUser User { get; set; } = null!;
     public int ProjectId { get; set; }

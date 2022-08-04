@@ -34,7 +34,7 @@ namespace ProjectManager.Web.Api
         [HttpGet("get/{id}")]
         [Authorize]
         public virtual Task<ItemResult<OrganizationUserDtoGen>> Get(
-            int id,
+            string id,
             DataSourceParameters parameters,
             IDataSource<ProjectManager.Data.Models.OrganizationUser> dataSource)
             => GetImplementation(id, parameters, dataSource);
@@ -65,7 +65,7 @@ namespace ProjectManager.Web.Api
         [HttpPost("delete/{id}")]
         [Authorize]
         public virtual Task<ItemResult<OrganizationUserDtoGen>> Delete(
-            int id,
+            string id,
             IBehaviors<ProjectManager.Data.Models.OrganizationUser> behaviors,
             IDataSource<ProjectManager.Data.Models.OrganizationUser> dataSource)
             => DeleteImplementation(id, new DataSourceParameters(), dataSource, behaviors);

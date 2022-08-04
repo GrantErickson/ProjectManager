@@ -13,7 +13,7 @@ namespace ProjectManager.Web.Models
         public UserSkillDtoGen() { }
 
         private int? _UserSkillId;
-        private int? _OrganizationUserId;
+        private string _OrganizationUserId;
         private ProjectManager.Web.Models.OrganizationUserDtoGen _User;
         private int? _SkillId;
         private ProjectManager.Web.Models.SkillDtoGen _Skill;
@@ -25,7 +25,7 @@ namespace ProjectManager.Web.Models
             get => _UserSkillId;
             set { _UserSkillId = value; Changed(nameof(UserSkillId)); }
         }
-        public int? OrganizationUserId
+        public string OrganizationUserId
         {
             get => _OrganizationUserId;
             set { _OrganizationUserId = value; Changed(nameof(OrganizationUserId)); }
@@ -89,7 +89,7 @@ namespace ProjectManager.Web.Models
             if (OnUpdate(entity, context)) return;
 
             if (ShouldMapTo(nameof(UserSkillId))) entity.UserSkillId = (UserSkillId ?? entity.UserSkillId);
-            if (ShouldMapTo(nameof(OrganizationUserId))) entity.OrganizationUserId = (OrganizationUserId ?? entity.OrganizationUserId);
+            if (ShouldMapTo(nameof(OrganizationUserId))) entity.OrganizationUserId = OrganizationUserId;
             if (ShouldMapTo(nameof(SkillId))) entity.SkillId = (SkillId ?? entity.SkillId);
             if (ShouldMapTo(nameof(Level))) entity.Level = Level;
             if (ShouldMapTo(nameof(Note))) entity.Note = Note;

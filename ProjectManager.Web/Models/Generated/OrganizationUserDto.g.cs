@@ -12,10 +12,10 @@ namespace ProjectManager.Web.Models
     {
         public OrganizationUserDtoGen() { }
 
-        private int? _OrganizationUserId;
-        private int? _OrganizationId;
+        private string _OrganizationUserId;
+        private string _OrganizationId;
         private ProjectManager.Web.Models.OrganizationDtoGen _Organization;
-        private int? _AppUserId;
+        private string _AppUserId;
         private ProjectManager.Web.Models.ApplicationUserDtoGen _AppUser;
         private string _Name;
         private decimal? _DefaultRate;
@@ -26,12 +26,12 @@ namespace ProjectManager.Web.Models
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.ProjectRoleDtoGen> _ProjectRoles;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.UserSkillDtoGen> _Skills;
 
-        public int? OrganizationUserId
+        public string OrganizationUserId
         {
             get => _OrganizationUserId;
             set { _OrganizationUserId = value; Changed(nameof(OrganizationUserId)); }
         }
-        public int? OrganizationId
+        public string OrganizationId
         {
             get => _OrganizationId;
             set { _OrganizationId = value; Changed(nameof(OrganizationId)); }
@@ -41,7 +41,7 @@ namespace ProjectManager.Web.Models
             get => _Organization;
             set { _Organization = value; Changed(nameof(Organization)); }
         }
-        public int? AppUserId
+        public string AppUserId
         {
             get => _AppUserId;
             set { _AppUserId = value; Changed(nameof(AppUserId)); }
@@ -163,9 +163,9 @@ namespace ProjectManager.Web.Models
 
             if (OnUpdate(entity, context)) return;
 
-            if (ShouldMapTo(nameof(OrganizationUserId))) entity.OrganizationUserId = (OrganizationUserId ?? entity.OrganizationUserId);
-            if (ShouldMapTo(nameof(OrganizationId))) entity.OrganizationId = (OrganizationId ?? entity.OrganizationId);
-            if (ShouldMapTo(nameof(AppUserId))) entity.AppUserId = (AppUserId ?? entity.AppUserId);
+            if (ShouldMapTo(nameof(OrganizationUserId))) entity.OrganizationUserId = OrganizationUserId;
+            if (ShouldMapTo(nameof(OrganizationId))) entity.OrganizationId = OrganizationId;
+            if (ShouldMapTo(nameof(AppUserId))) entity.AppUserId = AppUserId;
             if (ShouldMapTo(nameof(Name))) entity.Name = Name;
             if (ShouldMapTo(nameof(DefaultRate))) entity.DefaultRate = (DefaultRate ?? entity.DefaultRate);
             if (ShouldMapTo(nameof(IsActive))) entity.IsActive = (IsActive ?? entity.IsActive);

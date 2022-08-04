@@ -13,7 +13,7 @@ namespace ProjectManager.Web.Models
         public TimeEntryDtoGen() { }
 
         private int? _TimeEntryId;
-        private int? _OrganizationUserId;
+        private string _OrganizationUserId;
         private ProjectManager.Web.Models.OrganizationUserDtoGen _User;
         private int? _ProjectId;
         private ProjectManager.Web.Models.ProjectDtoGen _Project;
@@ -28,7 +28,7 @@ namespace ProjectManager.Web.Models
             get => _TimeEntryId;
             set { _TimeEntryId = value; Changed(nameof(TimeEntryId)); }
         }
-        public int? OrganizationUserId
+        public string OrganizationUserId
         {
             get => _OrganizationUserId;
             set { _OrganizationUserId = value; Changed(nameof(OrganizationUserId)); }
@@ -110,7 +110,7 @@ namespace ProjectManager.Web.Models
             if (OnUpdate(entity, context)) return;
 
             if (ShouldMapTo(nameof(TimeEntryId))) entity.TimeEntryId = (TimeEntryId ?? entity.TimeEntryId);
-            if (ShouldMapTo(nameof(OrganizationUserId))) entity.OrganizationUserId = (OrganizationUserId ?? entity.OrganizationUserId);
+            if (ShouldMapTo(nameof(OrganizationUserId))) entity.OrganizationUserId = OrganizationUserId;
             if (ShouldMapTo(nameof(ProjectId))) entity.ProjectId = (ProjectId ?? entity.ProjectId);
             if (ShouldMapTo(nameof(StartDate))) entity.StartDate = (StartDate ?? entity.StartDate);
             if (ShouldMapTo(nameof(Hours))) entity.Hours = (Hours ?? entity.Hours);

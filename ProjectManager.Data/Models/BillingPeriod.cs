@@ -9,7 +9,7 @@ namespace ProjectManager.Data.Models;
 public class BillingPeriod
 {
     public int BillingPeriodId { get; set; }
-    public int OrganizationId { get; set; }// = null!;
+    public string OrganizationId { get; set; } = null!;
     public Organization Organization { get; set; } = null!;
     public string Name { get; set; } = null!;
     [DateType(DateTypeAttribute.DateTypes.DateOnly)]

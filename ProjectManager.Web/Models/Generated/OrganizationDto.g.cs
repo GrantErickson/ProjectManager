@@ -12,13 +12,13 @@ namespace ProjectManager.Web.Models
     {
         public OrganizationDtoGen() { }
 
-        private int? _OrganizationId;
+        private string _OrganizationId;
         private string _Name;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.OrganizationUserDtoGen> _Users;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.BillingPeriodDtoGen> _BillingPeriods;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.ClientDtoGen> _Clients;
 
-        public int? OrganizationId
+        public string OrganizationId
         {
             get => _OrganizationId;
             set { _OrganizationId = value; Changed(nameof(OrganizationId)); }
@@ -103,7 +103,7 @@ namespace ProjectManager.Web.Models
 
             if (OnUpdate(entity, context)) return;
 
-            if (ShouldMapTo(nameof(OrganizationId))) entity.OrganizationId = (OrganizationId ?? entity.OrganizationId);
+            if (ShouldMapTo(nameof(OrganizationId))) entity.OrganizationId = OrganizationId;
             if (ShouldMapTo(nameof(Name))) entity.Name = Name;
         }
     }

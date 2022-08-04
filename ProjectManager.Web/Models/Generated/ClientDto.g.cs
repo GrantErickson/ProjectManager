@@ -14,7 +14,7 @@ namespace ProjectManager.Web.Models
 
         private int? _ClientId;
         private string _Name;
-        private int? _OrganizationId;
+        private string _OrganizationId;
         private ProjectManager.Web.Models.OrganizationDtoGen _Organization;
         private string _AgreementUrl;
         private string _PrimaryContact;
@@ -31,7 +31,7 @@ namespace ProjectManager.Web.Models
             get => _Name;
             set { _Name = value; Changed(nameof(Name)); }
         }
-        public int? OrganizationId
+        public string OrganizationId
         {
             get => _OrganizationId;
             set { _OrganizationId = value; Changed(nameof(OrganizationId)); }
@@ -106,7 +106,7 @@ namespace ProjectManager.Web.Models
 
             if (ShouldMapTo(nameof(ClientId))) entity.ClientId = (ClientId ?? entity.ClientId);
             if (ShouldMapTo(nameof(Name))) entity.Name = Name;
-            if (ShouldMapTo(nameof(OrganizationId))) entity.OrganizationId = (OrganizationId ?? entity.OrganizationId);
+            if (ShouldMapTo(nameof(OrganizationId))) entity.OrganizationId = OrganizationId;
             if (ShouldMapTo(nameof(AgreementUrl))) entity.AgreementUrl = AgreementUrl;
             if (ShouldMapTo(nameof(PrimaryContact))) entity.PrimaryContact = PrimaryContact;
             if (ShouldMapTo(nameof(BillingContact))) entity.BillingContact = BillingContact;

@@ -10,7 +10,7 @@ public class Organization
 {
 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int OrganizationId { get; set; }
+    public string OrganizationId { get; set; } = null!;
     public string Name { get; set; } = null!;
 
     public ICollection<OrganizationUser> Users { get; set; } = null!;

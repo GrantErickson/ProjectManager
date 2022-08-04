@@ -19,10 +19,10 @@ public class OrganizationUser : TrackingBase
 
 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int OrganizationUserId { get; set; }
-    public int OrganizationId { get; set; }// = null!;
+    public string OrganizationUserId { get; set; } = null!;
+    public string OrganizationId { get; set; } = null!;
     public Organization Organization { get; set; } = null!;
-    public int AppUserId { get; set; }// = null!;
+    public string AppUserId { get; set; } = null!;
     [ForeignKey(nameof(AppUserId))]
     public ApplicationUser AppUser { get; set; } = null!;
     public string Name { get; set; } = null!;

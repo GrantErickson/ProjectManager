@@ -15,7 +15,7 @@ namespace ProjectManager.Web.Models
         private int? _AssignmentId;
         private int? _ProjectId;
         private ProjectManager.Web.Models.ProjectDtoGen _Project;
-        private int? _OrganizationUserId;
+        private string _OrganizationUserId;
         private ProjectManager.Web.Models.OrganizationUserDtoGen _User;
         private string _Name;
         private decimal? _Rate;
@@ -43,7 +43,7 @@ namespace ProjectManager.Web.Models
             get => _Project;
             set { _Project = value; Changed(nameof(Project)); }
         }
-        public int? OrganizationUserId
+        public string OrganizationUserId
         {
             get => _OrganizationUserId;
             set { _OrganizationUserId = value; Changed(nameof(OrganizationUserId)); }

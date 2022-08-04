@@ -4,12 +4,12 @@ import * as $apiClients from './api-clients.g'
 import { ViewModel, ListViewModel, ServiceViewModel, DeepPartial, defineProps } from 'coalesce-vue/lib/viewmodel'
 
 export interface ApplicationUserViewModel extends $models.ApplicationUser {
-  id: number | null;
+  id: string | null;
   name: string | null;
   email: string | null;
   organizations: OrganizationUserViewModel[] | null;
 }
-export class ApplicationUserViewModel extends ViewModel<$models.ApplicationUser, $apiClients.ApplicationUserApiClient, number> implements $models.ApplicationUser  {
+export class ApplicationUserViewModel extends ViewModel<$models.ApplicationUser, $apiClients.ApplicationUserApiClient, string> implements $models.ApplicationUser  {
   
   constructor(initialData?: DeepPartial<$models.ApplicationUser> | null) {
     super($metadata.ApplicationUser, new $apiClients.ApplicationUserApiClient(), initialData)
@@ -29,7 +29,7 @@ export interface AssignmentViewModel extends $models.Assignment {
   assignmentId: number | null;
   projectId: number | null;
   project: ProjectViewModel | null;
-  organizationUserId: number | null;
+  organizationUserId: string | null;
   user: OrganizationUserViewModel | null;
   name: string | null;
   rate: number | null;
@@ -89,7 +89,7 @@ export class AssignmentSkillListViewModel extends ListViewModel<$models.Assignme
 
 export interface BillingPeriodViewModel extends $models.BillingPeriod {
   billingPeriodId: number | null;
-  organizationId: number | null;
+  organizationId: string | null;
   organization: OrganizationViewModel | null;
   name: string | null;
   startDate: Date | null;
@@ -114,7 +114,7 @@ export class BillingPeriodListViewModel extends ListViewModel<$models.BillingPer
 export interface ClientViewModel extends $models.Client {
   clientId: number | null;
   name: string | null;
-  organizationId: number | null;
+  organizationId: string | null;
   organization: OrganizationViewModel | null;
   agreementUrl: string | null;
   primaryContact: string | null;
@@ -143,13 +143,13 @@ export class ClientListViewModel extends ListViewModel<$models.Client, $apiClien
 
 
 export interface OrganizationViewModel extends $models.Organization {
-  organizationId: number | null;
+  organizationId: string | null;
   name: string | null;
   users: OrganizationUserViewModel[] | null;
   billingPeriods: BillingPeriodViewModel[] | null;
   clients: ClientViewModel[] | null;
 }
-export class OrganizationViewModel extends ViewModel<$models.Organization, $apiClients.OrganizationApiClient, number> implements $models.Organization  {
+export class OrganizationViewModel extends ViewModel<$models.Organization, $apiClients.OrganizationApiClient, string> implements $models.Organization  {
   
   
   public addToUsers() {
@@ -181,10 +181,10 @@ export class OrganizationListViewModel extends ListViewModel<$models.Organizatio
 
 
 export interface OrganizationUserViewModel extends $models.OrganizationUser {
-  organizationUserId: number | null;
-  organizationId: number | null;
+  organizationUserId: string | null;
+  organizationId: string | null;
   organization: OrganizationViewModel | null;
-  appUserId: number | null;
+  appUserId: string | null;
   appUser: ApplicationUserViewModel | null;
   name: string | null;
   defaultRate: number | null;
@@ -195,7 +195,7 @@ export interface OrganizationUserViewModel extends $models.OrganizationUser {
   projectRoles: ProjectRoleViewModel[] | null;
   skills: UserSkillViewModel[] | null;
 }
-export class OrganizationUserViewModel extends ViewModel<$models.OrganizationUser, $apiClients.OrganizationUserApiClient, number> implements $models.OrganizationUser  {
+export class OrganizationUserViewModel extends ViewModel<$models.OrganizationUser, $apiClients.OrganizationUserApiClient, string> implements $models.OrganizationUser  {
   
   constructor(initialData?: DeepPartial<$models.OrganizationUser> | null) {
     super($metadata.OrganizationUser, new $apiClients.OrganizationUserApiClient(), initialData)
@@ -296,7 +296,7 @@ export interface ProjectRoleViewModel extends $models.ProjectRole {
   projectRoleId: number | null;
   projectId: number | null;
   project: ProjectViewModel | null;
-  organizationUserId: number | null;
+  organizationUserId: string | null;
   user: OrganizationUserViewModel | null;
   isManager: boolean | null;
 }
@@ -344,7 +344,7 @@ export class SkillListViewModel extends ListViewModel<$models.Skill, $apiClients
 
 export interface TimeEntryViewModel extends $models.TimeEntry {
   timeEntryId: number | null;
-  organizationUserId: number | null;
+  organizationUserId: string | null;
   user: OrganizationUserViewModel | null;
   projectId: number | null;
   project: ProjectViewModel | null;
@@ -372,7 +372,7 @@ export class TimeEntryListViewModel extends ListViewModel<$models.TimeEntry, $ap
 
 export interface UserSkillViewModel extends $models.UserSkill {
   userSkillId: number | null;
-  organizationUserId: number | null;
+  organizationUserId: string | null;
   user: OrganizationUserViewModel | null;
   skillId: number | null;
   skill: SkillViewModel | null;

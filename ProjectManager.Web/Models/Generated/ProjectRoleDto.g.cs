@@ -15,7 +15,7 @@ namespace ProjectManager.Web.Models
         private int? _ProjectRoleId;
         private int? _ProjectId;
         private ProjectManager.Web.Models.ProjectDtoGen _Project;
-        private int? _OrganizationUserId;
+        private string _OrganizationUserId;
         private ProjectManager.Web.Models.OrganizationUserDtoGen _User;
         private bool? _IsManager;
 
@@ -34,7 +34,7 @@ namespace ProjectManager.Web.Models
             get => _Project;
             set { _Project = value; Changed(nameof(Project)); }
         }
-        public int? OrganizationUserId
+        public string OrganizationUserId
         {
             get => _OrganizationUserId;
             set { _OrganizationUserId = value; Changed(nameof(OrganizationUserId)); }
@@ -83,7 +83,7 @@ namespace ProjectManager.Web.Models
 
             if (ShouldMapTo(nameof(ProjectRoleId))) entity.ProjectRoleId = (ProjectRoleId ?? entity.ProjectRoleId);
             if (ShouldMapTo(nameof(ProjectId))) entity.ProjectId = (ProjectId ?? entity.ProjectId);
-            if (ShouldMapTo(nameof(OrganizationUserId))) entity.OrganizationUserId = (OrganizationUserId ?? entity.OrganizationUserId);
+            if (ShouldMapTo(nameof(OrganizationUserId))) entity.OrganizationUserId = OrganizationUserId;
             if (ShouldMapTo(nameof(IsManager))) entity.IsManager = (IsManager ?? entity.IsManager);
         }
     }

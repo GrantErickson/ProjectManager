@@ -72,7 +72,7 @@ export const ApplicationUser = domain.types.ApplicationUser = {
     id: {
       name: "id",
       displayName: "Id",
-      type: "number",
+      type: "string",
       role: "primaryKey",
       hidden: 3,
     },
@@ -151,7 +151,7 @@ export const Assignment = domain.types.Assignment = {
     organizationUserId: {
       name: "organizationUserId",
       displayName: "Organization User Id",
-      type: "number",
+      type: "string",
       role: "foreignKey",
       get principalKey() { return (domain.types.OrganizationUser as ModelType).props.organizationUserId as PrimaryKeyProperty },
       get principalType() { return (domain.types.OrganizationUser as ModelType) },
@@ -342,15 +342,12 @@ export const BillingPeriod = domain.types.BillingPeriod = {
     organizationId: {
       name: "organizationId",
       displayName: "Organization Id",
-      type: "number",
+      type: "string",
       role: "foreignKey",
       get principalKey() { return (domain.types.Organization as ModelType).props.organizationId as PrimaryKeyProperty },
       get principalType() { return (domain.types.Organization as ModelType) },
       get navigationProp() { return (domain.types.BillingPeriod as ModelType).props.organization as ModelReferenceNavigationProperty },
       hidden: 3,
-      rules: {
-        required: val => val != null || "Organization is required.",
-      }
     },
     organization: {
       name: "organization",
@@ -416,15 +413,12 @@ export const Client = domain.types.Client = {
     organizationId: {
       name: "organizationId",
       displayName: "Organization Id",
-      type: "number",
+      type: "string",
       role: "foreignKey",
       get principalKey() { return (domain.types.Organization as ModelType).props.organizationId as PrimaryKeyProperty },
       get principalType() { return (domain.types.Organization as ModelType) },
       get navigationProp() { return (domain.types.Client as ModelType).props.organization as ModelReferenceNavigationProperty },
       hidden: 3,
-      rules: {
-        required: val => val != null || "Organization is required.",
-      }
     },
     organization: {
       name: "organization",
@@ -489,7 +483,7 @@ export const Organization = domain.types.Organization = {
     organizationId: {
       name: "organizationId",
       displayName: "Organization Id",
-      type: "number",
+      type: "string",
       role: "primaryKey",
       hidden: 3,
     },
@@ -565,22 +559,19 @@ export const OrganizationUser = domain.types.OrganizationUser = {
     organizationUserId: {
       name: "organizationUserId",
       displayName: "Organization User Id",
-      type: "number",
+      type: "string",
       role: "primaryKey",
       hidden: 3,
     },
     organizationId: {
       name: "organizationId",
       displayName: "Organization Id",
-      type: "number",
+      type: "string",
       role: "foreignKey",
       get principalKey() { return (domain.types.Organization as ModelType).props.organizationId as PrimaryKeyProperty },
       get principalType() { return (domain.types.Organization as ModelType) },
       get navigationProp() { return (domain.types.OrganizationUser as ModelType).props.organization as ModelReferenceNavigationProperty },
       hidden: 3,
-      rules: {
-        required: val => val != null || "Organization is required.",
-      }
     },
     organization: {
       name: "organization",
@@ -596,15 +587,12 @@ export const OrganizationUser = domain.types.OrganizationUser = {
     appUserId: {
       name: "appUserId",
       displayName: "App User Id",
-      type: "number",
+      type: "string",
       role: "foreignKey",
       get principalKey() { return (domain.types.ApplicationUser as ModelType).props.id as PrimaryKeyProperty },
       get principalType() { return (domain.types.ApplicationUser as ModelType) },
       get navigationProp() { return (domain.types.OrganizationUser as ModelType).props.appUser as ModelReferenceNavigationProperty },
       hidden: 3,
-      rules: {
-        required: val => val != null || "App User is required.",
-      }
     },
     appUser: {
       name: "appUser",
@@ -994,15 +982,12 @@ export const ProjectRole = domain.types.ProjectRole = {
     organizationUserId: {
       name: "organizationUserId",
       displayName: "Organization User Id",
-      type: "number",
+      type: "string",
       role: "foreignKey",
       get principalKey() { return (domain.types.OrganizationUser as ModelType).props.organizationUserId as PrimaryKeyProperty },
       get principalType() { return (domain.types.OrganizationUser as ModelType) },
       get navigationProp() { return (domain.types.ProjectRole as ModelType).props.user as ModelReferenceNavigationProperty },
       hidden: 3,
-      rules: {
-        required: val => val != null || "User is required.",
-      }
     },
     user: {
       name: "user",
@@ -1089,15 +1074,12 @@ export const TimeEntry = domain.types.TimeEntry = {
     organizationUserId: {
       name: "organizationUserId",
       displayName: "Organization User Id",
-      type: "number",
+      type: "string",
       role: "foreignKey",
       get principalKey() { return (domain.types.OrganizationUser as ModelType).props.organizationUserId as PrimaryKeyProperty },
       get principalType() { return (domain.types.OrganizationUser as ModelType) },
       get navigationProp() { return (domain.types.TimeEntry as ModelType).props.user as ModelReferenceNavigationProperty },
       hidden: 3,
-      rules: {
-        required: val => val != null || "User is required.",
-      }
     },
     user: {
       name: "user",
@@ -1190,15 +1172,12 @@ export const UserSkill = domain.types.UserSkill = {
     organizationUserId: {
       name: "organizationUserId",
       displayName: "Organization User Id",
-      type: "number",
+      type: "string",
       role: "foreignKey",
       get principalKey() { return (domain.types.OrganizationUser as ModelType).props.organizationUserId as PrimaryKeyProperty },
       get principalType() { return (domain.types.OrganizationUser as ModelType) },
       get navigationProp() { return (domain.types.UserSkill as ModelType).props.user as ModelReferenceNavigationProperty },
       hidden: 3,
-      rules: {
-        required: val => val != null || "User is required.",
-      }
     },
     user: {
       name: "user",

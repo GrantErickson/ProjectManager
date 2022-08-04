@@ -13,7 +13,7 @@ namespace ProjectManager.Web.Models
         public BillingPeriodDtoGen() { }
 
         private int? _BillingPeriodId;
-        private int? _OrganizationId;
+        private string _OrganizationId;
         private ProjectManager.Web.Models.OrganizationDtoGen _Organization;
         private string _Name;
         private System.DateTime? _StartDate;
@@ -24,7 +24,7 @@ namespace ProjectManager.Web.Models
             get => _BillingPeriodId;
             set { _BillingPeriodId = value; Changed(nameof(BillingPeriodId)); }
         }
-        public int? OrganizationId
+        public string OrganizationId
         {
             get => _OrganizationId;
             set { _OrganizationId = value; Changed(nameof(OrganizationId)); }
@@ -80,7 +80,7 @@ namespace ProjectManager.Web.Models
             if (OnUpdate(entity, context)) return;
 
             if (ShouldMapTo(nameof(BillingPeriodId))) entity.BillingPeriodId = (BillingPeriodId ?? entity.BillingPeriodId);
-            if (ShouldMapTo(nameof(OrganizationId))) entity.OrganizationId = (OrganizationId ?? entity.OrganizationId);
+            if (ShouldMapTo(nameof(OrganizationId))) entity.OrganizationId = OrganizationId;
             if (ShouldMapTo(nameof(Name))) entity.Name = Name;
             if (ShouldMapTo(nameof(StartDate))) entity.StartDate = (StartDate ?? entity.StartDate);
             if (ShouldMapTo(nameof(EndDate))) entity.EndDate = (EndDate ?? entity.EndDate);

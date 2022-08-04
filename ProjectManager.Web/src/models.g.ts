@@ -18,7 +18,7 @@ export enum ProjectStateEnum {
 
 
 export interface ApplicationUser extends Model<typeof metadata.ApplicationUser> {
-  id: number | null
+  id: string | null
   name: string | null
   email: string | null
   organizations: OrganizationUser[] | null
@@ -46,7 +46,7 @@ export interface Assignment extends Model<typeof metadata.Assignment> {
   assignmentId: number | null
   projectId: number | null
   project: Project | null
-  organizationUserId: number | null
+  organizationUserId: string | null
   user: OrganizationUser | null
   name: string | null
   rate: number | null
@@ -107,7 +107,7 @@ export class AssignmentSkill {
 
 export interface BillingPeriod extends Model<typeof metadata.BillingPeriod> {
   billingPeriodId: number | null
-  organizationId: number | null
+  organizationId: string | null
   organization: Organization | null
   name: string | null
   startDate: Date | null
@@ -135,7 +135,7 @@ export class BillingPeriod {
 export interface Client extends Model<typeof metadata.Client> {
   clientId: number | null
   name: string | null
-  organizationId: number | null
+  organizationId: string | null
   organization: Organization | null
   agreementUrl: string | null
   primaryContact: string | null
@@ -162,7 +162,7 @@ export class Client {
 
 
 export interface Organization extends Model<typeof metadata.Organization> {
-  organizationId: number | null
+  organizationId: string | null
   name: string | null
   users: OrganizationUser[] | null
   billingPeriods: BillingPeriod[] | null
@@ -188,10 +188,10 @@ export class Organization {
 
 
 export interface OrganizationUser extends Model<typeof metadata.OrganizationUser> {
-  organizationUserId: number | null
-  organizationId: number | null
+  organizationUserId: string | null
+  organizationId: string | null
   organization: Organization | null
-  appUserId: number | null
+  appUserId: string | null
   appUser: ApplicationUser | null
   name: string | null
   defaultRate: number | null
@@ -292,7 +292,7 @@ export interface ProjectRole extends Model<typeof metadata.ProjectRole> {
   projectRoleId: number | null
   projectId: number | null
   project: Project | null
-  organizationUserId: number | null
+  organizationUserId: string | null
   user: OrganizationUser | null
   isManager: boolean | null
 }
@@ -341,7 +341,7 @@ export class Skill {
 
 export interface TimeEntry extends Model<typeof metadata.TimeEntry> {
   timeEntryId: number | null
-  organizationUserId: number | null
+  organizationUserId: string | null
   user: OrganizationUser | null
   projectId: number | null
   project: Project | null
@@ -372,7 +372,7 @@ export class TimeEntry {
 
 export interface UserSkill extends Model<typeof metadata.UserSkill> {
   userSkillId: number | null
-  organizationUserId: number | null
+  organizationUserId: string | null
   user: OrganizationUser | null
   skillId: number | null
   skill: Skill | null

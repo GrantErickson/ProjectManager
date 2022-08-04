@@ -12,7 +12,7 @@ using ProjectManager.Data;
 namespace ProjectManager.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220803035611_Initial")]
+    [Migration("20220804022602_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,11 +26,9 @@ namespace ProjectManager.Data.Migrations
 
             modelBuilder.Entity("ProjectManager.Data.Models.ApplicationUser", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -66,8 +64,8 @@ namespace ProjectManager.Data.Migrations
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrganizationUserId")
-                        .HasColumnType("int");
+                    b.Property<string>("OrganizationUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal?>("PercentAllocated")
                         .HasColumnType("decimal(13,4)");
@@ -137,8 +135,9 @@ namespace ProjectManager.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
+                    b.Property<string>("OrganizationId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -168,8 +167,9 @@ namespace ProjectManager.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
+                    b.Property<string>("OrganizationId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PrimaryContact")
                         .HasColumnType("nvarchar(max)");
@@ -183,11 +183,9 @@ namespace ProjectManager.Data.Migrations
 
             modelBuilder.Entity("ProjectManager.Data.Models.Organization", b =>
                 {
-                    b.Property<int>("OrganizationId")
+                    b.Property<string>("OrganizationId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrganizationId"), 1L, 1);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -200,14 +198,13 @@ namespace ProjectManager.Data.Migrations
 
             modelBuilder.Entity("ProjectManager.Data.Models.OrganizationUser", b =>
                 {
-                    b.Property<int>("OrganizationUserId")
+                    b.Property<string>("OrganizationUserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrganizationUserId"), 1L, 1);
-
-                    b.Property<int>("AppUserId")
-                        .HasColumnType("int");
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("DefaultRate")
                         .HasColumnType("decimal(13,4)");
@@ -225,8 +222,9 @@ namespace ProjectManager.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
+                    b.Property<string>("OrganizationId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("OrganizationUserId");
 
@@ -331,8 +329,9 @@ namespace ProjectManager.Data.Migrations
                     b.Property<bool>("IsManager")
                         .HasColumnType("bit");
 
-                    b.Property<int>("OrganizationUserId")
-                        .HasColumnType("int");
+                    b.Property<string>("OrganizationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
@@ -384,8 +383,9 @@ namespace ProjectManager.Data.Migrations
                     b.Property<bool>("IsBillable")
                         .HasColumnType("bit");
 
-                    b.Property<int>("OrganizationUserId")
-                        .HasColumnType("int");
+                    b.Property<string>("OrganizationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
@@ -416,8 +416,9 @@ namespace ProjectManager.Data.Migrations
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OrganizationUserId")
-                        .HasColumnType("int");
+                    b.Property<string>("OrganizationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("SkillId")
                         .HasColumnType("int");

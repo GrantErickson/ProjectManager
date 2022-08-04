@@ -13,8 +13,7 @@ namespace ProjectManager.Data.Migrations
                 name: "ApplicationUsers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -27,8 +26,7 @@ namespace ProjectManager.Data.Migrations
                 name: "Organizations",
                 columns: table => new
                 {
-                    OrganizationId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrganizationId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -55,7 +53,7 @@ namespace ProjectManager.Data.Migrations
                 {
                     BillingPeriodId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrganizationId = table.Column<int>(type: "int", nullable: false),
+                    OrganizationId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -78,7 +76,7 @@ namespace ProjectManager.Data.Migrations
                     ClientId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrganizationId = table.Column<int>(type: "int", nullable: false),
+                    OrganizationId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     AgreementUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PrimaryContact = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BillingContact = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -98,10 +96,9 @@ namespace ProjectManager.Data.Migrations
                 name: "OrganizationUsers",
                 columns: table => new
                 {
-                    OrganizationUserId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OrganizationId = table.Column<int>(type: "int", nullable: false),
-                    AppUserId = table.Column<int>(type: "int", nullable: false),
+                    OrganizationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    OrganizationId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DefaultRate = table.Column<decimal>(type: "decimal(13,4)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
@@ -162,7 +159,7 @@ namespace ProjectManager.Data.Migrations
                 {
                     UserSkillId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrganizationUserId = table.Column<int>(type: "int", nullable: false),
+                    OrganizationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     SkillId = table.Column<int>(type: "int", nullable: false),
                     Level = table.Column<int>(type: "int", nullable: true),
                     Note = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -191,7 +188,7 @@ namespace ProjectManager.Data.Migrations
                     AssignmentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProjectId = table.Column<int>(type: "int", nullable: false),
-                    OrganizationUserId = table.Column<int>(type: "int", nullable: true),
+                    OrganizationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rate = table.Column<decimal>(type: "decimal(13,4)", nullable: true),
                     RateRange = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -248,7 +245,7 @@ namespace ProjectManager.Data.Migrations
                     ProjectRoleId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProjectId = table.Column<int>(type: "int", nullable: false),
-                    OrganizationUserId = table.Column<int>(type: "int", nullable: false),
+                    OrganizationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     IsManager = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -274,7 +271,7 @@ namespace ProjectManager.Data.Migrations
                 {
                     TimeEntryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrganizationUserId = table.Column<int>(type: "int", nullable: false),
+                    OrganizationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProjectId = table.Column<int>(type: "int", nullable: false),
                     StartDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     Hours = table.Column<decimal>(type: "decimal(13,4)", nullable: false),

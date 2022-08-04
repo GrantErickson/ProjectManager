@@ -5,7 +5,7 @@ namespace ProjectManager.Data.Models;
 public class ApplicationUser
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
     public string Name { get; set; } = null!;
 

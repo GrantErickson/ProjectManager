@@ -9,7 +9,7 @@ public class Client
 {
     public int ClientId { get; set; }
     public string Name { get; set; } = null!;
-    public int OrganizationId { get; set; }// = null!;
+    public string OrganizationId { get; set; } = null!;
     public Organization Organization { get; set; } = null!;
     public string? AgreementUrl { get; set; }
     public string? PrimaryContact { get; set; }
