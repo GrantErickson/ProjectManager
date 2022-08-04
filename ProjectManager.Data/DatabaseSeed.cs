@@ -272,7 +272,17 @@ public static class DatabaseSeed
             isLongTerm = true,
         };
         db.Assignments.Add(philP66);
-
+        var philWikiSupport = new Assignment
+        {
+            PercentAllocated = 90,
+            Project = intelliWikiSupport,
+            User = phil,
+            Name = "PM",
+            Rate = 60,
+            isLongTerm = true,
+        };
+        db.Assignments.Add(philWikiSupport);
+        
         // Assignment Skills
         db.AssignmentSkills.Add(new AssignmentSkill
         {
@@ -298,20 +308,14 @@ public static class DatabaseSeed
             Skill = customerManager,
             Level = 10
         });
-
+        db.AssignmentSkills.Add(new AssignmentSkill
+        {
+            Assignment = philWikiSupport,
+            Skill = customerManager,
+            Level = 4
+        });
 
         db.SaveChanges();
     }
 
-    public static void TestSeed(AppDbContext db)
-    {
-        var org = db.Organizations
-            .Include(f => f.Users).ThenInclude(f => f.Assignments)
-            .Include(f => f.Users).ThenInclude(f => f.Skills).ThenInclude(f => f.User.AppUser)
-            .First();
-
-        Debug.WriteLine(org.ToString());
-        
-        
-    }
 }

@@ -50,10 +50,13 @@
             </ol>
             <v-divider class="my-3" />
             <router-link
-              :to="{ name: 'coalesce-example' }"
+              :to="{
+                name: 'coalesce-admin-list',
+                params: { type: 'Organization' },
+              }"
               class="headline font-weight-light"
             >
-              View a Simple Custom Page Example
+              Start with an organization
             </router-link>
           </v-card-text>
         </v-card>

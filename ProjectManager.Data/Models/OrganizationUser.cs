@@ -31,8 +31,11 @@ public class OrganizationUser : TrackingBase
     public bool IsOrganizationAdmin { get;set; }
     public EmploymentStatusEnum EmploymentStatus { get; set; }
 
+    [InverseProperty(nameof(Assignment.User))]
     public ICollection<Assignment> Assignments { get; set; } = null!;
+    [InverseProperty(nameof(ProjectRole.User))] 
     public ICollection<ProjectRole> ProjectRoles { get; set; } = null!;
+    [InverseProperty(nameof(UserSkill.User))] 
     public ICollection<UserSkill> Skills { get; set; } = null!;
 
 }
