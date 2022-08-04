@@ -32,8 +32,11 @@ jobs:
         working-directory: ./ProjectManager.web
         run: npm ci
         
-      - name: Run Tests
+      - name: Run .NET Tests
         run: dotnet test
+        
+      - name: Run TS Tests
+        run: npm run test
         
       - name: Run npm build
         working-directory: ./ProjectManager.web
