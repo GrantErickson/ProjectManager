@@ -259,6 +259,14 @@ export class Project {
       Object.assign(this, Project.map(data || {}));
   }
 }
+export namespace Project {
+  export namespace DataSources {
+    
+    export class ProjectWithAssignments implements DataSource<typeof metadata.Project.dataSources.projectWithAssignments> {
+      readonly $metadata = metadata.Project.dataSources.projectWithAssignments
+    }
+  }
+}
 
 
 export interface ProjectNote extends Model<typeof metadata.ProjectNote> {

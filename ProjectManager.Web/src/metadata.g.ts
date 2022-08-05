@@ -879,6 +879,14 @@ export const Project = domain.types.Project = {
   methods: {
   },
   dataSources: {
+    projectWithAssignments: {
+      type: "dataSource",
+      name: "ProjectWithAssignments",
+      displayName: "Project With Assignments",
+      isDefault: true,
+      props: {
+      },
+    },
   },
 }
 export const ProjectNote = domain.types.ProjectNote = {

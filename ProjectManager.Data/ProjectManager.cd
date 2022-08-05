@@ -3,7 +3,7 @@
   <Class Name="ProjectManager.Data.Models.ApplicationUser">
     <Position X="6" Y="1.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAACAAAABAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\ApplicationUser.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -25,9 +25,14 @@
           <NewMemberFileName>Models\Project.cs</NewMemberFileName>
         </TypeIdentifier>
       </Enum>
+      <Class Name="ProjectManager.Data.Models.Project.ProjectWithAssignments" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\Project.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAIgAAAAAAAIACAAgAACAASgBgAAAAgAACAAAEECAIQ=</HashCode>
+      <HashCode>AAIgAAAAAAAIACAAgAACAASgBgAAAQgAACAAAEECAIQ=</HashCode>
       <FileName>Models\Project.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -51,12 +56,11 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>EQIBAAAAAAAAAAAAEQAAAAgAAQAAAAAAAgBAAAEAIAA=</HashCode>
+      <HashCode>EQIAAAAAAAAAAAAAEQAEAAYAAQAAAAAAAgBAAAEAIAA=</HashCode>
       <FileName>Models\OrganizationUser.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Organization" />
-      <Property Name="User" />
     </ShowAsAssociation>
   </Class>
   <Class Name="ProjectManager.Data.Models.TimeEntry">
@@ -66,14 +70,14 @@
       <FileName>Models\TimeEntry.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Project" />
       <Property Name="User" />
+      <Property Name="Project" />
     </ShowAsAssociation>
   </Class>
   <Class Name="ProjectManager.Data.Models.Assignment">
     <Position X="4" Y="8.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>QAABAAAAAAAgAAAAAAACCAAgBAACAAAAAAgAFEEAAAA=</HashCode>
+      <HashCode>UAABAAAAAAAgAAAAAAACCAQgBAACAAAAAAgABEEAAAA=</HashCode>
       <FileName>Models\Assignment.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -115,8 +119,8 @@
       <FileName>Models\UserSkill.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Skill" />
       <Property Name="User" />
+      <Property Name="Skill" />
     </ShowAsAssociation>
   </Class>
   <Class Name="ProjectManager.Data.Models.AssignmentSkill">
