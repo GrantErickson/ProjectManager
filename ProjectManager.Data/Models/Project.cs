@@ -34,7 +34,7 @@ public class Project : TrackingBase
     public string? ContractUrl { get; set; }
     public ProjectStateEnum ProjectState { get; set; } = ProjectStateEnum.Unknown;
     [Range(0D, 100D)]
-    public Decimal? Probablility { get; set; }
+    public Decimal? Probability { get; set; }
     public string? PrimaryContact { get; set; }
     public string? BillingContact { get; set; }
     public string? BillingInformation { get; set; }
@@ -54,7 +54,9 @@ public class Project : TrackingBase
         public override IQueryable<Project> GetQuery(IDataSourceParameters parameters)
             => Db.Projects
             .Include(f => f.Assignments).ThenInclude(f => f.User).ThenInclude(f => f!.AppUser)
+            .Include(f => f.Assignments).ThenInclude(f => f.Skills).ThenInclude(f => f.Skill)
             .Include(f => f.Client);
+            
 
     }
 

@@ -231,7 +231,7 @@ public static class DatabaseSeed
             Client = p66,
             IsBillableDefault = true,
             ProjectState = Project.ProjectStateEnum.Potential,
-            Probablility = 50
+            Probability = 50
         };
         db.Projects.Add(p66Midstream);
 
@@ -258,7 +258,7 @@ public static class DatabaseSeed
             PercentAllocated = 50,
             Project = intelliWikiDev,
             User = grant,
-            Name = "Lead Dev",
+            Role = "Lead Dev",
             Rate = 100,
         };
         db.Assignments.Add(grantWiki);
@@ -267,7 +267,7 @@ public static class DatabaseSeed
             PercentAllocated = 90,
             Project = p66Midstream,
             User = phil,
-            Name = "PM",
+            Role = "PM",
             Rate = 120,
             isLongTerm = true,
         };
@@ -277,7 +277,7 @@ public static class DatabaseSeed
             PercentAllocated = 90,
             Project = intelliWikiSupport,
             User = phil,
-            Name = "PM",
+            Role = "PM",
             Rate = 60,
             isLongTerm = true,
         };

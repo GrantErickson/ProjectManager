@@ -31,7 +31,7 @@ export interface AssignmentViewModel extends $models.Assignment {
   project: ProjectViewModel | null;
   organizationUserId: string | null;
   user: OrganizationUserViewModel | null;
-  name: string | null;
+  role: string | null;
   rate: number | null;
   rateRange: string | null;
   startDate: Date | null;
@@ -237,7 +237,7 @@ export interface ProjectViewModel extends $models.Project {
   note: string | null;
   contractUrl: string | null;
   projectState: $models.ProjectStateEnum | null;
-  probablility: number | null;
+  probability: number | null;
   primaryContact: string | null;
   billingContact: string | null;
   billingInformation: string | null;

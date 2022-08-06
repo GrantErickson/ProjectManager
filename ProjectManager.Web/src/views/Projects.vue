@@ -1,62 +1,201 @@
 <template>
-  <div class="projects">
-    <v-container>
-      <h2>
-        Projects
-        <v-btn @click="addProject">add</v-btn>
-      </h2>
-      <v-card v-for="project in projects.$items" class="">
-        <v-card-title>
-          <v-row>
-            <v-col>
-              <b>{{project.client.name}}</b>:
-              {{ project.name }}
-            </v-col>
-            <v-spacer></v-spacer>
-            <v-col cols="2">
-              <c-input :model="project" for="probablility"></c-input>
-            </v-col>
-          </v-row>
-        </v-card-title>
-        <v-card-text class="my-4" >
-          <v-row v-for="assignment in project.assignments">
-            <c-input :model="assignment" for="name" cols="3"></c-input>
-            <c-input :model="assignment" for="user" cols="3"></c-input>
-            <c-input :model="assignment" for="percentAllocated" cols="3"></c-input>
-            <c-input :model="assignment" for="rate" cols="1"></c-input>
-            <c-input :model="assignment" for="isLongTerm" cols="2"></c-input>
-            <v-col>
-              <v-icon @click="assignment.$delete()" small color="error">fas fa-trash</v-icon>
-            </v-col>
-          </v-row>
-          <v-btn @click="addAssignment(project)">add</v-btn>
-        </v-card-text>
-      </v-card>
-    </v-container>
+  <v-container>
+    <h2>Projects</h2>
+    <v-card
+      v-for="project in projects.$items"
+      :key="project.projectId"
+      class="my-2"
+    >
+      <v-card-title>
+        <v-row>
+          <v-col cols="6">
+            <b>{{ project.client.name }}</b
+            >:
+            {{ project.name }}
+            <v-chip small>{{ project.state() }}</v-chip>
+            <v-icon small class="mx-5" @click="showEditProject(project)"
+              >fas fa-pencil</v-icon
+            >
+          </v-col>
+        </v-row>
+      </v-card-title>
+      <v-simple-table
+        dense
+        fixed-header
+        class="d-flex flex-column"
+        style="overflow-y: hidden"
+      >
+        <template #default>
+          <thead>
+            <tr>
+              <th class="text-left">Role</th>
+              <th class="text-left">Name</th>
+              <th class="text-left">Allocation</th>
+              <th class="text-left">Rate</th>
+              <th class="text-left">Days Left</th>
+              <th class="text-left"></th>
+              <th class="text-right">
+                <v-icon @click="addAssignment(project)"
+                  >fas fa-plus-circle</v-icon
+                >
+              </th>
+            </tr>
+          </thead>
+          <tbody style="overflow-y: scroll">
+            <tr
+              v-for="assignment in project.assignments"
+              :key="assignment.assignmentId"
+            >
+              <td>
+                {{ assignment.role }}
+              </td>
+              <td>{{ assignment.user?.name }}</td>
+              <td>{{ assignment.percentAllocated }}</td>
+              <td>${{ assignment.rate }}</td>
+              <td>{{ daysLeft(assignment) }}</td>
+              <td>
+                <v-icon v-if="assignment.isLongTerm" small color="green"
+                  >fas fa-road-circle-check</v-icon
+                >
+                <v-icon
+                  v-if="assignment.isFlagged"
+                  small
+                  color="red"
+                  class="mx-2"
+                  >fas fa-flag</v-icon
+                >
+                <v-tooltip top>
+                  <template #activator="{ on }">
+                    <v-icon
+                      v-if="assignment.skills.length"
+                      x-small
+                      class="mx-2"
+                      v-on="on"
+                      >fas fa-list</v-icon
+                    >
+                  </template>
+                  <span>
+                    <v-chip
+                      v-for="skill in assignment.skills"
+                      :key="skill.assignmentSkillId"
+                      small
+                      class="mx-1"
+                      >{{ skill.skill.name }}: {{ skill.level }}</v-chip
+                    >
+                  </span>
+                </v-tooltip>
+              </td>
 
-  </div>
+              <td class="text-right">
+                <v-icon
+                  small
+                  color=""
+                  class="mx-2"
+                  @click="showEditAssignment(assignment)"
+                  >fas fa-pencil</v-icon
+                >
+                <v-icon small color="error" @click="promptDelete(assignment)"
+                  >fas fa-trash</v-icon
+                >
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </v-card>
+
+    <v-dialog
+      v-if="editAssignment"
+      v-model="EditAssignmentShown"
+      max-width="800px"
+    >
+      <v-card>
+        <v-card-title>
+          <v-container>
+            <v-row>
+              <v-col><span class="text-h5">Assignment</span> </v-col>
+              <v-spacer></v-spacer>
+              <v-col cols="3">
+                <c-input :model="editAssignment" for="isFlagged"></c-input>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-title>
+        <v-card-text>
+          <EditAssignment :assignment="editAssignment" />
+          <small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="editAssignment = null">
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-container>
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from "vue-property-decorator";
-  import * as ViewModels from "@/viewmodels.g";
+import { Component, Vue } from "vue-property-decorator";
+//import EditAssignment from "@/components/EditAssignment.vue";
+import * as ViewModels from "@/viewmodels.g";
+import * as $models from "@/models.g";
 
-  @Component
-  export default class Projects extends Vue {
-    private projects = new ViewModels.ProjectListViewModel();
+// TODO: Figure out how to add a prototype correctly.
+// @ts-ignore
+ViewModels.ProjectViewModel.prototype.state = function () {
+  return $models.ProjectStateEnum[this.projectState!];
+};
 
-    async created() {
-      await this.projects.$load();
-    }
+@Component
+export default class Projects extends Vue {
+  private projects = new ViewModels.ProjectListViewModel();
+  private editAssignment: ViewModels.AssignmentViewModel | null = null;
 
-    addAssignment(project: ViewModels.ProjectViewModel) {
-      var newAssignment = project.addToAssignments();
-      newAssignment.project = project;
-      newAssignment.$startAutoSave(this);
-    }
-    addProject() {
-      alert("Don't you wish you could add a project. Go to the Projects Admin Page")
-    }
+  async created() {
+    await this.projects.$load();
   }
 
+  addAssignment(project: ViewModels.ProjectViewModel) {
+    var newAssignment = project.addToAssignments();
+    newAssignment.project = project;
+    console.log($models.ProjectStateEnum[project.projectState!]);
+    this.editAssignment = newAssignment;
+  }
+  showEditProject() {
+    alert("Coming Soon. For now, use the Projects Admin Page");
+  }
+  promptDelete(assignment: ViewModels.AssignmentViewModel) {
+    if (confirm("Do you want to delete this item?")) {
+      assignment.$delete();
+    }
+  }
+  showEditAssignment(assignment: ViewModels.AssignmentViewModel) {
+    this.editAssignment = assignment;
+    this.editAssignment.$startAutoSave(this);
+  }
+  public get EditAssignmentShown() {
+    return this.editAssignment != null;
+  }
+  public set EditAssignmentShown(value: boolean) {
+    this.editAssignment = null;
+  }
+
+  daysLeft(assignment: ViewModels.AssignmentViewModel) {
+    if (assignment.isLongTerm) {
+      return "N/A";
+    }
+    if (assignment.endDate == null) {
+      return "Unknown";
+    }
+    var daysLeft =
+      (assignment.endDate.getTime() - new Date().getTime()) /
+      1000 /
+      60 /
+      60 /
+      24;
+    return daysLeft.toFixed(0);
+  }
+}
 </script>

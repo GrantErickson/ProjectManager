@@ -17,7 +17,7 @@ namespace ProjectManager.Web.Models
         private ProjectManager.Web.Models.ProjectDtoGen _Project;
         private string _OrganizationUserId;
         private ProjectManager.Web.Models.OrganizationUserDtoGen _User;
-        private string _Name;
+        private string _Role;
         private decimal? _Rate;
         private string _RateRange;
         private System.DateTime? _StartDate;
@@ -53,10 +53,10 @@ namespace ProjectManager.Web.Models
             get => _User;
             set { _User = value; Changed(nameof(User)); }
         }
-        public string Name
+        public string Role
         {
-            get => _Name;
-            set { _Name = value; Changed(nameof(Name)); }
+            get => _Role;
+            set { _Role = value; Changed(nameof(Role)); }
         }
         public decimal? Rate
         {
@@ -117,7 +117,7 @@ namespace ProjectManager.Web.Models
             this.AssignmentId = obj.AssignmentId;
             this.ProjectId = obj.ProjectId;
             this.OrganizationUserId = obj.OrganizationUserId;
-            this.Name = obj.Name;
+            this.Role = obj.Role;
             this.Rate = obj.Rate;
             this.RateRange = obj.RateRange;
             this.StartDate = obj.StartDate;
@@ -158,7 +158,7 @@ namespace ProjectManager.Web.Models
             if (ShouldMapTo(nameof(AssignmentId))) entity.AssignmentId = (AssignmentId ?? entity.AssignmentId);
             if (ShouldMapTo(nameof(ProjectId))) entity.ProjectId = (ProjectId ?? entity.ProjectId);
             if (ShouldMapTo(nameof(OrganizationUserId))) entity.OrganizationUserId = OrganizationUserId;
-            if (ShouldMapTo(nameof(Name))) entity.Name = Name;
+            if (ShouldMapTo(nameof(Role))) entity.Role = Role;
             if (ShouldMapTo(nameof(Rate))) entity.Rate = Rate;
             if (ShouldMapTo(nameof(RateRange))) entity.RateRange = RateRange;
             if (ShouldMapTo(nameof(StartDate))) entity.StartDate = StartDate;

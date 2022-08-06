@@ -111,7 +111,7 @@ export const ApplicationUser = domain.types.ApplicationUser = {
 export const Assignment = domain.types.Assignment = {
   name: "Assignment",
   displayName: "Assignment",
-  get displayProp() { return this.props.name }, 
+  get displayProp() { return this.props.assignmentId }, 
   type: "model",
   controllerRoute: "Assignment",
   get keyProp() { return this.props.assignmentId }, 
@@ -169,9 +169,9 @@ export const Assignment = domain.types.Assignment = {
       get inverseNavigation() { return (domain.types.OrganizationUser as ModelType).props.assignments as ModelCollectionNavigationProperty },
       dontSerialize: true,
     },
-    name: {
-      name: "name",
-      displayName: "Name",
+    role: {
+      name: "role",
+      displayName: "Role",
       type: "string",
       role: "value",
     },
@@ -777,14 +777,14 @@ export const Project = domain.types.Project = {
       get typeDef() { return domain.enums.ProjectStateEnum },
       role: "value",
     },
-    probablility: {
-      name: "probablility",
-      displayName: "Probablility",
+    probability: {
+      name: "probability",
+      displayName: "Probability",
       type: "number",
       role: "value",
       rules: {
-        min: val => val == null || val >= 0 || "Probablility must be at least 0.",
-        max: val => val == null || val <= 100 || "Probablility may not be more than 100.",
+        min: val => val == null || val >= 0 || "Probability must be at least 0.",
+        max: val => val == null || val <= 100 || "Probability may not be more than 100.",
       }
     },
     primaryContact: {

@@ -22,7 +22,7 @@ namespace ProjectManager.Web.Models
         private string _Note;
         private string _ContractUrl;
         private ProjectManager.Data.Models.Project.ProjectStateEnum? _ProjectState;
-        private decimal? _Probablility;
+        private decimal? _Probability;
         private string _PrimaryContact;
         private string _BillingContact;
         private string _BillingInformation;
@@ -82,10 +82,10 @@ namespace ProjectManager.Web.Models
             get => _ProjectState;
             set { _ProjectState = value; Changed(nameof(ProjectState)); }
         }
-        public decimal? Probablility
+        public decimal? Probability
         {
-            get => _Probablility;
-            set { _Probablility = value; Changed(nameof(Probablility)); }
+            get => _Probability;
+            set { _Probability = value; Changed(nameof(Probability)); }
         }
         public string PrimaryContact
         {
@@ -147,7 +147,7 @@ namespace ProjectManager.Web.Models
             this.Note = obj.Note;
             this.ContractUrl = obj.ContractUrl;
             this.ProjectState = obj.ProjectState;
-            this.Probablility = obj.Probablility;
+            this.Probability = obj.Probability;
             this.PrimaryContact = obj.PrimaryContact;
             this.BillingContact = obj.BillingContact;
             this.BillingInformation = obj.BillingInformation;
@@ -195,7 +195,7 @@ namespace ProjectManager.Web.Models
             if (propValAssignments != null && (tree == null || tree[nameof(this.Assignments)] != null))
             {
                 this.Assignments = propValAssignments
-                    .OrderBy(f => f.Name)
+                    .OrderBy(f => f.AssignmentId)
                     .Select(f => f.MapToDto<ProjectManager.Data.Models.Assignment, AssignmentDtoGen>(context, tree?[nameof(this.Assignments)])).ToList();
             }
             else if (propValAssignments == null && tree?[nameof(this.Assignments)] != null)
@@ -223,7 +223,7 @@ namespace ProjectManager.Web.Models
             if (ShouldMapTo(nameof(Note))) entity.Note = Note;
             if (ShouldMapTo(nameof(ContractUrl))) entity.ContractUrl = ContractUrl;
             if (ShouldMapTo(nameof(ProjectState))) entity.ProjectState = (ProjectState ?? entity.ProjectState);
-            if (ShouldMapTo(nameof(Probablility))) entity.Probablility = Probablility;
+            if (ShouldMapTo(nameof(Probability))) entity.Probability = Probability;
             if (ShouldMapTo(nameof(PrimaryContact))) entity.PrimaryContact = PrimaryContact;
             if (ShouldMapTo(nameof(BillingContact))) entity.BillingContact = BillingContact;
             if (ShouldMapTo(nameof(BillingInformation))) entity.BillingInformation = BillingInformation;

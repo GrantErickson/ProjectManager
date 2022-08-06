@@ -120,7 +120,7 @@ namespace ProjectManager.Web.Models
             if (propValAssignments != null && (tree == null || tree[nameof(this.Assignments)] != null))
             {
                 this.Assignments = propValAssignments
-                    .OrderBy(f => f.Name)
+                    .OrderBy(f => f.AssignmentId)
                     .Select(f => f.MapToDto<ProjectManager.Data.Models.Assignment, AssignmentDtoGen>(context, tree?[nameof(this.Assignments)])).ToList();
             }
             else if (propValAssignments == null && tree?[nameof(this.Assignments)] != null)

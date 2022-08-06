@@ -48,7 +48,7 @@ export interface Assignment extends Model<typeof metadata.Assignment> {
   project: Project | null
   organizationUserId: string | null
   user: OrganizationUser | null
-  name: string | null
+  role: string | null
   rate: number | null
   rateRange: string | null
   startDate: Date | null
@@ -232,7 +232,7 @@ export interface Project extends Model<typeof metadata.Project> {
   note: string | null
   contractUrl: string | null
   projectState: ProjectStateEnum | null
-  probablility: number | null
+  probability: number | null
   primaryContact: string | null
   billingContact: string | null
   billingInformation: string | null

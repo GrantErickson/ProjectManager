@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,8 @@ namespace ProjectManager.Data.Models
         public string? OrganizationUserId { get; set; }
         [ForeignKey(nameof(OrganizationUserId))]
         public OrganizationUser? User { get; set; } = null!;
-        public string Name { get; set; } = null!;
+        [DisplayName]
+        public string Role { get; set; } = null!;
         public decimal? Rate { get; set; }
         public string? RateRange { get; set; }
         public DateTime? StartDate { get; set; }
