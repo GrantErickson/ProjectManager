@@ -11,26 +11,20 @@
               Here are some next steps to get started:
             </h2>
             <ol>
+              <li>Add Skills you would like to track.</li>
               <li>
-                Add Skills you would like to track.
+                Add Organization Users. You can add Skills to Organization
+                Users.
               </li>
-              <li>
-                Add Application Users and assign them to an Organization as an Organization User. You can add Skills to Organization Users.
-              </li>
-              <li>
-                Add Clients and their associated Projects.
-              </li>
-              <li>
-                Add Assignments to Projects. Assignments can have skills.
-              </li>
+              <li>Add Clients and their associated Projects.</li>
+              <li>Add Assignments to Projects. Assignments can have skills.</li>
               <li>
                 Add Time Entries to Assignments to associate time with a User.
               </li>
+              <li>Add notes to projects.</li>
               <li>
-                Add notes to projects.
-              </li>
-              <li>
-                Set up Billing Periods so be able to eventually do time approval.
+                Set up Billing Periods so be able to eventually do time
+                approval.
               </li>
             </ol>
             <v-divider class="my-3" />
@@ -83,7 +77,6 @@
           </v-card-text>
         </v-card>
       </v-col>
-
     </v-row>
   </v-container>
 </template>

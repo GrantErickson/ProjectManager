@@ -38,15 +38,6 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item link to="/admin/ApplicationUser">
-          <v-list-item-action>
-            <v-icon>fas fa-user</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Login Users</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
         <v-list-item link to="/admin/OrganizationUser">
           <v-list-item-action>
             <v-icon>fas fa-users</v-icon>
@@ -89,6 +80,15 @@
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Time Entry</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item link to="/admin/ApplicationUser">
+          <v-list-item-action>
+            <v-icon>fas fa-user</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Login Users</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>

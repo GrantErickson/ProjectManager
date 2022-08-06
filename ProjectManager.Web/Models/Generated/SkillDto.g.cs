@@ -15,6 +15,7 @@ namespace ProjectManager.Web.Models
         private int? _SkillId;
         private string _Name;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.UserSkillDtoGen> _Users;
+        private System.Collections.Generic.ICollection<ProjectManager.Web.Models.AssignmentSkillDtoGen> _Assignments;
 
         public int? SkillId
         {
@@ -30,6 +31,11 @@ namespace ProjectManager.Web.Models
         {
             get => _Users;
             set { _Users = value; Changed(nameof(Users)); }
+        }
+        public System.Collections.Generic.ICollection<ProjectManager.Web.Models.AssignmentSkillDtoGen> Assignments
+        {
+            get => _Assignments;
+            set { _Assignments = value; Changed(nameof(Assignments)); }
         }
 
         /// <summary>
@@ -54,6 +60,18 @@ namespace ProjectManager.Web.Models
             else if (propValUsers == null && tree?[nameof(this.Users)] != null)
             {
                 this.Users = new UserSkillDtoGen[0];
+            }
+
+            var propValAssignments = obj.Assignments;
+            if (propValAssignments != null && (tree == null || tree[nameof(this.Assignments)] != null))
+            {
+                this.Assignments = propValAssignments
+                    .OrderBy(f => f.AssignmentSkillId)
+                    .Select(f => f.MapToDto<ProjectManager.Data.Models.AssignmentSkill, AssignmentSkillDtoGen>(context, tree?[nameof(this.Assignments)])).ToList();
+            }
+            else if (propValAssignments == null && tree?[nameof(this.Assignments)] != null)
+            {
+                this.Assignments = new AssignmentSkillDtoGen[0];
             }
 
         }

@@ -22,12 +22,12 @@ public class OrganizationUser : TrackingBase
     public string OrganizationUserId { get; set; } = null!;
     public string OrganizationId { get; set; } = null!;
     public Organization Organization { get; set; } = null!;
-    public string AppUserId { get; set; } = null!;
+    public string? AppUserId { get; set; } = null!;
     [ForeignKey(nameof(AppUserId))]
-    public ApplicationUser AppUser { get; set; } = null!;
+    public ApplicationUser? AppUser { get; set; } = null!;
     public string Name { get; set; } = null!;
     public decimal DefaultRate { get; set; }
-    public bool IsActive { get; set; }
+    public bool IsActive { get; set; } = true;
     public bool IsOrganizationAdmin { get;set; }
     public EmploymentStatusEnum EmploymentStatus { get; set; }
 

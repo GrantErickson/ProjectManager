@@ -24,11 +24,11 @@
 
           <v-spacer />
 
-          <v-btn x-small fab class="mx-4">
-            <!-- TODO: Figure out how to add a property to the project to track this -->
+          <!-- TODO: Figure out how to add a property to the project to track this -->
+          <!-- <v-btn x-small fab class="mx-4">
             <v-icon v-if="!project.expanded">fas fa-chevron-up</v-icon>
             <v-icon v-if="project.expanded">fas fa-chevron-down</v-icon>
-          </v-btn>
+          </v-btn> -->
         </v-row>
       </v-card-title>
       <v-simple-table

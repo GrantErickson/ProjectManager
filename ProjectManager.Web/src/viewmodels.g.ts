@@ -343,12 +343,18 @@ export interface SkillViewModel extends $models.Skill {
   skillId: number | null;
   name: string | null;
   users: UserSkillViewModel[] | null;
+  assignments: AssignmentSkillViewModel[] | null;
 }
 export class SkillViewModel extends ViewModel<$models.Skill, $apiClients.SkillApiClient, number> implements $models.Skill  {
   
   
   public addToUsers() {
     return this.$addChild('users') as UserSkillViewModel
+  }
+  
+  
+  public addToAssignments() {
+    return this.$addChild('assignments') as AssignmentSkillViewModel
   }
   
   constructor(initialData?: DeepPartial<$models.Skill> | null) {

@@ -330,6 +330,7 @@ export interface Skill extends Model<typeof metadata.Skill> {
   skillId: number | null
   name: string | null
   users: UserSkill[] | null
+  assignments: AssignmentSkill[] | null
 }
 export class Skill {
   
