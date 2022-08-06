@@ -18,6 +18,8 @@ namespace ProjectManager.Web.Models
         private ProjectManager.Web.Models.ClientDtoGen _Client;
         private System.DateTime? _StartDate;
         private System.DateTime? _EndDate;
+        private string _LeadId;
+        private ProjectManager.Web.Models.OrganizationUserDtoGen _Lead;
         private decimal? _Amount;
         private string _Note;
         private string _ContractUrl;
@@ -61,6 +63,16 @@ namespace ProjectManager.Web.Models
         {
             get => _EndDate;
             set { _EndDate = value; Changed(nameof(EndDate)); }
+        }
+        public string LeadId
+        {
+            get => _LeadId;
+            set { _LeadId = value; Changed(nameof(LeadId)); }
+        }
+        public ProjectManager.Web.Models.OrganizationUserDtoGen Lead
+        {
+            get => _Lead;
+            set { _Lead = value; Changed(nameof(Lead)); }
         }
         public decimal? Amount
         {
@@ -143,6 +155,7 @@ namespace ProjectManager.Web.Models
             this.ClientId = obj.ClientId;
             this.StartDate = obj.StartDate;
             this.EndDate = obj.EndDate;
+            this.LeadId = obj.LeadId;
             this.Amount = obj.Amount;
             this.Note = obj.Note;
             this.ContractUrl = obj.ContractUrl;
@@ -154,6 +167,9 @@ namespace ProjectManager.Web.Models
             this.IsBillableDefault = obj.IsBillableDefault;
             if (tree == null || tree[nameof(this.Client)] != null)
                 this.Client = obj.Client.MapToDto<ProjectManager.Data.Models.Client, ClientDtoGen>(context, tree?[nameof(this.Client)]);
+
+            if (tree == null || tree[nameof(this.Lead)] != null)
+                this.Lead = obj.Lead.MapToDto<ProjectManager.Data.Models.OrganizationUser, OrganizationUserDtoGen>(context, tree?[nameof(this.Lead)]);
 
             var propValRoles = obj.Roles;
             if (propValRoles != null && (tree == null || tree[nameof(this.Roles)] != null))
@@ -219,6 +235,7 @@ namespace ProjectManager.Web.Models
             if (ShouldMapTo(nameof(ClientId))) entity.ClientId = (ClientId ?? entity.ClientId);
             if (ShouldMapTo(nameof(StartDate))) entity.StartDate = StartDate;
             if (ShouldMapTo(nameof(EndDate))) entity.EndDate = EndDate;
+            if (ShouldMapTo(nameof(LeadId))) entity.LeadId = LeadId;
             if (ShouldMapTo(nameof(Amount))) entity.Amount = Amount;
             if (ShouldMapTo(nameof(Note))) entity.Note = Note;
             if (ShouldMapTo(nameof(ContractUrl))) entity.ContractUrl = ContractUrl;

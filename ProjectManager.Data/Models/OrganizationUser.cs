@@ -37,5 +37,7 @@ public class OrganizationUser : TrackingBase
     public ICollection<ProjectRole> ProjectRoles { get; set; } = null!;
     [InverseProperty(nameof(UserSkill.User))] 
     public ICollection<UserSkill> Skills { get; set; } = null!;
+    [InverseProperty(nameof(Project.Lead))]
+    public ICollection<Project> Projects { get; set; } = null!;
 
 }

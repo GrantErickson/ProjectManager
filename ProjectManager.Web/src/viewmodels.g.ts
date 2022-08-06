@@ -194,6 +194,7 @@ export interface OrganizationUserViewModel extends $models.OrganizationUser {
   assignments: AssignmentViewModel[] | null;
   projectRoles: ProjectRoleViewModel[] | null;
   skills: UserSkillViewModel[] | null;
+  projects: ProjectViewModel[] | null;
 }
 export class OrganizationUserViewModel extends ViewModel<$models.OrganizationUser, $apiClients.OrganizationUserApiClient, string> implements $models.OrganizationUser  {
   
@@ -210,6 +211,11 @@ export class OrganizationUserViewModel extends ViewModel<$models.OrganizationUse
   
   public addToSkills() {
     return this.$addChild('skills') as UserSkillViewModel
+  }
+  
+  
+  public addToProjects() {
+    return this.$addChild('projects') as ProjectViewModel
   }
   
   constructor(initialData?: DeepPartial<$models.OrganizationUser> | null) {
@@ -233,6 +239,8 @@ export interface ProjectViewModel extends $models.Project {
   client: ClientViewModel | null;
   startDate: Date | null;
   endDate: Date | null;
+  leadId: string | null;
+  lead: OrganizationUserViewModel | null;
   amount: number | null;
   note: string | null;
   contractUrl: string | null;

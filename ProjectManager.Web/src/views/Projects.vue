@@ -13,10 +13,22 @@
             >:
             {{ project.name }}
             <v-chip small>{{ project.state() }}</v-chip>
-            <v-icon small class="mx-5" @click="showEditProject(project)"
+            <v-icon small class="mx-4" @click="showEditProject(project)"
               >fas fa-pencil</v-icon
             >
           </v-col>
+          <v-col>
+            <v-chip v-if="project.lead" small>{{ project.lead?.name }}</v-chip>
+            <v-chip v-if="!project.lead" small color="yellow">no lead</v-chip>
+          </v-col>
+
+          <v-spacer />
+
+          <v-btn x-small fab class="mx-4">
+            <!-- TODO: Figure out how to add a property to the project to track this -->
+            <v-icon v-if="!project.expanded">fas fa-chevron-up</v-icon>
+            <v-icon v-if="project.expanded">fas fa-chevron-down</v-icon>
+          </v-btn>
         </v-row>
       </v-card-title>
       <v-simple-table
@@ -49,7 +61,12 @@
               <td>
                 {{ assignment.role }}
               </td>
-              <td>{{ assignment.user?.name }}</td>
+              <td>
+                <span>{{ assignment.user?.name }}</span>
+                <v-chip v-if="!assignment.user" small color="yellow"
+                  >needed</v-chip
+                >
+              </td>
               <td>{{ assignment.percentAllocated }}</td>
               <td>${{ assignment.rate }}</td>
               <td>{{ daysLeft(assignment) }}</td>
@@ -76,12 +93,14 @@
                   </template>
                   <span>
                     <v-chip
-                      v-for="skill in assignment.skills"
+                      v-for="skill in assignment.skills.filter((f) => f.skill)"
                       :key="skill.assignmentSkillId"
                       small
                       class="mx-1"
-                      >{{ skill.skill.name }}: {{ skill.level }}</v-chip
                     >
+                      {{ skill.skill.name }}:
+                      {{ skill.level }}
+                    </v-chip>
                   </span>
                 </v-tooltip>
               </td>
@@ -106,7 +125,7 @@
 
     <v-dialog
       v-if="editAssignment"
-      v-model="EditAssignmentShown"
+      v-model="editAssignmentShown"
       max-width="800px"
     >
       <v-card>
@@ -123,11 +142,31 @@
         </v-card-title>
         <v-card-text>
           <EditAssignment :assignment="editAssignment" />
-          <small>*indicates required field</small>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="editAssignment = null">
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-if="editProject" v-model="editProjectShown" max-width="800px">
+      <v-card>
+        <v-card-title>
+          <v-container>
+            <v-row>
+              <v-col><span class="text-h5">Project</span> </v-col>
+            </v-row>
+          </v-container>
+        </v-card-title>
+        <v-card-text>
+          <EditProject :project="editProject" />
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="editProject = null">
             Close
           </v-btn>
         </v-card-actions>
@@ -152,20 +191,17 @@ ViewModels.ProjectViewModel.prototype.state = function () {
 export default class Projects extends Vue {
   private projects = new ViewModels.ProjectListViewModel();
   private editAssignment: ViewModels.AssignmentViewModel | null = null;
+  private editProject: ViewModels.ProjectViewModel | null = null;
 
   async created() {
     await this.projects.$load();
   }
 
   addAssignment(project: ViewModels.ProjectViewModel) {
-    var newAssignment = project.addToAssignments();
-    newAssignment.project = project;
-    console.log($models.ProjectStateEnum[project.projectState!]);
-    this.editAssignment = newAssignment;
+    this.editAssignment = project.addToAssignments();
+    this.editAssignment.project = project;
   }
-  showEditProject() {
-    alert("Coming Soon. For now, use the Projects Admin Page");
-  }
+
   promptDelete(assignment: ViewModels.AssignmentViewModel) {
     if (confirm("Do you want to delete this item?")) {
       assignment.$delete();
@@ -175,11 +211,22 @@ export default class Projects extends Vue {
     this.editAssignment = assignment;
     this.editAssignment.$startAutoSave(this);
   }
-  public get EditAssignmentShown() {
+  public get editAssignmentShown() {
     return this.editAssignment != null;
   }
-  public set EditAssignmentShown(value: boolean) {
+  public set editAssignmentShown(value: boolean) {
     this.editAssignment = null;
+  }
+
+  showEditProject(project: ViewModels.ProjectViewModel) {
+    this.editProject = project;
+    this.editProject.$startAutoSave(this);
+  }
+  public get editProjectShown() {
+    return this.editProject != null;
+  }
+  public set editProjectShown(value: boolean) {
+    this.editProject = null;
   }
 
   daysLeft(assignment: ViewModels.AssignmentViewModel) {

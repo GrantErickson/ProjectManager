@@ -201,6 +201,7 @@ export interface OrganizationUser extends Model<typeof metadata.OrganizationUser
   assignments: Assignment[] | null
   projectRoles: ProjectRole[] | null
   skills: UserSkill[] | null
+  projects: Project[] | null
 }
 export class OrganizationUser {
   
@@ -228,6 +229,8 @@ export interface Project extends Model<typeof metadata.Project> {
   client: Client | null
   startDate: Date | null
   endDate: Date | null
+  leadId: string | null
+  lead: OrganizationUser | null
   amount: number | null
   note: string | null
   contractUrl: string | null

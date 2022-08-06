@@ -29,6 +29,8 @@ public class Project : TrackingBase
     public DateTime? StartDate { get; set; }
     [DateType(DateTypeAttribute.DateTypes.DateOnly)]
     public DateTime? EndDate { get; set; }
+    public string? LeadId { get; set; }
+    public OrganizationUser? Lead { get; set; }
     public decimal? Amount { get; set; }
     public string? Note { get; set; }
     public string? ContractUrl { get; set; }
@@ -55,8 +57,9 @@ public class Project : TrackingBase
             => Db.Projects
             .Include(f => f.Assignments).ThenInclude(f => f.User).ThenInclude(f => f!.AppUser)
             .Include(f => f.Assignments).ThenInclude(f => f.Skills).ThenInclude(f => f.Skill)
-            .Include(f => f.Client);
-            
+            .Include(f => f.Client)
+            .Include(f => f.Lead!.AppUser);
+
 
     }
 
