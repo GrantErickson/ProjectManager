@@ -1,6 +1,17 @@
 import * as metadata from './metadata.g'
 import { Model, DataSource, convertToModel, mapToModel } from 'coalesce-vue/lib/model'
 
+export enum AssignmentStateEnum {
+  Unknown = 0,
+  Active = 1,
+  Contracting = 2,
+  Completed = 3,
+  Potential = 4,
+  Lost = 5,
+  Paused = 6,
+}
+
+
 export enum EmploymentStatusEnum {
   FullTime = 0,
   PartTime = 1,
@@ -51,6 +62,7 @@ export interface Assignment extends Model<typeof metadata.Assignment> {
   user: OrganizationUser | null
   role: string | null
   rate: number | null
+  assignmentState: AssignmentStateEnum | null
   rateRange: string | null
   startDate: Date | null
   endDate: Date | null

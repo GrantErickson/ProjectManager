@@ -33,6 +33,7 @@ export interface AssignmentViewModel extends $models.Assignment {
   user: OrganizationUserViewModel | null;
   role: string | null;
   rate: number | null;
+  assignmentState: $models.AssignmentStateEnum | null;
   rateRange: string | null;
   startDate: Date | null;
   endDate: Date | null;

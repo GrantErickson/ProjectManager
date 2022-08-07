@@ -12,6 +12,17 @@ namespace ProjectManager.Data.Models
 {
     public class Assignment : TrackingBase
     {
+        public enum AssignmentStateEnum
+        {
+            Unknown = 0,
+            Active = 1,
+            Contracting = 2,
+            Completed = 3,
+            Potential = 4,
+            Lost = 5,
+            Paused = 6,            
+        }
+
         public int AssignmentId { get; set; }
         public int ProjectId { get; set; }
         public Project Project { get; set; } = null!;
@@ -24,6 +35,7 @@ namespace ProjectManager.Data.Models
         public string Role { get; set; } = null!;
         [Search]
         public decimal? Rate { get; set; }
+        public AssignmentStateEnum AssignmentState { get; set; }
         public string? RateRange { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }

@@ -44,8 +44,9 @@
       >
         <thead>
           <tr>
-            <td>Note</td>
-            <td>Date</td>
+            <th width="75%">Note</th>
+            <th>Date</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>

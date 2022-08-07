@@ -6,6 +6,48 @@ import {
 
 
 const domain: Domain = { enums: {}, types: {}, services: {} }
+export const AssignmentStateEnum = domain.enums.AssignmentStateEnum = {
+  name: "AssignmentStateEnum",
+  displayName: "Assignment State Enum",
+  type: "enum",
+  ...getEnumMeta<"Unknown"|"Active"|"Contracting"|"Completed"|"Potential"|"Lost"|"Paused">([
+  {
+    value: 0,
+    strValue: "Unknown",
+    displayName: "Unknown",
+  },
+  {
+    value: 1,
+    strValue: "Active",
+    displayName: "Active",
+  },
+  {
+    value: 2,
+    strValue: "Contracting",
+    displayName: "Contracting",
+  },
+  {
+    value: 3,
+    strValue: "Completed",
+    displayName: "Completed",
+  },
+  {
+    value: 4,
+    strValue: "Potential",
+    displayName: "Potential",
+  },
+  {
+    value: 5,
+    strValue: "Lost",
+    displayName: "Lost",
+  },
+  {
+    value: 6,
+    strValue: "Paused",
+    displayName: "Paused",
+  },
+  ]),
+}
 export const EmploymentStatusEnum = domain.enums.EmploymentStatusEnum = {
   name: "EmploymentStatusEnum",
   displayName: "Employment Status Enum",
@@ -184,6 +226,13 @@ export const Assignment = domain.types.Assignment = {
       name: "rate",
       displayName: "Rate",
       type: "number",
+      role: "value",
+    },
+    assignmentState: {
+      name: "assignmentState",
+      displayName: "Assignment State",
+      type: "enum",
+      get typeDef() { return domain.enums.AssignmentStateEnum },
       role: "value",
     },
     rateRange: {
@@ -1322,6 +1371,7 @@ export const UserSkill = domain.types.UserSkill = {
 
 interface AppDomain extends Domain {
   enums: {
+    AssignmentStateEnum: typeof AssignmentStateEnum
     EmploymentStatusEnum: typeof EmploymentStatusEnum
     ProjectStateEnum: typeof ProjectStateEnum
   }

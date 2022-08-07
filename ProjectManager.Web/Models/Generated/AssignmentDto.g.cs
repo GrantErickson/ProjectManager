@@ -19,6 +19,7 @@ namespace ProjectManager.Web.Models
         private ProjectManager.Web.Models.OrganizationUserDtoGen _User;
         private string _Role;
         private decimal? _Rate;
+        private ProjectManager.Data.Models.Assignment.AssignmentStateEnum? _AssignmentState;
         private string _RateRange;
         private System.DateTime? _StartDate;
         private System.DateTime? _EndDate;
@@ -62,6 +63,11 @@ namespace ProjectManager.Web.Models
         {
             get => _Rate;
             set { _Rate = value; Changed(nameof(Rate)); }
+        }
+        public ProjectManager.Data.Models.Assignment.AssignmentStateEnum? AssignmentState
+        {
+            get => _AssignmentState;
+            set { _AssignmentState = value; Changed(nameof(AssignmentState)); }
         }
         public string RateRange
         {
@@ -119,6 +125,7 @@ namespace ProjectManager.Web.Models
             this.OrganizationUserId = obj.OrganizationUserId;
             this.Role = obj.Role;
             this.Rate = obj.Rate;
+            this.AssignmentState = obj.AssignmentState;
             this.RateRange = obj.RateRange;
             this.StartDate = obj.StartDate;
             this.EndDate = obj.EndDate;
@@ -160,6 +167,7 @@ namespace ProjectManager.Web.Models
             if (ShouldMapTo(nameof(OrganizationUserId))) entity.OrganizationUserId = OrganizationUserId;
             if (ShouldMapTo(nameof(Role))) entity.Role = Role;
             if (ShouldMapTo(nameof(Rate))) entity.Rate = Rate;
+            if (ShouldMapTo(nameof(AssignmentState))) entity.AssignmentState = (AssignmentState ?? entity.AssignmentState);
             if (ShouldMapTo(nameof(RateRange))) entity.RateRange = RateRange;
             if (ShouldMapTo(nameof(StartDate))) entity.StartDate = StartDate;
             if (ShouldMapTo(nameof(EndDate))) entity.EndDate = EndDate;

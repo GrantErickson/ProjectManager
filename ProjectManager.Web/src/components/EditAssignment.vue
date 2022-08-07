@@ -4,17 +4,16 @@
       <v-col cols="12" sm="6" md="6">
         <c-input :model="assignment" for="role"></c-input>
       </v-col>
-      <v-col cols="12" sm="3" md="3">
-        <c-input :model="assignment" for="percentAllocated"></c-input>
-      </v-col>
-      <v-col cols="12" sm="3" md="3">
-        <c-input :model="assignment" for="isLongTerm"></c-input>
-      </v-col>
-
       <v-col cols="12" sm="9" md="6">
         <c-input :model="assignment" for="user"></c-input>
       </v-col>
 
+      <v-col cols="12" sm="3" md="3">
+        <c-input :model="assignment" for="percentAllocated"></c-input>
+      </v-col>
+      <v-col cols="12" sm="3" md="3">
+        <c-input :model="assignment" for="assignmentState"></c-input>
+      </v-col>
       <v-col cols="12" sm="3" md="3">
         <c-input :model="assignment" for="rate"></c-input>
       </v-col>
@@ -28,6 +27,9 @@
 
       <v-col cols="12" sm="6" md="6">
         <c-input :model="assignment" for="endDate"></c-input>
+      </v-col>
+      <v-col cols="12" sm="3" md="3">
+        <c-input :model="assignment" for="isLongTerm"></c-input>
       </v-col>
 
       <v-col cols="12">
