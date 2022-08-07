@@ -31,9 +31,7 @@
       :key="project.projectId"
       class="my-2"
     >
-      <v-divider />
-      <v-divider />
-      <v-card-title :is-loading="isLoading">
+      <v-card-title>
         <v-row>
           <v-col cols="6">
             <b>{{ project.client.name }}</b
@@ -49,8 +47,6 @@
             <v-chip v-if="!project.lead" small color="yellow">no lead</v-chip>
           </v-col>
 
-          <v-spacer />
-
           <!-- TODO: Figure out how to add a property to the project to track this -->
           <!-- <v-btn x-small fab class="mx-4">
             <v-icon v-if="!project.expanded">fas fa-chevron-up</v-icon>
@@ -58,6 +54,9 @@
           </v-btn> -->
         </v-row>
       </v-card-title>
+      <v-card-subtitle v-if="project.note">
+        {{ project.note }}
+      </v-card-subtitle>
       <v-simple-table
         dense
         fixed-header
@@ -72,6 +71,7 @@
               <th class="text-left">Allocation</th>
               <th class="text-left">Rate</th>
               <th class="text-left">Days Left</th>
+              <th class="text-left">Note</th>
               <th class="text-left"></th>
               <th class="text-right">
                 <v-icon @click="addAssignment(project)"
@@ -128,6 +128,7 @@
                 </v-tooltip>
               </td>
               <td>{{ daysLeft(assignment) }}</td>
+              <td>{{ assignment.note }}</td>
               <td>
                 <v-icon v-if="assignment.isLongTerm" small color="green"
                   >fas fa-road-circle-check</v-icon
@@ -266,6 +267,7 @@ export default class Projects extends Vue {
   addAssignment(project: ViewModels.ProjectViewModel) {
     this.editAssignment = project.addToAssignments();
     this.editAssignment.project = project;
+    this.editAssignment.$startAutoSave(this);
   }
 
   promptDelete(assignment: ViewModels.AssignmentViewModel) {
