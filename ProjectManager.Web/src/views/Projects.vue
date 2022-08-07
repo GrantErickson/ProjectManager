@@ -181,6 +181,13 @@
               <td>{{ daysLeft(assignment) }}</td>
               <td>{{ assignment.note }}</td>
               <td>
+                <v-icon
+                  v-if="assignment.isBillable"
+                  small
+                  color="blue darken-2"
+                  class="mx-2"
+                  >fas fa-dollar-sign</v-icon
+                >
                 <v-icon v-if="assignment.isLongTerm" small color="green"
                   >fas fa-road-circle-check</v-icon
                 >

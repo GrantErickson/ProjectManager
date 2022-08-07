@@ -70,6 +70,7 @@ export interface Assignment extends Model<typeof metadata.Assignment> {
   note: string | null
   isLongTerm: boolean | null
   isFlagged: boolean | null
+  isBillable: boolean | null
   skills: AssignmentSkill[] | null
 }
 export class Assignment {

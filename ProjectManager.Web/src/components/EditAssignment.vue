@@ -24,12 +24,15 @@
       <v-col cols="12" sm="6" md="6">
         <c-input :model="assignment" for="startDate"></c-input>
       </v-col>
-
       <v-col cols="12" sm="6" md="6">
         <c-input :model="assignment" for="endDate"></c-input>
       </v-col>
+
       <v-col cols="12" sm="3" md="3">
         <c-input :model="assignment" for="isLongTerm"></c-input>
+      </v-col>
+      <v-col cols="12" sm="3" md="3">
+        <c-input :model="assignment" for="isBillable"></c-input>
       </v-col>
 
       <v-col cols="12">

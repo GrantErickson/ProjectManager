@@ -27,6 +27,7 @@ namespace ProjectManager.Web.Models
         private string _Note;
         private bool? _isLongTerm;
         private bool? _IsFlagged;
+        private bool? _IsBillable;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.AssignmentSkillDtoGen> _Skills;
 
         public int? AssignmentId
@@ -104,6 +105,11 @@ namespace ProjectManager.Web.Models
             get => _IsFlagged;
             set { _IsFlagged = value; Changed(nameof(IsFlagged)); }
         }
+        public bool? IsBillable
+        {
+            get => _IsBillable;
+            set { _IsBillable = value; Changed(nameof(IsBillable)); }
+        }
         public System.Collections.Generic.ICollection<ProjectManager.Web.Models.AssignmentSkillDtoGen> Skills
         {
             get => _Skills;
@@ -133,6 +139,7 @@ namespace ProjectManager.Web.Models
             this.Note = obj.Note;
             this.isLongTerm = obj.isLongTerm;
             this.IsFlagged = obj.IsFlagged;
+            this.IsBillable = obj.IsBillable;
             if (tree == null || tree[nameof(this.Project)] != null)
                 this.Project = obj.Project.MapToDto<ProjectManager.Data.Models.Project, ProjectDtoGen>(context, tree?[nameof(this.Project)]);
 
@@ -175,6 +182,7 @@ namespace ProjectManager.Web.Models
             if (ShouldMapTo(nameof(Note))) entity.Note = Note;
             if (ShouldMapTo(nameof(isLongTerm))) entity.isLongTerm = (isLongTerm ?? entity.isLongTerm);
             if (ShouldMapTo(nameof(IsFlagged))) entity.IsFlagged = (IsFlagged ?? entity.IsFlagged);
+            if (ShouldMapTo(nameof(IsBillable))) entity.IsBillable = (IsBillable ?? entity.IsBillable);
         }
     }
 }

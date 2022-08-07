@@ -281,6 +281,12 @@ export const Assignment = domain.types.Assignment = {
       type: "boolean",
       role: "value",
     },
+    isBillable: {
+      name: "isBillable",
+      displayName: "Is Billable",
+      type: "boolean",
+      role: "value",
+    },
     skills: {
       name: "skills",
       displayName: "Skills",

@@ -41,6 +41,7 @@ export interface AssignmentViewModel extends $models.Assignment {
   note: string | null;
   isLongTerm: boolean | null;
   isFlagged: boolean | null;
+  isBillable: boolean | null;
   skills: AssignmentSkillViewModel[] | null;
 }
 export class AssignmentViewModel extends ViewModel<$models.Assignment, $apiClients.AssignmentApiClient, number> implements $models.Assignment  {
