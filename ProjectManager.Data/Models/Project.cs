@@ -23,8 +23,10 @@ public class Project : TrackingBase
     }
 
     public int ProjectId { set; get; }
+    [Search(SearchMethod = SearchAttribute.SearchMethods.Contains)]
     public string Name { set; get; } = null!;
     public int ClientId { get; set; }
+    [Search]
     public Client Client { get; set; } = null!;
     [DateType(DateTypeAttribute.DateTypes.DateOnly)]
     public DateTime? StartDate { get; set; }
@@ -47,6 +49,7 @@ public class Project : TrackingBase
     public ICollection<ProjectRole> Roles { get; set; } = null!;
     public ICollection<ProjectNote> Notes { get; set; } = null!;
     public ICollection<TimeEntry> TimeEntries { get; set; } = null!;
+    [Search]
     public ICollection<Assignment> Assignments { get; set; } = null!;
 
     [DefaultDataSource]

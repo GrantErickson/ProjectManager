@@ -1,4 +1,5 @@
 ﻿using IntelliTect.Coalesce;
+using IntelliTect.Coalesce.DataAnnotations;
 using IntelliTect.Coalesce.Models;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,12 @@ namespace ProjectManager.Data.Models
         public Project Project { get; set; } = null!;
         public string? OrganizationUserId { get; set; }
         [ForeignKey(nameof(OrganizationUserId))]
+        [Search]
         public OrganizationUser? User { get; set; } = null!;
         [DisplayName]
+        [Search]
         public string Role { get; set; } = null!;
+        [Search]
         public decimal? Rate { get; set; }
         public string? RateRange { get; set; }
         public DateTime? StartDate { get; set; }

@@ -19,6 +19,13 @@
         />
         <!-- TODO: <c-list-filters :list="projects" /> -->
       </v-col>
+      <v-col cols="3">
+        <v-text-field
+          v-model="projects.$params.search"
+          label="Search"
+        ></v-text-field>
+        <!-- TODO: <c-list-filters :list="projects" /> -->
+      </v-col>
     </v-row>
     <v-progress-linear
       :style="{ visibility: isLoading ? 'visible' : 'hidden' }"
