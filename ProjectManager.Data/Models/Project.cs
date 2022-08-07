@@ -65,6 +65,7 @@ public class Project : TrackingBase
             .Include(f => f.Assignments).ThenInclude(f => f.User).ThenInclude(f => f!.AppUser)
             .Include(f => f.Assignments).ThenInclude(f => f.Skills).ThenInclude(f => f.Skill)
             .Include(f => f.Client)
+            .Include(f => f.Notes)
             .Include(f => f.Lead!.AppUser);
 
             if (LeadId != null) result = result.Where(f => f.LeadId == LeadId);

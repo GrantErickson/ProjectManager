@@ -29,6 +29,44 @@
       <v-col cols="12">
         <c-input :model="project" for="note"></c-input>
       </v-col>
+      <v-col cols="10">
+        <h3>Notes</h3>
+      </v-col>
+      <v-col cols="2">
+        <v-btn @click="newNote">New Note</v-btn>
+      </v-col>
+
+      <v-simple-table
+        dense
+        fixed-header
+        class="d-flex flex-column"
+        style="overflow-y: hidden"
+      >
+        <thead>
+          <tr>
+            <td>Note</td>
+            <td>Date</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="note in project.notes" :key="note.projectNoteId">
+            <td>
+              <span v-if="note != editNote">{{ note.note }}</span>
+              <c-input
+                v-if="note == editNote"
+                :model="editNote"
+                for="note"
+              ></c-input>
+            </td>
+            <td><c-display :model="note" for="date" /></td>
+            <td>
+              <v-icon x-small color="red" @click="deleteNote(note)"
+                >fas fa-trash</v-icon
+              >
+            </td>
+          </tr>
+        </tbody>
+      </v-simple-table>
     </v-row>
   </v-container>
 </template>
@@ -40,6 +78,31 @@ import * as ViewModels from "@/viewmodels.g";
 @Component
 export default class EditProject extends Vue {
   @Prop() private project!: ViewModels.ProjectViewModel | null;
+  private editNote: ViewModels.ProjectNoteViewModel | null = null;
+
+  mounted() {
+    this.sortNotes();
+  }
+
+  newNote() {
+    this.editNote = this.project!.addToNotes();
+    this.editNote.project = this.project;
+    this.editNote.date = new Date();
+    this.editNote.$startAutoSave;
+    this.sortNotes();
+  }
+
+  sortNotes() {
+    this.project!.notes!.sort((a, b) => {
+      return b.date!.getTime() - a.date!.getTime();
+    });
+  }
+
+  deleteNote(note: ViewModels.ProjectNoteViewModel) {
+    if (confirm("Do you want to delete this item?")) {
+      note.$delete();
+    }
+  }
 }
 </script>
 
