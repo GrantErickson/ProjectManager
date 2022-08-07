@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IntelliTect.Coalesce;
+using IntelliTect.Coalesce.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,7 +9,7 @@ using System.Text;
 
 namespace ProjectManager.Data.Models
 {
-    public class Assignment: TrackingBase
+    public class Assignment : TrackingBase
     {
         public int AssignmentId { get; set; }
         public int ProjectId { get; set; }
@@ -25,8 +27,22 @@ namespace ProjectManager.Data.Models
         public string? Note { get; set; }
         public bool isLongTerm { get; set; }
         public bool IsFlagged { get; set; }
-        
+
         public ICollection<AssignmentSkill> Skills { get; set; } = null!;
-        
+
+        [Coalesce]
+        public class AssignmentBehaviors : StandardBehaviors<Assignment, AppDbContext>
+        {
+            public AssignmentBehaviors(CrudContext<AppDbContext> context) : base(context) { }
+
+            public override ItemResult BeforeSave(SaveKind kind, Assignment? oldItem, Assignment item)
+            {
+                if (item.User != null)
+                {
+                    if (item.Rate == null) item.Rate = item.User.DefaultRate;
+                }
+                return true;
+            }
+        }
     }
 }

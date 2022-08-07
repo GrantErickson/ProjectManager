@@ -89,13 +89,44 @@
                 {{ assignment.role }}
               </td>
               <td>
-                <span>{{ assignment.user?.name }}</span>
+                <v-tooltip v-if="assignment.user" top>
+                  <template #activator="{ on }">
+                    <span v-on="on">{{ assignment.user?.name }}</span>
+                  </template>
+                  <span v-if="assignment.user.defaultRate"
+                    >${{ assignment.user.defaultRate }}</span
+                  >
+                  <span v-else>not set</span>
+                </v-tooltip>
                 <v-chip v-if="!assignment.user" small color="yellow"
                   >needed</v-chip
                 >
               </td>
               <td>{{ assignment.percentAllocated }}</td>
-              <td>${{ assignment.rate }}</td>
+              <td>
+                <v-tooltip v-if="assignment.user" top>
+                  <template #activator="{ on }">
+                    <span>
+                      <span
+                        v-if="assignment.rate"
+                        :class="
+                          assignment.rate != assignment.user?.defaultRate
+                            ? 'yellow lighten-4'
+                            : ''
+                        "
+                        v-on="on"
+                        >${{ assignment.rate }}</span
+                      >
+                    </span>
+                  </template>
+                  <span v-if="assignment.user"
+                    >{{ assignment.user.name }} standard rate: ${{
+                      assignment.user.defaultRate
+                    }}</span
+                  >
+                  <span v-else>no user set</span>
+                </v-tooltip>
+              </td>
               <td>{{ daysLeft(assignment) }}</td>
               <td>
                 <v-icon v-if="assignment.isLongTerm" small color="green"
