@@ -14,6 +14,7 @@ export enum ProjectStateEnum {
   Contracting = 2,
   Completed = 3,
   Potential = 4,
+  Lost = 5,
 }
 
 
@@ -267,6 +268,8 @@ export namespace Project {
     
     export class ProjectWithAssignments implements DataSource<typeof metadata.Project.dataSources.projectWithAssignments> {
       readonly $metadata = metadata.Project.dataSources.projectWithAssignments
+      leadId: string | null = null
+      hideCompleted: boolean | null = null
     }
   }
 }

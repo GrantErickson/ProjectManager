@@ -32,7 +32,7 @@ export const ProjectStateEnum = domain.enums.ProjectStateEnum = {
   name: "ProjectStateEnum",
   displayName: "Project State Enum",
   type: "enum",
-  ...getEnumMeta<"Unknown"|"Active"|"Contracting"|"Completed"|"Potential">([
+  ...getEnumMeta<"Unknown"|"Active"|"Contracting"|"Completed"|"Potential"|"Lost">([
   {
     value: 0,
     strValue: "Unknown",
@@ -57,6 +57,11 @@ export const ProjectStateEnum = domain.enums.ProjectStateEnum = {
     value: 4,
     strValue: "Potential",
     displayName: "Potential",
+  },
+  {
+    value: 5,
+    strValue: "Lost",
+    displayName: "Lost",
   },
   ]),
 }
@@ -923,6 +928,18 @@ export const Project = domain.types.Project = {
       displayName: "Project With Assignments",
       isDefault: true,
       props: {
+        leadId: {
+          name: "leadId",
+          displayName: "Lead Id",
+          type: "string",
+          role: "value",
+        },
+        hideCompleted: {
+          name: "hideCompleted",
+          displayName: "Hide Completed",
+          type: "boolean",
+          role: "value",
+        },
       },
     },
   },

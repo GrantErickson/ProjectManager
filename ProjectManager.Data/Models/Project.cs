@@ -19,6 +19,7 @@ public class Project : TrackingBase
         Contracting = 2,
         Completed = 3,
         Potential = 4,
+        Lost = 5,
     }
 
     public int ProjectId { set; get; }
@@ -53,12 +54,23 @@ public class Project : TrackingBase
     {
         public ProjectWithAssignments(CrudContext<AppDbContext> context) : base(context) { }
 
+        [Coalesce]
+        public string? LeadId { get; set; }
+        [Coalesce]
+        public bool HideCompleted { get; set; }
+
         public override IQueryable<Project> GetQuery(IDataSourceParameters parameters)
-            => Db.Projects
+        {
+            IQueryable<Project> result = Db.Projects
             .Include(f => f.Assignments).ThenInclude(f => f.User).ThenInclude(f => f!.AppUser)
             .Include(f => f.Assignments).ThenInclude(f => f.Skills).ThenInclude(f => f.Skill)
             .Include(f => f.Client)
             .Include(f => f.Lead!.AppUser);
+
+            if (LeadId != null) result = result.Where(f => f.LeadId == LeadId);
+            if (HideCompleted) result = result.Where(f => f.ProjectState != ProjectStateEnum.Completed && f.ProjectState != ProjectStateEnum.Lost);
+            return result;
+        }
 
 
     }

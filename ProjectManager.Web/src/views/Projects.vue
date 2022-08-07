@@ -1,12 +1,39 @@
 <template>
   <v-container>
-    <h2>Projects</h2>
+    <v-row>
+      <v-col>
+        <h2>Projects</h2>
+      </v-col>
+      <v-col cols="2">
+        <v-switch
+          v-model="dataSource.hideCompleted"
+          label="Hide Complete"
+        ></v-switch>
+      </v-col>
+      <v-col cols="3">
+        <c-select
+          for="OrganizationUser"
+          :key-value.sync="dataSource.leadId"
+          :clearable="true"
+          label="Lead"
+        />
+        <!-- TODO: <c-list-filters :list="projects" /> -->
+      </v-col>
+    </v-row>
+    <v-progress-linear
+      :style="{ visibility: isLoading ? 'visible' : 'hidden' }"
+      indeterminate
+      color="primary"
+    />
+
     <v-card
       v-for="project in projects.$items"
       :key="project.projectId"
       class="my-2"
     >
-      <v-card-title>
+      <v-divider />
+      <v-divider />
+      <v-card-title :is-loading="isLoading">
         <v-row>
           <v-col cols="6">
             <b>{{ project.client.name }}</b
@@ -192,9 +219,17 @@ export default class Projects extends Vue {
   private projects = new ViewModels.ProjectListViewModel();
   private editAssignment: ViewModels.AssignmentViewModel | null = null;
   private editProject: ViewModels.ProjectViewModel | null = null;
+  private dataSource = new $models.Project.DataSources.ProjectWithAssignments();
 
   async created() {
-    await this.projects.$load();
+    this.projects.$dataSource = this.dataSource;
+    this.dataSource.hideCompleted = true;
+    this.projects.$startAutoLoad(this);
+    this.projects.$load();
+  }
+
+  get isLoading() {
+    return this.projects.$load.isLoading;
   }
 
   addAssignment(project: ViewModels.ProjectViewModel) {
