@@ -25,17 +25,25 @@
             <v-icon>fas fa-person</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Manage People</v-list-item-title>
+            <v-list-item-title>People's Projects</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item link to="/admin/Organization">
+        <v-list-item>
+          <v-divider></v-divider>
+        </v-list-item>
+
+        <v-list-item link to="/admin/TimeEntry">
           <v-list-item-action>
-            <v-icon>fas fa-building</v-icon>
+            <v-icon>fas fa-clock</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Organizations</v-list-item-title>
+            <v-list-item-title>Time Entry (admin)</v-list-item-title>
           </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item>
+          <v-divider></v-divider>
         </v-list-item>
 
         <v-list-item link to="/admin/Skill">
@@ -52,7 +60,7 @@
             <v-icon>fas fa-users</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Organization Users</v-list-item-title>
+            <v-list-item-title>People</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -79,16 +87,20 @@
             <v-icon>fas fa-check-double</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Assignment</v-list-item-title>
+            <v-list-item-title>Assignment Admin</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item link to="/admin/TimeEntry">
+        <v-list-item>
+          <v-divider></v-divider>
+        </v-list-item>
+
+        <v-list-item link to="/admin/Organization">
           <v-list-item-action>
-            <v-icon>fas fa-clock</v-icon>
+            <v-icon>fas fa-building</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Time Entry</v-list-item-title>
+            <v-list-item-title>Organizations</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
