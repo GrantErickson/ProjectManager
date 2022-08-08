@@ -17,6 +17,11 @@ export default new Router({
       name: "projects",
       component: () => import("./views/Projects.vue"),
     },
+    {
+      path: "/people",
+      name: "people]",
+      component: () => import("./views/People.vue"),
+    },
 
     // Coalesce admin routes
     {

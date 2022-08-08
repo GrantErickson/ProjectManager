@@ -234,6 +234,14 @@ export class OrganizationUser {
       Object.assign(this, OrganizationUser.map(data || {}));
   }
 }
+export namespace OrganizationUser {
+  export namespace DataSources {
+    
+    export class OrganizationUserWithAssignments implements DataSource<typeof metadata.OrganizationUser.dataSources.organizationUserWithAssignments> {
+      readonly $metadata = metadata.OrganizationUser.dataSources.organizationUserWithAssignments
+    }
+  }
+}
 
 
 export interface Project extends Model<typeof metadata.Project> {

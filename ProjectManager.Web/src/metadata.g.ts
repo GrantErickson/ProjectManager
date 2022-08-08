@@ -765,6 +765,14 @@ export const OrganizationUser = domain.types.OrganizationUser = {
   methods: {
   },
   dataSources: {
+    organizationUserWithAssignments: {
+      type: "dataSource",
+      name: "OrganizationUserWithAssignments",
+      displayName: "Organization User With Assignments",
+      isDefault: true,
+      props: {
+      },
+    },
   },
 }
 export const Project = domain.types.Project = {

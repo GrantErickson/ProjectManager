@@ -20,6 +20,15 @@
           </v-list-item-content>
         </v-list-item>
 
+        <v-list-item link to="/people">
+          <v-list-item-action>
+            <v-icon>fas fa-person</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Manage People</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
         <v-list-item link to="/admin/Organization">
           <v-list-item-action>
             <v-icon>fas fa-building</v-icon>

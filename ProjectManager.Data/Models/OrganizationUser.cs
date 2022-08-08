@@ -1,4 +1,6 @@
-﻿using IntelliTect.Coalesce.DataAnnotations;
+﻿using IntelliTect.Coalesce;
+using IntelliTect.Coalesce.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -28,16 +30,35 @@ public class OrganizationUser : TrackingBase
     public string Name { get; set; } = null!;
     public decimal DefaultRate { get; set; }
     public bool IsActive { get; set; } = true;
-    public bool IsOrganizationAdmin { get;set; }
+    public bool IsOrganizationAdmin { get; set; }
     public EmploymentStatusEnum EmploymentStatus { get; set; }
 
     [InverseProperty(nameof(Assignment.User))]
     public ICollection<Assignment> Assignments { get; set; } = null!;
-    [InverseProperty(nameof(ProjectRole.User))] 
+    [InverseProperty(nameof(ProjectRole.User))]
     public ICollection<ProjectRole> ProjectRoles { get; set; } = null!;
-    [InverseProperty(nameof(UserSkill.User))] 
+    [InverseProperty(nameof(UserSkill.User))]
     public ICollection<UserSkill> Skills { get; set; } = null!;
     [InverseProperty(nameof(Project.Lead))]
     public ICollection<Project> Projects { get; set; } = null!;
 
+
+
+    [DefaultDataSource]
+    public class OrganizationUserWithAssignments : StandardDataSource<OrganizationUser, AppDbContext>
+    {
+        public OrganizationUserWithAssignments(CrudContext<AppDbContext> context) : base(context) { }
+
+        public override IQueryable<OrganizationUser> GetQuery(IDataSourceParameters parameters)
+        {
+            IQueryable<OrganizationUser> result = Db.OrganizationUsers
+            .Include(f => f.Assignments).ThenInclude(f => f.Project.Lead)
+            .Include(f => f.Assignments).ThenInclude(f => f.Project.Client)
+            .Include(f => f.Assignments).ThenInclude(f => f.Project).ThenInclude(f => f.Client)
+            .Include(f => f.Assignments).ThenInclude(f => f.Skills).ThenInclude(f => f.Skill)
+            .Include(f => f.Skills).ThenInclude(f => f.Skill);
+
+            return result;
+        }
+    }
 }
