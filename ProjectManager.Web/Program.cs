@@ -9,6 +9,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using ProjectManager.Data;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
@@ -26,6 +28,20 @@ builder.Configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddEnvironmentVariables();
 
+var initialScopes = builder.Configuration["DownstreamApi:Scopes"]?.Split(' ') ?? builder.Configuration["MicrosoftGraph:Scopes"]?.Split(' ');
+
+// Add services to the container.
+builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"))
+        .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
+            .AddMicrosoftGraph(builder.Configuration.GetSection("MicrosoftGraph"))
+            .AddInMemoryTokenCaches();
+
+builder.Services.AddAuthorization(options =>
+{
+    // By default, all incoming requests will be authorized according to the default policy.
+    options.FallbackPolicy = options.DefaultPolicy;
+});
 #region Configure Services
 
 var services = builder.Services;
@@ -47,8 +63,8 @@ services
         options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
     });
 
-services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-        .AddCookie();
+//services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+//        .AddCookie();
 
 #endregion
 
@@ -74,15 +90,15 @@ app.MapCoalesceSecurityOverview("coalesce-security");
 // TODO: Dummy authentication for initial development.
 // Replace this with ASP.NET Core Identity, Windows Authentication, or some other scheme.
 // This exists only because Coalesce restricts all generated pages and API to only logged in users by default.
-app.Use(async (context, next) =>
-{
-    Claim[] claims = new[] { new Claim(ClaimTypes.Name, "developmentuser") };
+//app.Use(async (context, next) =>
+//{
+//    Claim[] claims = new[] { new Claim(ClaimTypes.Name, "developmentuser") };
 
-    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-    await context.SignInAsync(context.User = new ClaimsPrincipal(identity));
+//    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+//    await context.SignInAsync(context.User = new ClaimsPrincipal(identity));
 
-    await next.Invoke();
-});
+//    await next.Invoke();
+//});
 // End Dummy Authentication.
 
 

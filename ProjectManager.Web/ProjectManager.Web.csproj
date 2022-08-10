@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <DotnetCliToolTargetFramework>net6.0</DotnetCliToolTargetFramework>
+    <UserSecretsId>bcfbf0a1-685d-4c3a-95e5-a4637160425e</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,6 +11,11 @@
 
   <ItemGroup>
     <PackageReference Include="IntelliTect.Coalesce.Vue" Version="$(CoalesceVersion)" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.4" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="1.16.0" />
+    <PackageReference Include="Microsoft.Identity.Web.MicrosoftGraph" Version="1.16.0" />
+    <PackageReference Include="Microsoft.Identity.Web.UI" Version="1.16.0" />
   </ItemGroup>
 
   <ItemGroup>
