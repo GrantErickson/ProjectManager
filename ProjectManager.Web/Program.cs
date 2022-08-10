@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using ProjectManager.Data;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
@@ -30,7 +31,7 @@ builder.Configuration
 
 var initialScopes = builder.Configuration["DownstreamApi:Scopes"]?.Split(' ') ?? builder.Configuration["MicrosoftGraph:Scopes"]?.Split(' ');
 
-// Add services to the container.
+// Add services to the container. AAD Auth
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"))
         .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
@@ -42,6 +43,11 @@ builder.Services.AddAuthorization(options =>
     // By default, all incoming requests will be authorized according to the default policy.
     options.FallbackPolicy = options.DefaultPolicy;
 });
+
+builder.Services.AddRazorPages()
+    .AddMicrosoftIdentityUI();
+
+
 #region Configure Services
 
 var services = builder.Services;
@@ -130,6 +136,7 @@ app.Use(async (context, next) =>
     await next();
 });
 
+app.MapRazorPages();
 app.MapControllers();
 
 // API fallback to prevent serving SPA fallback to 404 hits on API endpoints.

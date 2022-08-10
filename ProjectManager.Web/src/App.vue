@@ -112,6 +112,19 @@
             <v-list-item-title>Login Users</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
+        <v-list-item>
+          <v-divider></v-divider>
+        </v-list-item>
+
+        <v-list-item href="/MicrosoftIdentity/Account/SignOut">
+          <v-list-item-action>
+            <v-icon>fas fa-sign-out</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Sign Out</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
