@@ -123,14 +123,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 //import EditAssignment from "@/components/EditAssignment.vue";
-import * as ViewModels from "@/viewmodels.g";
-import * as $models from "@/models.g";
-
-// TODO: Figure out how to add a prototype correctly.
-// @ts-ignore
-ViewModels.AssignmentViewModel.prototype.state = function () {
-  return $models.AssignmentStateEnum[this.assignmentState!];
-};
+import * as ViewModels from "../viewmodels.g";
+import * as $models from "../models.g";
 
 @Component
 export default class People extends Vue {
