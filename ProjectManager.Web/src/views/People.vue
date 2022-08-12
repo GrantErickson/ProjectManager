@@ -45,46 +45,7 @@
         :key="assignment.assignmentId"
         cols="3"
       >
-        <v-card class="my-card" @click="showEditAssignment(assignment)">
-          <v-card-title>
-            {{ assignment.project.name }}
-          </v-card-title>
-          <v-card-subtitle>
-            {{ assignment.role }} @ {{ assignment.percentAllocated }}%
-          </v-card-subtitle>
-          <v-divider />
-          <v-card-text>
-            <div>
-              <v-icon
-                v-if="assignment.isBillable"
-                small
-                color="blue darken-2"
-                class="mx-2"
-                >fas fa-dollar-sign</v-icon
-              >
-              <v-icon
-                v-if="assignment.isLongTerm"
-                small
-                color="green"
-                class="mx-2"
-                >fas fa-road-circle-check</v-icon
-              >
-              <v-icon v-if="assignment.isFlagged" small color="red" class="mx-2"
-                >fas fa-flag</v-icon
-              >
-              <v-chip small>{{ assignment.state() }}</v-chip>
-            </div>
-            <div>
-              {{ assignment.project.client.name }} @ ${{ assignment.rate }}
-            </div>
-            <div v-if="assignment.endDate">
-              ends in {{ daysLeftText(assignment) }} days
-              <v-icon v-if="daysLeft(assignment.endDate) < 25" color="red"
-                >fas fa-circle-exclamation</v-icon
-              >
-            </div>
-          </v-card-text>
-        </v-card>
+        <AssignmentCard :assignment="assignment"></AssignmentCard>
       </v-col>
     </v-row>
 
@@ -123,8 +84,14 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 //import EditAssignment from "@/components/EditAssignment.vue";
-import * as ViewModels from "../viewmodels.g";
-import * as $models from "../models.g";
+import * as ViewModels from "@/viewmodels.g";
+import * as $models from "@/models.g";
+
+// TODO: Figure out how to add a prototype correctly.
+// @ts-ignore
+ViewModels.AssignmentViewModel.prototype.state = function () {
+  return $models.AssignmentStateEnum[this.assignmentState!];
+};
 
 @Component
 export default class People extends Vue {
