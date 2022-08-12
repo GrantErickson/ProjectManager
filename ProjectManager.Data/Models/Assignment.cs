@@ -20,7 +20,7 @@ namespace ProjectManager.Data.Models
             Completed = 3,
             Potential = 4,
             Lost = 5,
-            Paused = 6,            
+            Paused = 6,
         }
 
         public int AssignmentId { get; set; }
@@ -54,9 +54,10 @@ namespace ProjectManager.Data.Models
 
             public override ItemResult BeforeSave(SaveKind kind, Assignment? oldItem, Assignment item)
             {
-                if (item.User != null)
+
+                if (item.OrganizationUserId != null && oldItem?.OrganizationUserId != item.OrganizationUserId)
                 {
-                    if (item.Rate == null) item.Rate = item.User.DefaultRate;
+                    if (item.Rate == null) item.Rate = Context.DbContext.OrganizationUsers.First(f => f.OrganizationUserId == item.OrganizationUserId).DefaultRate;
                 }
                 return true;
             }
