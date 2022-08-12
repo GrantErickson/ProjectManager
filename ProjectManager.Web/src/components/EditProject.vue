@@ -74,7 +74,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import * as ViewModels from "@/viewmodels.g";
+import * as ViewModels from "../viewmodels.g";
 
 @Component
 export default class EditProject extends Vue {
