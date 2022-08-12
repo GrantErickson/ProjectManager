@@ -289,7 +289,7 @@ export namespace Project {
     
     export class ProjectWithAssignments implements DataSource<typeof metadata.Project.dataSources.projectWithAssignments> {
       readonly $metadata = metadata.Project.dataSources.projectWithAssignments
-      leadId: string | null = null
+      filterLeadId: string | null = null
       hideCompleted: boolean | null = null
     }
   }
