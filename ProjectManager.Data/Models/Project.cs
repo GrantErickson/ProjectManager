@@ -57,25 +57,25 @@ public class Project : TrackingBase
     {
         public ProjectWithAssignments(CrudContext<AppDbContext> context) : base(context) { }
 
+        // TODO: Put a note in docs that if this property matches a property name it can get set inadvertently and cause saves to fail. Need a bit more research on root cause.
         [Coalesce]
-        public string? LeadId { get; set; }
+        public string? FilterLeadId { get; set; }
         [Coalesce]
         public bool HideCompleted { get; set; }
 
         public override IQueryable<Project> GetQuery(IDataSourceParameters parameters)
         {
-            IQueryable<Project> result = Db.Projects
-            .Include(f => f.Assignments).ThenInclude(f => f.User).ThenInclude(f => f!.AppUser)
-            .Include(f => f.Assignments).ThenInclude(f => f.Skills).ThenInclude(f => f.Skill)
-            .Include(f => f.Client)
-            .Include(f => f.Notes)
-            .Include(f => f.Lead!.AppUser);
-
-            if (LeadId != null) result = result.Where(f => f.LeadId == LeadId);
+            IQueryable<Project> result = Db.Projects;
+            result = result
+                .Include(f => f.Assignments).ThenInclude(f => f.User).ThenInclude(f => f!.AppUser)
+                .Include(f => f.Assignments).ThenInclude(f => f.Skills).ThenInclude(f => f.Skill)
+                .Include(f => f.Client)
+                .Include(f => f.Notes)
+                .Include(f => f.Lead!.AppUser);
+            if (FilterLeadId != null) result = result.Where(f => f.LeadId == FilterLeadId);
             if (HideCompleted) result = result.Where(f => f.ProjectState != ProjectStateEnum.Completed && f.ProjectState != ProjectStateEnum.Lost);
             return result;
         }
-
 
     }
 

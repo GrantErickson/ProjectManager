@@ -991,9 +991,9 @@ export const Project = domain.types.Project = {
       displayName: "Project With Assignments",
       isDefault: true,
       props: {
-        leadId: {
-          name: "leadId",
-          displayName: "Lead Id",
+        filterLeadId: {
+          name: "filterLeadId",
+          displayName: "Filter Lead Id",
           type: "string",
           role: "value",
         },

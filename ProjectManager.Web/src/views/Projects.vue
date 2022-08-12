@@ -13,7 +13,7 @@
       <v-col cols="3">
         <c-select
           for="OrganizationUser"
-          :key-value.sync="dataSource.leadId"
+          :key-value.sync="dataSource.filterLeadId"
           :clearable="true"
           label="Lead"
         />
