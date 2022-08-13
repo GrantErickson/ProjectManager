@@ -77,6 +77,8 @@ builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
                     {
                         trc.Success();
                         var claims = new List<Claim>();
+                        // Add the AppAdmin Role claim.
+                        if (orgUser.AppUser!.IsAppAdmin) claims.Add(new Claim(ClaimTypes.Role, Roles.AppAdmin));
                         // Add the OrgAdmin Role claim.
                         if (orgUser.IsOrganizationAdmin) claims.Add(new Claim(ClaimTypes.Role, Roles.OrgAdmin));
                         // Add the OrganizationId.

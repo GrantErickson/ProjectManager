@@ -114,7 +114,7 @@ export const ApplicationUser = domain.types.ApplicationUser = {
   type: "model",
   controllerRoute: "ApplicationUser",
   get keyProp() { return this.props.id }, 
-  behaviorFlags: 7,
+  behaviorFlags: 3,
   props: {
     id: {
       name: "id",
@@ -148,6 +148,12 @@ export const ApplicationUser = domain.types.ApplicationUser = {
       },
       role: "value",
       dontSerialize: true,
+    },
+    isAppAdmin: {
+      name: "isAppAdmin",
+      displayName: "Is App Admin",
+      type: "boolean",
+      role: "value",
     },
   },
   methods: {
@@ -616,7 +622,7 @@ export const OrganizationUser = domain.types.OrganizationUser = {
   type: "model",
   controllerRoute: "OrganizationUser",
   get keyProp() { return this.props.organizationUserId }, 
-  behaviorFlags: 7,
+  behaviorFlags: 3,
   props: {
     organizationUserId: {
       name: "organizationUserId",

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProjectManager.Web.Models;
+using ProjectManager.Data;
 
 namespace ProjectManager.Web.Api;
 

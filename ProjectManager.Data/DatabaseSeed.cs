@@ -12,8 +12,12 @@ public static class DatabaseSeed
 {
     public static void Seed(AppDbContext db)
     {
-        if (db.ApplicationUsers.Any()) return;
+        if (!db.ApplicationUsers.Any()) InitialSeed(db);
+        if (!db.ApplicationUsers.Any(f => f.IsAppAdmin)) AddAdmins(db);
+    }
 
+    public static void InitialSeed(AppDbContext db)
+    {
         // Users
         var appGrant = new ApplicationUser
         {
@@ -282,7 +286,7 @@ public static class DatabaseSeed
             isLongTerm = true,
         };
         db.Assignments.Add(philWikiSupport);
-        
+
         // Assignment Skills
         db.AssignmentSkills.Add(new AssignmentSkill
         {
@@ -318,4 +322,18 @@ public static class DatabaseSeed
         db.SaveChanges();
     }
 
+    public static void AddAdmins(AppDbContext db)
+    {
+        db.ApplicationUsers.First(f => f.Email == "grant@intellitect.com").IsAppAdmin = true;
+        db.ApplicationUsers.First(f => f.Email == "phil@intellitect.com").IsAppAdmin = true;
+        foreach (var orgUser in db.ApplicationUsers.Include(f => f.Organizations).First(f => f.Email == "grant@intellitect.com").Organizations)
+        {
+            orgUser.IsOrganizationAdmin = true;
+        }
+        foreach (var orgUser in db.ApplicationUsers.Include(f => f.Organizations).First(f => f.Email == "phil@intellitect.com").Organizations)
+        {
+            orgUser.IsOrganizationAdmin = true;
+        }
+        db.SaveChanges();
+    }
 }

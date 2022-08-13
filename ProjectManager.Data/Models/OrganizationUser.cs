@@ -1,15 +1,15 @@
 ﻿using IntelliTect.Coalesce;
 using IntelliTect.Coalesce.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using ProjectManager.Data;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectManager.Data.Models;
+
+// TODO: This is insufficient security for a multi-tenant arrangement.
+[Edit(Roles.OrgAdmin)]
+[Create(Roles.OrgAdmin)]
+[Delete(PermissionLevel = SecurityPermissionLevels.DenyAll)]
 public class OrganizationUser : TrackingBase
 {
     public enum EmploymentStatusEnum
@@ -27,6 +27,7 @@ public class OrganizationUser : TrackingBase
     public string? AppUserId { get; set; } = null!;
     [ForeignKey(nameof(AppUserId))]
     public ApplicationUser? AppUser { get; set; } = null!;
+    [Edit(Roles = Roles.OrgAdmin)]
     public string Name { get; set; } = null!;
     public decimal DefaultRate { get; set; }
     public bool IsActive { get; set; } = true;

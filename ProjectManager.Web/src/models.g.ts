@@ -34,6 +34,7 @@ export interface ApplicationUser extends Model<typeof metadata.ApplicationUser> 
   name: string | null
   email: string | null
   organizations: OrganizationUser[] | null
+  isAppAdmin: boolean | null
 }
 export class ApplicationUser {
   
