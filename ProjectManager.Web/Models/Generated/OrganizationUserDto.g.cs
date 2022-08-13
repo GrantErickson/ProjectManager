@@ -184,7 +184,7 @@ namespace ProjectManager.Web.Models
             if (ShouldMapTo(nameof(OrganizationUserId))) entity.OrganizationUserId = OrganizationUserId;
             if (ShouldMapTo(nameof(OrganizationId))) entity.OrganizationId = OrganizationId;
             if (ShouldMapTo(nameof(AppUserId))) entity.AppUserId = AppUserId;
-            if (ShouldMapTo(nameof(DefaultRate))) entity.DefaultRate = (DefaultRate ?? entity.DefaultRate);
+            if (ShouldMapTo(nameof(DefaultRate))) entity.DefaultRate = DefaultRate;
             if (ShouldMapTo(nameof(IsActive))) entity.IsActive = (IsActive ?? entity.IsActive);
             if (ShouldMapTo(nameof(IsOrganizationAdmin))) entity.IsOrganizationAdmin = (IsOrganizationAdmin ?? entity.IsOrganizationAdmin);
             if (ShouldMapTo(nameof(EmploymentStatus))) entity.EmploymentStatus = (EmploymentStatus ?? entity.EmploymentStatus);

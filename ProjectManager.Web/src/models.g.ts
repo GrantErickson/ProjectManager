@@ -13,9 +13,10 @@ export enum AssignmentStateEnum {
 
 
 export enum EmploymentStatusEnum {
-  FullTime = 0,
-  PartTime = 1,
-  Contractor = 2,
+  Unknown = 0,
+  FullTime = 1,
+  PartTime = 2,
+  Contractor = 3,
 }
 
 

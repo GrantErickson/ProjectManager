@@ -129,7 +129,7 @@ public static class DatabaseSeed
             EmploymentStatus = OrganizationUser.EmploymentStatusEnum.FullTime,
             IsActive = true,
             IsOrganizationAdmin = true,
-            Name = "Phil",
+            Name = "Phil S.",
         };
 
         // UserSkills

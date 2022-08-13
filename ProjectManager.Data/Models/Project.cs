@@ -24,7 +24,9 @@ public class Project : TrackingBase
 
     public int ProjectId { set; get; }
     [Search(SearchMethod = SearchAttribute.SearchMethods.Contains)]
+    [Required]
     public string Name { set; get; } = null!;
+    [Required]
     public int ClientId { get; set; }
     [Search]
     public Client Client { get; set; } = null!;
