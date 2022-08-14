@@ -15,48 +15,57 @@
         </v-col>
 
         <!-- TODO: Figure out how to add a property to the project to track this -->
-        <!-- <v-btn x-small fab class="mx-4">
-            <v-icon v-if="!project.expanded">fas fa-chevron-up</v-icon>
-            <v-icon v-if="project.expanded">fas fa-chevron-down</v-icon>
-          </v-btn> -->
+        <v-btn
+          x-small
+          fab
+          class="mx-4 my-2"
+          elevation="0"
+          @click="expanded = !expanded"
+        >
+          <v-icon v-if="!expanded">fas fa-chevron-up</v-icon>
+          <v-icon v-if="expanded">fas fa-chevron-down</v-icon>
+        </v-btn>
       </v-row>
     </v-card-title>
     <v-card-subtitle v-if="project.note">
       {{ project.note }}
     </v-card-subtitle>
-    <v-simple-table
-      dense
-      fixed-header
-      class="d-flex flex-column"
-      style="overflow-y: hidden"
-    >
-      <template #default>
-        <thead>
-          <tr>
-            <th class="text-left">Role</th>
-            <th class="text-left">Name</th>
-            <th class="text-left">Allocation</th>
-            <th class="text-left">Rate</th>
-            <th class="text-left">Days Left</th>
-            <th class="text-left">Note</th>
-            <th class="text-left"></th>
-            <th class="text-right">
-              <v-icon @click="addAssignment(project)"
-                >fas fa-plus-circle</v-icon
-              >
-            </th>
-          </tr>
-        </thead>
-        <tbody style="overflow-y: scroll">
-          <AssignmentRow
-            v-for="assignment in project.assignments"
-            :key="assignment.assignmentId"
-            ref="assignmentEdits"
-            :assignment="assignment"
-          ></AssignmentRow>
-        </tbody>
-      </template>
-    </v-simple-table>
+    <v-expand-transition>
+      <v-simple-table
+        v-if="expanded"
+        dense
+        fixed-header
+        class="d-flex flex-column no-scrollbars"
+        style="overflow-y: hidden"
+      >
+        <template #default>
+          <thead>
+            <tr>
+              <th class="text-left">Role</th>
+              <th class="text-left">Name</th>
+              <th class="text-left">Allocation</th>
+              <th class="text-left">Rate</th>
+              <th class="text-left">Days Left</th>
+              <th class="text-left">Note</th>
+              <th class="text-left"></th>
+              <th class="text-right">
+                <v-icon @click="addAssignment(project)"
+                  >fas fa-plus-circle</v-icon
+                >
+              </th>
+            </tr>
+          </thead>
+          <tbody style="overflow-y: scroll">
+            <AssignmentRow
+              v-for="assignment in project.assignments"
+              :key="assignment.assignmentId"
+              ref="assignmentEdits"
+              :assignment="assignment"
+            ></AssignmentRow>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </v-expand-transition>
 
     <v-dialog v-if="showEdit" v-model="showEdit" max-width="800px">
       <v-card>
@@ -92,6 +101,7 @@ export default class ProjectCard extends Vue {
   @Prop() private project!: ViewModels.ProjectViewModel;
   private editAssignment: ViewModels.AssignmentViewModel | null = null;
   private showEdit = false;
+  private expanded = true;
 
   public get state(): string {
     return $models.ProjectStateEnum[this.project.projectState!];
@@ -117,4 +127,8 @@ export default class ProjectCard extends Vue {
 }
 </script>
 
-<style></style>
+<style>
+.no-scrollbars .v-data-table__wrapper {
+  overflow-y: hidden;
+}
+</style>
