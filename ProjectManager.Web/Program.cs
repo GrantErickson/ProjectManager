@@ -14,6 +14,7 @@ using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using ProjectManager.Web.Models;
+using ProjectManager.Data.Services;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
@@ -132,6 +133,7 @@ services
 
 //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 //        .AddCookie();
+services.AddScoped<UserService>();
 
 #endregion
 

@@ -123,6 +123,9 @@
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Sign Out</v-list-item-title>
+            <v-list-item-subtitle v-if="userInfo">{{
+              userInfo.name
+            }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -154,6 +157,8 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import * as ViewModels from "@/viewmodels.g";
+import * as $models from "@/models.g";
 
 @Component({
   components: {},
@@ -161,6 +166,7 @@ import { Component } from "vue-property-decorator";
 export default class App extends Vue {
   drawer: boolean | null = null;
   routeComponent: Vue | null = null;
+  userInfo: $models.UserInfo | null = null!;
 
   get routeMeta() {
     if (!this.$route || this.$route.name === null) return null;
@@ -173,6 +179,13 @@ export default class App extends Vue {
   }
 
   created() {
+    // Get the user name
+    let userService = new ViewModels.UserServiceViewModel();
+    userService.getUserInfo().then((result) => {
+      if (result.data.wasSuccessful) {
+        this.userInfo = result.data.object || null;
+      }
+    });
     const baseTitle = document.title;
     this.$watch(
       () => (this.routeComponent as any)?.pageTitle,
