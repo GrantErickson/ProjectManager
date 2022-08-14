@@ -415,6 +415,7 @@ export interface UserSkill extends Model<typeof metadata.UserSkill> {
   skillId: number | null
   skill: Skill | null
   level: number | null
+  isAreaOfInterest: boolean | null
   note: string | null
 }
 export class UserSkill {

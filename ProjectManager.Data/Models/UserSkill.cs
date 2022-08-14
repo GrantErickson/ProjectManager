@@ -18,5 +18,6 @@ public class UserSkill
     public int SkillId { get; set; }
     public Skill Skill { get; set; } = null!;
     public int? Level { get; set; }
+    public bool IsAreaOfInterest { get; set; }
     public string? Note { get; set; }
 }

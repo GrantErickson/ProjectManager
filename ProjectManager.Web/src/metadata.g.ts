@@ -1444,6 +1444,12 @@ export const UserSkill = domain.types.UserSkill = {
       type: "number",
       role: "value",
     },
+    isAreaOfInterest: {
+      name: "isAreaOfInterest",
+      displayName: "Is Area Of Interest",
+      type: "boolean",
+      role: "value",
+    },
     note: {
       name: "note",
       displayName: "Note",

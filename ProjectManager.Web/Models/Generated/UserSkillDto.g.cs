@@ -18,6 +18,7 @@ namespace ProjectManager.Web.Models
         private int? _SkillId;
         private ProjectManager.Web.Models.SkillDtoGen _Skill;
         private int? _Level;
+        private bool? _IsAreaOfInterest;
         private string _Note;
 
         public int? UserSkillId
@@ -50,6 +51,11 @@ namespace ProjectManager.Web.Models
             get => _Level;
             set { _Level = value; Changed(nameof(Level)); }
         }
+        public bool? IsAreaOfInterest
+        {
+            get => _IsAreaOfInterest;
+            set { _IsAreaOfInterest = value; Changed(nameof(IsAreaOfInterest)); }
+        }
         public string Note
         {
             get => _Note;
@@ -70,6 +76,7 @@ namespace ProjectManager.Web.Models
             this.OrganizationUserId = obj.OrganizationUserId;
             this.SkillId = obj.SkillId;
             this.Level = obj.Level;
+            this.IsAreaOfInterest = obj.IsAreaOfInterest;
             this.Note = obj.Note;
             if (tree == null || tree[nameof(this.User)] != null)
                 this.User = obj.User.MapToDto<ProjectManager.Data.Models.OrganizationUser, OrganizationUserDtoGen>(context, tree?[nameof(this.User)]);
@@ -92,6 +99,7 @@ namespace ProjectManager.Web.Models
             if (ShouldMapTo(nameof(OrganizationUserId))) entity.OrganizationUserId = OrganizationUserId;
             if (ShouldMapTo(nameof(SkillId))) entity.SkillId = (SkillId ?? entity.SkillId);
             if (ShouldMapTo(nameof(Level))) entity.Level = Level;
+            if (ShouldMapTo(nameof(IsAreaOfInterest))) entity.IsAreaOfInterest = (IsAreaOfInterest ?? entity.IsAreaOfInterest);
             if (ShouldMapTo(nameof(Note))) entity.Note = Note;
         }
     }

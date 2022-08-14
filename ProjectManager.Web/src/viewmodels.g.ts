@@ -409,6 +409,7 @@ export interface UserSkillViewModel extends $models.UserSkill {
   skillId: number | null;
   skill: SkillViewModel | null;
   level: number | null;
+  isAreaOfInterest: boolean | null;
   note: string | null;
 }
 export class UserSkillViewModel extends ViewModel<$models.UserSkill, $apiClients.UserSkillApiClient, number> implements $models.UserSkill  {
