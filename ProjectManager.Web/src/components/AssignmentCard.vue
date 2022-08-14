@@ -22,7 +22,7 @@
         <v-icon v-if="assignment.isFlagged" small color="red" class="mx-2"
           >fas fa-flag</v-icon
         >
-        <v-chip small>{{ assignment.state() }}</v-chip>
+        <v-chip small>{{ state }}</v-chip>
       </div>
       <div>{{ assignment.project.client.name }} @ ${{ assignment.rate }}</div>
       <div v-if="assignment.endDate">
@@ -62,6 +62,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import * as ViewModels from "../viewmodels.g";
+import * as $models from "../models.g";
 
 @Component
 export default class AssignmentCard extends Vue {
@@ -79,20 +80,24 @@ export default class AssignmentCard extends Vue {
     this.showEdit = true;
   }
 
-  get daysLeft() {
-    if (this.assignment.isLongTerm) {
+  daysLeft(endDate: Date): number {
+    var daysLeft =
+      (endDate.getTime() - new Date().getTime()) / 1000 / 60 / 60 / 24;
+    return daysLeft;
+  }
+  daysLeftText(assignment: ViewModels.AssignmentViewModel) {
+    if (assignment.isLongTerm) {
       return "N/A";
     }
-    if (this.assignment.endDate == null) {
+    if (assignment.endDate == null) {
       return "Unknown";
     }
-    var daysLeft =
-      (this.assignment.endDate.getTime() - new Date().getTime()) /
-      1000 /
-      60 /
-      60 /
-      24;
-    return daysLeft.toFixed(0);
+
+    return this.daysLeft(assignment.endDate).toFixed(0);
+  }
+
+  public get state(): string {
+    return $models.AssignmentStateEnum[this.assignment.assignmentState!];
   }
 }
 </script>
