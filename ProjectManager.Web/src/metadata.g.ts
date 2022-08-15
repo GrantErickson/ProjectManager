@@ -325,6 +325,34 @@ export const Assignment = domain.types.Assignment = {
     },
   },
   methods: {
+    getUsersWithSkills: {
+      name: "getUsersWithSkills",
+      displayName: "Get Users With Skills",
+      transportType: "item",
+      httpMethod: "POST",
+      params: {
+        id: {
+          name: "id",
+          displayName: "Primary Key",
+          type: "number",
+          role: "value",
+          get source() { return (domain.types.Assignment as ModelType).props.assignmentId },
+        },
+      },
+      return: {
+        name: "$return",
+        displayName: "Result",
+        type: "collection",
+        itemType: {
+          name: "$collectionItem",
+          displayName: "",
+          role: "value",
+          type: "model",
+          get typeDef() { return (domain.types.OrganizationUser as ModelType) },
+        },
+        role: "value",
+      },
+    },
   },
   dataSources: {
   },

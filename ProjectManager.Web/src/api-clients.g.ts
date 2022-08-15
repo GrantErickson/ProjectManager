@@ -10,6 +10,14 @@ export class ApplicationUserApiClient extends ModelApiClient<$models.Application
 
 export class AssignmentApiClient extends ModelApiClient<$models.Assignment> {
   constructor() { super($metadata.Assignment) }
+  public getUsersWithSkills(id: number, $config?: AxiosRequestConfig): AxiosPromise<ItemResult<$models.OrganizationUser[]>> {
+    const $method = this.$metadata.methods.getUsersWithSkills
+    const $params =  {
+      id,
+    }
+    return this.$invoke($method, $params, $config)
+  }
+  
 }
 
 

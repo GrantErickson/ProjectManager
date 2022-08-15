@@ -171,12 +171,6 @@ public static class DatabaseSeed
         });
         db.UserSkills.Add(new UserSkill
         {
-            Level = 1,
-            Skill = python,
-            User = grant
-        });
-        db.UserSkills.Add(new UserSkill
-        {
             Level = 7,
             Skill = ts,
             User = grant
@@ -271,7 +265,7 @@ public static class DatabaseSeed
             PercentAllocated = 90,
             Project = p66Midstream,
             User = phil,
-            Role = "PM",
+            Role = "Python PM",
             Rate = 120,
             isLongTerm = true,
         };
@@ -303,7 +297,7 @@ public static class DatabaseSeed
         db.AssignmentSkills.Add(new AssignmentSkill
         {
             Assignment = philP66,
-            Skill = cs,
+            Skill = python,
             Level = 6
         });
         db.AssignmentSkills.Add(new AssignmentSkill

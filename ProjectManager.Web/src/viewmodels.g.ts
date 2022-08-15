@@ -52,6 +52,17 @@ export class AssignmentViewModel extends ViewModel<$models.Assignment, $apiClien
     return this.$addChild('skills') as AssignmentSkillViewModel
   }
   
+  public get getUsersWithSkills() {
+    const getUsersWithSkills = this.$apiClient.$makeCaller(
+      this.$metadata.methods.getUsersWithSkills,
+      (c) => c.getUsersWithSkills(this.$primaryKey),
+      () => ({}),
+      (c, args) => c.getUsersWithSkills(this.$primaryKey))
+    
+    Object.defineProperty(this, 'getUsersWithSkills', {value: getUsersWithSkills});
+    return getUsersWithSkills
+  }
+  
   constructor(initialData?: DeepPartial<$models.Assignment> | null) {
     super($metadata.Assignment, new $apiClients.AssignmentApiClient(), initialData)
   }

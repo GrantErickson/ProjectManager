@@ -69,5 +69,30 @@ namespace ProjectManager.Web.Api
             IBehaviors<ProjectManager.Data.Models.Assignment> behaviors,
             IDataSource<ProjectManager.Data.Models.Assignment> dataSource)
             => DeleteImplementation(id, new DataSourceParameters(), dataSource, behaviors);
+
+        // Methods from data class exposed through API Controller.
+
+        /// <summary>
+        /// Method: GetUsersWithSkills
+        /// </summary>
+        [HttpPost("GetUsersWithSkills")]
+        [Authorize]
+        public virtual async Task<ItemResult<System.Collections.Generic.ICollection<OrganizationUserDtoGen>>> GetUsersWithSkills([FromServices] IDataSourceFactory dataSourceFactory, int id)
+        {
+            var dataSource = dataSourceFactory.GetDataSource<ProjectManager.Data.Models.Assignment, ProjectManager.Data.Models.Assignment>("Default");
+            var (itemResult, _) = await dataSource.GetItemAsync(id, new ListParameters());
+            if (!itemResult.WasSuccessful)
+            {
+                return new ItemResult<System.Collections.Generic.ICollection<OrganizationUserDtoGen>>(itemResult);
+            }
+            var item = itemResult.Object;
+            IncludeTree includeTree = null;
+            var _mappingContext = new MappingContext(User);
+            var _methodResult = item.GetUsersWithSkills(Db);
+            await Db.SaveChangesAsync();
+            var _result = new ItemResult<System.Collections.Generic.ICollection<OrganizationUserDtoGen>>();
+            _result.Object = _methodResult?.ToList().Select(o => Mapper.MapToDto<ProjectManager.Data.Models.OrganizationUser, OrganizationUserDtoGen>(o, _mappingContext, includeTree)).ToList();
+            return _result;
+        }
     }
 }

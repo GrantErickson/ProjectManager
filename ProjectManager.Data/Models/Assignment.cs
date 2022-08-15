@@ -1,6 +1,7 @@
 ﻿using IntelliTect.Coalesce;
 using IntelliTect.Coalesce.DataAnnotations;
 using IntelliTect.Coalesce.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,7 +26,7 @@ namespace ProjectManager.Data.Models
         }
 
         public int AssignmentId { get; set; }
-        [Required] 
+        [Required]
         public int ProjectId { get; set; }
         public Project Project { get; set; } = null!;
         public string? OrganizationUserId { get; set; }
@@ -51,6 +52,26 @@ namespace ProjectManager.Data.Models
         public ICollection<AssignmentSkill> Skills { get; set; } = null!;
 
         [Coalesce]
+        public IEnumerable<OrganizationUser> GetUsersWithSkills(AppDbContext db)
+        {
+            // TODO: Add security
+
+            // Get all skills
+            var skillIds = db.AssignmentSkills
+                .Where(f => f.AssignmentId == this.AssignmentId)
+                .Select(f => f.SkillId)
+                .ToList();
+
+            // Get all users with skills
+            // TODO: Add where for assignments only with current dates
+            var users = db.OrganizationUsers
+                .Include(f => f.Skills).ThenInclude(f => f.Skill)
+                .Include(f=>f.Assignments).ThenInclude(f=>f.Project.Client)
+                .Where(ou => ou.Skills.Where(s => skillIds.Contains(s.SkillId)).Count() == skillIds.Count()).ToList();
+            return users;
+        }
+
+        [Coalesce]
         public class AssignmentBehaviors : StandardBehaviors<Assignment, AppDbContext>
         {
             public AssignmentBehaviors(CrudContext<AppDbContext> context) : base(context) { }
@@ -65,5 +86,7 @@ namespace ProjectManager.Data.Models
                 return true;
             }
         }
+
+
     }
 }
