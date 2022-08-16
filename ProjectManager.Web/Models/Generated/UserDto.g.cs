@@ -8,11 +8,11 @@ using System.Security.Claims;
 
 namespace ProjectManager.Web.Models
 {
-    public partial class OrganizationUserDtoGen : GeneratedDto<ProjectManager.Data.Models.OrganizationUser>
+    public partial class UserDtoGen : GeneratedDto<ProjectManager.Data.Models.User>
     {
-        public OrganizationUserDtoGen() { }
+        public UserDtoGen() { }
 
-        private string _OrganizationUserId;
+        private string _UserId;
         private string _OrganizationId;
         private ProjectManager.Web.Models.OrganizationDtoGen _Organization;
         private string _AppUserId;
@@ -21,16 +21,16 @@ namespace ProjectManager.Web.Models
         private decimal? _DefaultRate;
         private bool? _IsActive;
         private bool? _IsOrganizationAdmin;
-        private ProjectManager.Data.Models.OrganizationUser.EmploymentStatusEnum? _EmploymentStatus;
+        private ProjectManager.Data.Models.User.EmploymentStatusEnum? _EmploymentStatus;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.AssignmentDtoGen> _Assignments;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.ProjectRoleDtoGen> _ProjectRoles;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.UserSkillDtoGen> _Skills;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.ProjectDtoGen> _Projects;
 
-        public string OrganizationUserId
+        public string UserId
         {
-            get => _OrganizationUserId;
-            set { _OrganizationUserId = value; Changed(nameof(OrganizationUserId)); }
+            get => _UserId;
+            set { _UserId = value; Changed(nameof(UserId)); }
         }
         public string OrganizationId
         {
@@ -72,7 +72,7 @@ namespace ProjectManager.Web.Models
             get => _IsOrganizationAdmin;
             set { _IsOrganizationAdmin = value; Changed(nameof(IsOrganizationAdmin)); }
         }
-        public ProjectManager.Data.Models.OrganizationUser.EmploymentStatusEnum? EmploymentStatus
+        public ProjectManager.Data.Models.User.EmploymentStatusEnum? EmploymentStatus
         {
             get => _EmploymentStatus;
             set { _EmploymentStatus = value; Changed(nameof(EmploymentStatus)); }
@@ -101,14 +101,14 @@ namespace ProjectManager.Web.Models
         /// <summary>
         /// Map from the domain object to the properties of the current DTO instance.
         /// </summary>
-        public override void MapFrom(ProjectManager.Data.Models.OrganizationUser obj, IMappingContext context, IncludeTree tree = null)
+        public override void MapFrom(ProjectManager.Data.Models.User obj, IMappingContext context, IncludeTree tree = null)
         {
             if (obj == null) return;
             var includes = context.Includes;
 
             // Fill the properties of the object.
 
-            this.OrganizationUserId = obj.OrganizationUserId;
+            this.UserId = obj.UserId;
             this.OrganizationId = obj.OrganizationId;
             this.AppUserId = obj.AppUserId;
             this.Name = obj.Name;
@@ -175,13 +175,13 @@ namespace ProjectManager.Web.Models
         /// <summary>
         /// Map from the current DTO instance to the domain object.
         /// </summary>
-        public override void MapTo(ProjectManager.Data.Models.OrganizationUser entity, IMappingContext context)
+        public override void MapTo(ProjectManager.Data.Models.User entity, IMappingContext context)
         {
             var includes = context.Includes;
 
             if (OnUpdate(entity, context)) return;
 
-            if (ShouldMapTo(nameof(OrganizationUserId))) entity.OrganizationUserId = OrganizationUserId;
+            if (ShouldMapTo(nameof(UserId))) entity.UserId = UserId;
             if (ShouldMapTo(nameof(OrganizationId))) entity.OrganizationId = OrganizationId;
             if (ShouldMapTo(nameof(AppUserId))) entity.AppUserId = AppUserId;
             if (ShouldMapTo(nameof(Name))) entity.Name = Name;

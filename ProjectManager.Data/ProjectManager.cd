@@ -46,18 +46,18 @@
       <FileName>Models\Organization.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ProjectManager.Data.Models.OrganizationUser">
+  <Class Name="ProjectManager.Data.Models.User">
     <Position X="6.5" Y="4" Width="2" />
     <NestedTypes>
-      <Enum Name="ProjectManager.Data.Models.OrganizationUser.EmploymentStatusEnum" Collapsed="true">
+      <Enum Name="ProjectManager.Data.Models.User.EmploymentStatusEnum" Collapsed="true">
         <TypeIdentifier>
-          <NewMemberFileName>Models\OrganizationUser.cs</NewMemberFileName>
+          <NewMemberFileName>Models\User.cs</NewMemberFileName>
         </TypeIdentifier>
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
       <HashCode>EQIAAAAAAAAAAAAAEQAEAAYAAQAAAAAAAgBAAAEAIAA=</HashCode>
-      <FileName>Models\OrganizationUser.cs</FileName>
+      <FileName>Models\User.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Organization" />

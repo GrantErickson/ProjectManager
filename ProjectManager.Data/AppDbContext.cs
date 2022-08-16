@@ -9,7 +9,7 @@ public class AppDbContext : DbContext
 {
     public DbSet<ApplicationUser> ApplicationUsers => Set<ApplicationUser>();
     public DbSet<Organization> Organizations => Set<Organization>();
-    public DbSet<OrganizationUser> OrganizationUsers => Set<OrganizationUser>();
+    public DbSet<User> Users => Set<User>();
     public DbSet<Client> Clients => Set<Client>();
     public DbSet<Project> Projects => Set<Project>();
     public DbSet<ProjectRole> ProjectRoles => Set<ProjectRole>();

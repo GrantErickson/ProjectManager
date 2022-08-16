@@ -33,11 +33,6 @@ export class OrganizationApiClient extends ModelApiClient<$models.Organization> 
 }
 
 
-export class OrganizationUserApiClient extends ModelApiClient<$models.OrganizationUser> {
-  constructor() { super($metadata.OrganizationUser) }
-}
-
-
 export class ProjectApiClient extends ModelApiClient<$models.Project> {
   constructor() { super($metadata.Project) }
 }
@@ -60,6 +55,11 @@ export class SkillApiClient extends ModelApiClient<$models.Skill> {
 
 export class TimeEntryApiClient extends ModelApiClient<$models.TimeEntry> {
   constructor() { super($metadata.TimeEntry) }
+}
+
+
+export class UserApiClient extends ModelApiClient<$models.User> {
+  constructor() { super($metadata.User) }
 }
 
 

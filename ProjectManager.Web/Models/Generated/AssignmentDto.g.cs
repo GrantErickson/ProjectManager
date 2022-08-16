@@ -15,8 +15,8 @@ namespace ProjectManager.Web.Models
         private int? _AssignmentId;
         private int? _ProjectId;
         private ProjectManager.Web.Models.ProjectDtoGen _Project;
-        private string _OrganizationUserId;
-        private ProjectManager.Web.Models.OrganizationUserDtoGen _User;
+        private string _UserId;
+        private ProjectManager.Web.Models.UserDtoGen _User;
         private string _Role;
         private decimal? _Rate;
         private ProjectManager.Data.Models.Assignment.AssignmentStateEnum? _AssignmentState;
@@ -45,12 +45,12 @@ namespace ProjectManager.Web.Models
             get => _Project;
             set { _Project = value; Changed(nameof(Project)); }
         }
-        public string OrganizationUserId
+        public string UserId
         {
-            get => _OrganizationUserId;
-            set { _OrganizationUserId = value; Changed(nameof(OrganizationUserId)); }
+            get => _UserId;
+            set { _UserId = value; Changed(nameof(UserId)); }
         }
-        public ProjectManager.Web.Models.OrganizationUserDtoGen User
+        public ProjectManager.Web.Models.UserDtoGen User
         {
             get => _User;
             set { _User = value; Changed(nameof(User)); }
@@ -128,7 +128,7 @@ namespace ProjectManager.Web.Models
 
             this.AssignmentId = obj.AssignmentId;
             this.ProjectId = obj.ProjectId;
-            this.OrganizationUserId = obj.OrganizationUserId;
+            this.UserId = obj.UserId;
             this.Role = obj.Role;
             this.Rate = obj.Rate;
             this.AssignmentState = obj.AssignmentState;
@@ -144,7 +144,7 @@ namespace ProjectManager.Web.Models
                 this.Project = obj.Project.MapToDto<ProjectManager.Data.Models.Project, ProjectDtoGen>(context, tree?[nameof(this.Project)]);
 
             if (tree == null || tree[nameof(this.User)] != null)
-                this.User = obj.User.MapToDto<ProjectManager.Data.Models.OrganizationUser, OrganizationUserDtoGen>(context, tree?[nameof(this.User)]);
+                this.User = obj.User.MapToDto<ProjectManager.Data.Models.User, UserDtoGen>(context, tree?[nameof(this.User)]);
 
             var propValSkills = obj.Skills;
             if (propValSkills != null && (tree == null || tree[nameof(this.Skills)] != null))
@@ -171,7 +171,7 @@ namespace ProjectManager.Web.Models
 
             if (ShouldMapTo(nameof(AssignmentId))) entity.AssignmentId = (AssignmentId ?? entity.AssignmentId);
             if (ShouldMapTo(nameof(ProjectId))) entity.ProjectId = (ProjectId ?? entity.ProjectId);
-            if (ShouldMapTo(nameof(OrganizationUserId))) entity.OrganizationUserId = OrganizationUserId;
+            if (ShouldMapTo(nameof(UserId))) entity.UserId = UserId;
             if (ShouldMapTo(nameof(Role))) entity.Role = Role;
             if (ShouldMapTo(nameof(Rate))) entity.Rate = Rate;
             if (ShouldMapTo(nameof(AssignmentState))) entity.AssignmentState = (AssignmentState ?? entity.AssignmentState);

@@ -33,7 +33,7 @@ export interface ApplicationUser extends Model<typeof metadata.ApplicationUser> 
   id: string | null
   name: string | null
   email: string | null
-  organizations: OrganizationUser[] | null
+  organizations: User[] | null
 }
 export class ApplicationUser {
   
@@ -58,8 +58,8 @@ export interface Assignment extends Model<typeof metadata.Assignment> {
   assignmentId: number | null
   projectId: number | null
   project: Project | null
-  organizationUserId: string | null
-  user: OrganizationUser | null
+  userId: string | null
+  user: User | null
   role: string | null
   rate: number | null
   assignmentState: AssignmentStateEnum | null
@@ -178,7 +178,7 @@ export class Client {
 export interface Organization extends Model<typeof metadata.Organization> {
   organizationId: string | null
   name: string | null
-  users: OrganizationUser[] | null
+  users: User[] | null
   billingPeriods: BillingPeriod[] | null
   clients: Client[] | null
 }
@@ -201,49 +201,6 @@ export class Organization {
 }
 
 
-export interface OrganizationUser extends Model<typeof metadata.OrganizationUser> {
-  organizationUserId: string | null
-  organizationId: string | null
-  organization: Organization | null
-  appUserId: string | null
-  appUser: ApplicationUser | null
-  name: string | null
-  defaultRate: number | null
-  isActive: boolean | null
-  isOrganizationAdmin: boolean | null
-  employmentStatus: EmploymentStatusEnum | null
-  assignments: Assignment[] | null
-  projectRoles: ProjectRole[] | null
-  skills: UserSkill[] | null
-  projects: Project[] | null
-}
-export class OrganizationUser {
-  
-  /** Mutates the input object and its descendents into a valid OrganizationUser implementation. */
-  static convert(data?: Partial<OrganizationUser>): OrganizationUser {
-    return convertToModel(data || {}, metadata.OrganizationUser) 
-  }
-  
-  /** Maps the input object and its descendents to a new, valid OrganizationUser implementation. */
-  static map(data?: Partial<OrganizationUser>): OrganizationUser {
-    return mapToModel(data || {}, metadata.OrganizationUser) 
-  }
-  
-  /** Instantiate a new OrganizationUser, optionally basing it on the given data. */
-  constructor(data?: Partial<OrganizationUser> | {[k: string]: any}) {
-      Object.assign(this, OrganizationUser.map(data || {}));
-  }
-}
-export namespace OrganizationUser {
-  export namespace DataSources {
-    
-    export class OrganizationUserWithAssignments implements DataSource<typeof metadata.OrganizationUser.dataSources.organizationUserWithAssignments> {
-      readonly $metadata = metadata.OrganizationUser.dataSources.organizationUserWithAssignments
-    }
-  }
-}
-
-
 export interface Project extends Model<typeof metadata.Project> {
   projectId: number | null
   name: string | null
@@ -252,7 +209,7 @@ export interface Project extends Model<typeof metadata.Project> {
   startDate: Date | null
   endDate: Date | null
   leadId: string | null
-  lead: OrganizationUser | null
+  lead: User | null
   amount: number | null
   note: string | null
   contractUrl: string | null
@@ -327,8 +284,8 @@ export interface ProjectRole extends Model<typeof metadata.ProjectRole> {
   projectRoleId: number | null
   projectId: number | null
   project: Project | null
-  organizationUserId: string | null
-  user: OrganizationUser | null
+  userId: string | null
+  user: User | null
   isManager: boolean | null
 }
 export class ProjectRole {
@@ -377,8 +334,8 @@ export class Skill {
 
 export interface TimeEntry extends Model<typeof metadata.TimeEntry> {
   timeEntryId: number | null
-  organizationUserId: string | null
-  user: OrganizationUser | null
+  userId: string | null
+  user: User | null
   projectId: number | null
   project: Project | null
   startDate: Date | null
@@ -406,10 +363,53 @@ export class TimeEntry {
 }
 
 
+export interface User extends Model<typeof metadata.User> {
+  userId: string | null
+  organizationId: string | null
+  organization: Organization | null
+  appUserId: string | null
+  appUser: ApplicationUser | null
+  name: string | null
+  defaultRate: number | null
+  isActive: boolean | null
+  isOrganizationAdmin: boolean | null
+  employmentStatus: EmploymentStatusEnum | null
+  assignments: Assignment[] | null
+  projectRoles: ProjectRole[] | null
+  skills: UserSkill[] | null
+  projects: Project[] | null
+}
+export class User {
+  
+  /** Mutates the input object and its descendents into a valid User implementation. */
+  static convert(data?: Partial<User>): User {
+    return convertToModel(data || {}, metadata.User) 
+  }
+  
+  /** Maps the input object and its descendents to a new, valid User implementation. */
+  static map(data?: Partial<User>): User {
+    return mapToModel(data || {}, metadata.User) 
+  }
+  
+  /** Instantiate a new User, optionally basing it on the given data. */
+  constructor(data?: Partial<User> | {[k: string]: any}) {
+      Object.assign(this, User.map(data || {}));
+  }
+}
+export namespace User {
+  export namespace DataSources {
+    
+    export class UserWithAssignments implements DataSource<typeof metadata.User.dataSources.userWithAssignments> {
+      readonly $metadata = metadata.User.dataSources.userWithAssignments
+    }
+  }
+}
+
+
 export interface UserSkill extends Model<typeof metadata.UserSkill> {
   userSkillId: number | null
-  organizationUserId: string | null
-  user: OrganizationUser | null
+  userId: string | null
+  user: User | null
   skillId: number | null
   skill: Skill | null
   level: number | null

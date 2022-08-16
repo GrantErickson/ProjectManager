@@ -13,8 +13,8 @@ namespace ProjectManager.Web.Models
         public UserSkillDtoGen() { }
 
         private int? _UserSkillId;
-        private string _OrganizationUserId;
-        private ProjectManager.Web.Models.OrganizationUserDtoGen _User;
+        private string _UserId;
+        private ProjectManager.Web.Models.UserDtoGen _User;
         private int? _SkillId;
         private ProjectManager.Web.Models.SkillDtoGen _Skill;
         private int? _Level;
@@ -25,12 +25,12 @@ namespace ProjectManager.Web.Models
             get => _UserSkillId;
             set { _UserSkillId = value; Changed(nameof(UserSkillId)); }
         }
-        public string OrganizationUserId
+        public string UserId
         {
-            get => _OrganizationUserId;
-            set { _OrganizationUserId = value; Changed(nameof(OrganizationUserId)); }
+            get => _UserId;
+            set { _UserId = value; Changed(nameof(UserId)); }
         }
-        public ProjectManager.Web.Models.OrganizationUserDtoGen User
+        public ProjectManager.Web.Models.UserDtoGen User
         {
             get => _User;
             set { _User = value; Changed(nameof(User)); }
@@ -67,12 +67,12 @@ namespace ProjectManager.Web.Models
             // Fill the properties of the object.
 
             this.UserSkillId = obj.UserSkillId;
-            this.OrganizationUserId = obj.OrganizationUserId;
+            this.UserId = obj.UserId;
             this.SkillId = obj.SkillId;
             this.Level = obj.Level;
             this.Note = obj.Note;
             if (tree == null || tree[nameof(this.User)] != null)
-                this.User = obj.User.MapToDto<ProjectManager.Data.Models.OrganizationUser, OrganizationUserDtoGen>(context, tree?[nameof(this.User)]);
+                this.User = obj.User.MapToDto<ProjectManager.Data.Models.User, UserDtoGen>(context, tree?[nameof(this.User)]);
 
             if (tree == null || tree[nameof(this.Skill)] != null)
                 this.Skill = obj.Skill.MapToDto<ProjectManager.Data.Models.Skill, SkillDtoGen>(context, tree?[nameof(this.Skill)]);
@@ -89,7 +89,7 @@ namespace ProjectManager.Web.Models
             if (OnUpdate(entity, context)) return;
 
             if (ShouldMapTo(nameof(UserSkillId))) entity.UserSkillId = (UserSkillId ?? entity.UserSkillId);
-            if (ShouldMapTo(nameof(OrganizationUserId))) entity.OrganizationUserId = OrganizationUserId;
+            if (ShouldMapTo(nameof(UserId))) entity.UserId = UserId;
             if (ShouldMapTo(nameof(SkillId))) entity.SkillId = (SkillId ?? entity.SkillId);
             if (ShouldMapTo(nameof(Level))) entity.Level = Level;
             if (ShouldMapTo(nameof(Note))) entity.Note = Note;

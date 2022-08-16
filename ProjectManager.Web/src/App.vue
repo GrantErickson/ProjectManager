@@ -55,7 +55,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item link to="/admin/OrganizationUser">
+        <v-list-item link to="/admin/User">
           <v-list-item-action>
             <v-icon>fas fa-users</v-icon>
           </v-list-item-action>

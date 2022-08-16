@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectManager.Data.Models;
-public class OrganizationUser : TrackingBase
+public class User : TrackingBase
 {
     public enum EmploymentStatusEnum
     {
@@ -21,7 +21,7 @@ public class OrganizationUser : TrackingBase
 
 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public string OrganizationUserId { get; set; } = null!;
+    public string UserId { get; set; } = null!;
     public string OrganizationId { get; set; } = null!;
     public Organization Organization { get; set; } = null!;
     public string? AppUserId { get; set; } = null!;
@@ -45,13 +45,13 @@ public class OrganizationUser : TrackingBase
 
 
     [DefaultDataSource]
-    public class OrganizationUserWithAssignments : StandardDataSource<OrganizationUser, AppDbContext>
+    public class UserWithAssignments : StandardDataSource<User, AppDbContext>
     {
-        public OrganizationUserWithAssignments(CrudContext<AppDbContext> context) : base(context) { }
+        public UserWithAssignments(CrudContext<AppDbContext> context) : base(context) { }
 
-        public override IQueryable<OrganizationUser> GetQuery(IDataSourceParameters parameters)
+        public override IQueryable<User> GetQuery(IDataSourceParameters parameters)
         {
-            IQueryable<OrganizationUser> result = Db.OrganizationUsers
+            IQueryable<User> result = Db.Users
             .Include(f => f.Assignments).ThenInclude(f => f.Project.Lead)
             .Include(f => f.Assignments).ThenInclude(f => f.Project.Client)
             .Include(f => f.Assignments).ThenInclude(f => f.Project).ThenInclude(f => f.Client)

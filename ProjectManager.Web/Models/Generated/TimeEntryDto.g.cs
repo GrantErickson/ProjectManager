@@ -13,8 +13,8 @@ namespace ProjectManager.Web.Models
         public TimeEntryDtoGen() { }
 
         private int? _TimeEntryId;
-        private string _OrganizationUserId;
-        private ProjectManager.Web.Models.OrganizationUserDtoGen _User;
+        private string _UserId;
+        private ProjectManager.Web.Models.UserDtoGen _User;
         private int? _ProjectId;
         private ProjectManager.Web.Models.ProjectDtoGen _Project;
         private System.DateTimeOffset? _StartDate;
@@ -28,12 +28,12 @@ namespace ProjectManager.Web.Models
             get => _TimeEntryId;
             set { _TimeEntryId = value; Changed(nameof(TimeEntryId)); }
         }
-        public string OrganizationUserId
+        public string UserId
         {
-            get => _OrganizationUserId;
-            set { _OrganizationUserId = value; Changed(nameof(OrganizationUserId)); }
+            get => _UserId;
+            set { _UserId = value; Changed(nameof(UserId)); }
         }
-        public ProjectManager.Web.Models.OrganizationUserDtoGen User
+        public ProjectManager.Web.Models.UserDtoGen User
         {
             get => _User;
             set { _User = value; Changed(nameof(User)); }
@@ -85,7 +85,7 @@ namespace ProjectManager.Web.Models
             // Fill the properties of the object.
 
             this.TimeEntryId = obj.TimeEntryId;
-            this.OrganizationUserId = obj.OrganizationUserId;
+            this.UserId = obj.UserId;
             this.ProjectId = obj.ProjectId;
             this.StartDate = obj.StartDate;
             this.Hours = obj.Hours;
@@ -93,7 +93,7 @@ namespace ProjectManager.Web.Models
             this.Description = obj.Description;
             this.ApprovedDate = obj.ApprovedDate;
             if (tree == null || tree[nameof(this.User)] != null)
-                this.User = obj.User.MapToDto<ProjectManager.Data.Models.OrganizationUser, OrganizationUserDtoGen>(context, tree?[nameof(this.User)]);
+                this.User = obj.User.MapToDto<ProjectManager.Data.Models.User, UserDtoGen>(context, tree?[nameof(this.User)]);
 
             if (tree == null || tree[nameof(this.Project)] != null)
                 this.Project = obj.Project.MapToDto<ProjectManager.Data.Models.Project, ProjectDtoGen>(context, tree?[nameof(this.Project)]);
@@ -110,7 +110,7 @@ namespace ProjectManager.Web.Models
             if (OnUpdate(entity, context)) return;
 
             if (ShouldMapTo(nameof(TimeEntryId))) entity.TimeEntryId = (TimeEntryId ?? entity.TimeEntryId);
-            if (ShouldMapTo(nameof(OrganizationUserId))) entity.OrganizationUserId = OrganizationUserId;
+            if (ShouldMapTo(nameof(UserId))) entity.UserId = UserId;
             if (ShouldMapTo(nameof(ProjectId))) entity.ProjectId = (ProjectId ?? entity.ProjectId);
             if (ShouldMapTo(nameof(StartDate))) entity.StartDate = (StartDate ?? entity.StartDate);
             if (ShouldMapTo(nameof(Hours))) entity.Hours = (Hours ?? entity.Hours);

@@ -15,7 +15,7 @@ namespace ProjectManager.Web.Models
         private string _Id;
         private string _Name;
         private string _Email;
-        private System.Collections.Generic.ICollection<ProjectManager.Web.Models.OrganizationUserDtoGen> _Organizations;
+        private System.Collections.Generic.ICollection<ProjectManager.Web.Models.UserDtoGen> _Organizations;
 
         public string Id
         {
@@ -32,7 +32,7 @@ namespace ProjectManager.Web.Models
             get => _Email;
             set { _Email = value; Changed(nameof(Email)); }
         }
-        public System.Collections.Generic.ICollection<ProjectManager.Web.Models.OrganizationUserDtoGen> Organizations
+        public System.Collections.Generic.ICollection<ProjectManager.Web.Models.UserDtoGen> Organizations
         {
             get => _Organizations;
             set { _Organizations = value; Changed(nameof(Organizations)); }
@@ -56,11 +56,11 @@ namespace ProjectManager.Web.Models
             {
                 this.Organizations = propValOrganizations
                     .OrderBy(f => f.Name)
-                    .Select(f => f.MapToDto<ProjectManager.Data.Models.OrganizationUser, OrganizationUserDtoGen>(context, tree?[nameof(this.Organizations)])).ToList();
+                    .Select(f => f.MapToDto<ProjectManager.Data.Models.User, UserDtoGen>(context, tree?[nameof(this.Organizations)])).ToList();
             }
             else if (propValOrganizations == null && tree?[nameof(this.Organizations)] != null)
             {
-                this.Organizations = new OrganizationUserDtoGen[0];
+                this.Organizations = new UserDtoGen[0];
             }
 
         }

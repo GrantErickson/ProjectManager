@@ -9,9 +9,9 @@ namespace ProjectManager.Data.Models;
 public class TimeEntry: TrackingBase
 {
     public int TimeEntryId { get; set; }
-    public string OrganizationUserId { get; set; } = null!;
-    [ForeignKey(nameof(OrganizationUserId))]
-    public OrganizationUser User { get; set; } = null!;
+    public string UserId { get; set; } = null!;
+    [ForeignKey(nameof(UserId))]
+    public User User { get; set; } = null!;
     public int ProjectId { get; set; }
     public Project Project { get; set; } = null!;
     public DateTimeOffset StartDate { get; set; }

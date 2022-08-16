@@ -11,6 +11,6 @@ public class ApplicationUser
 
     public string Email { get; set; } = null!;
 
-    public ICollection<OrganizationUser> Organizations { get; set; } = null!;
+    public ICollection<User> Organizations { get; set; } = null!;
 
 }

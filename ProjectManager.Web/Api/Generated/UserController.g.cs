@@ -20,54 +20,54 @@ using System.Threading.Tasks;
 
 namespace ProjectManager.Web.Api
 {
-    [Route("api/OrganizationUser")]
+    [Route("api/User")]
     [Authorize]
     [ServiceFilter(typeof(IApiActionFilter))]
-    public partial class OrganizationUserController
-        : BaseApiController<ProjectManager.Data.Models.OrganizationUser, OrganizationUserDtoGen, ProjectManager.Data.AppDbContext>
+    public partial class UserController
+        : BaseApiController<ProjectManager.Data.Models.User, UserDtoGen, ProjectManager.Data.AppDbContext>
     {
-        public OrganizationUserController(ProjectManager.Data.AppDbContext db) : base(db)
+        public UserController(ProjectManager.Data.AppDbContext db) : base(db)
         {
-            GeneratedForClassViewModel = ReflectionRepository.Global.GetClassViewModel<ProjectManager.Data.Models.OrganizationUser>();
+            GeneratedForClassViewModel = ReflectionRepository.Global.GetClassViewModel<ProjectManager.Data.Models.User>();
         }
 
         [HttpGet("get/{id}")]
         [Authorize]
-        public virtual Task<ItemResult<OrganizationUserDtoGen>> Get(
+        public virtual Task<ItemResult<UserDtoGen>> Get(
             string id,
             DataSourceParameters parameters,
-            IDataSource<ProjectManager.Data.Models.OrganizationUser> dataSource)
+            IDataSource<ProjectManager.Data.Models.User> dataSource)
             => GetImplementation(id, parameters, dataSource);
 
         [HttpGet("list")]
         [Authorize]
-        public virtual Task<ListResult<OrganizationUserDtoGen>> List(
+        public virtual Task<ListResult<UserDtoGen>> List(
             ListParameters parameters,
-            IDataSource<ProjectManager.Data.Models.OrganizationUser> dataSource)
+            IDataSource<ProjectManager.Data.Models.User> dataSource)
             => ListImplementation(parameters, dataSource);
 
         [HttpGet("count")]
         [Authorize]
         public virtual Task<ItemResult<int>> Count(
             FilterParameters parameters,
-            IDataSource<ProjectManager.Data.Models.OrganizationUser> dataSource)
+            IDataSource<ProjectManager.Data.Models.User> dataSource)
             => CountImplementation(parameters, dataSource);
 
         [HttpPost("save")]
         [Authorize]
-        public virtual Task<ItemResult<OrganizationUserDtoGen>> Save(
-            OrganizationUserDtoGen dto,
+        public virtual Task<ItemResult<UserDtoGen>> Save(
+            UserDtoGen dto,
             [FromQuery] DataSourceParameters parameters,
-            IDataSource<ProjectManager.Data.Models.OrganizationUser> dataSource,
-            IBehaviors<ProjectManager.Data.Models.OrganizationUser> behaviors)
+            IDataSource<ProjectManager.Data.Models.User> dataSource,
+            IBehaviors<ProjectManager.Data.Models.User> behaviors)
             => SaveImplementation(dto, parameters, dataSource, behaviors);
 
         [HttpPost("delete/{id}")]
         [Authorize]
-        public virtual Task<ItemResult<OrganizationUserDtoGen>> Delete(
+        public virtual Task<ItemResult<UserDtoGen>> Delete(
             string id,
-            IBehaviors<ProjectManager.Data.Models.OrganizationUser> behaviors,
-            IDataSource<ProjectManager.Data.Models.OrganizationUser> dataSource)
+            IBehaviors<ProjectManager.Data.Models.User> behaviors,
+            IDataSource<ProjectManager.Data.Models.User> dataSource)
             => DeleteImplementation(id, new DataSourceParameters(), dataSource, behaviors);
     }
 }

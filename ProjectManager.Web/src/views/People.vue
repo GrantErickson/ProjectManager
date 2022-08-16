@@ -11,7 +11,7 @@
       color="primary"
     />
 
-    <v-row v-for="person in people.$items" :key="person.organizationUserId">
+    <v-row v-for="person in people.$items" :key="person.userId">
       <!-- Person Card -->
       <v-col cols="3">
         <v-card class="my-card" color="brown lighten-4" elevation="8">
@@ -31,7 +31,7 @@
             <!-- list skills -->
             <!-- <v-chip
               v-for="skill in person.skills"
-              :key="skill.organizationUserSkillId"
+              :key="skill.userSkillId"
               class="mx-1"
               >{{ skill.skill.name }}: {{ skill.level }}
             </v-chip> -->
@@ -95,10 +95,9 @@ ViewModels.AssignmentViewModel.prototype.state = function () {
 
 @Component
 export default class People extends Vue {
-  private people = new ViewModels.OrganizationUserListViewModel();
+  private people = new ViewModels.UserListViewModel();
   private editAssignment: ViewModels.AssignmentViewModel | null = null;
-  private dataSource =
-    new $models.OrganizationUser.DataSources.OrganizationUserWithAssignments();
+  private dataSource = new $models.User.DataSources.UserWithAssignments();
 
   async created() {
     this.people.$dataSource = this.dataSource;

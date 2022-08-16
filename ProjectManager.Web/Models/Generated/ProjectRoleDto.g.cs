@@ -15,8 +15,8 @@ namespace ProjectManager.Web.Models
         private int? _ProjectRoleId;
         private int? _ProjectId;
         private ProjectManager.Web.Models.ProjectDtoGen _Project;
-        private string _OrganizationUserId;
-        private ProjectManager.Web.Models.OrganizationUserDtoGen _User;
+        private string _UserId;
+        private ProjectManager.Web.Models.UserDtoGen _User;
         private bool? _IsManager;
 
         public int? ProjectRoleId
@@ -34,12 +34,12 @@ namespace ProjectManager.Web.Models
             get => _Project;
             set { _Project = value; Changed(nameof(Project)); }
         }
-        public string OrganizationUserId
+        public string UserId
         {
-            get => _OrganizationUserId;
-            set { _OrganizationUserId = value; Changed(nameof(OrganizationUserId)); }
+            get => _UserId;
+            set { _UserId = value; Changed(nameof(UserId)); }
         }
-        public ProjectManager.Web.Models.OrganizationUserDtoGen User
+        public ProjectManager.Web.Models.UserDtoGen User
         {
             get => _User;
             set { _User = value; Changed(nameof(User)); }
@@ -62,13 +62,13 @@ namespace ProjectManager.Web.Models
 
             this.ProjectRoleId = obj.ProjectRoleId;
             this.ProjectId = obj.ProjectId;
-            this.OrganizationUserId = obj.OrganizationUserId;
+            this.UserId = obj.UserId;
             this.IsManager = obj.IsManager;
             if (tree == null || tree[nameof(this.Project)] != null)
                 this.Project = obj.Project.MapToDto<ProjectManager.Data.Models.Project, ProjectDtoGen>(context, tree?[nameof(this.Project)]);
 
             if (tree == null || tree[nameof(this.User)] != null)
-                this.User = obj.User.MapToDto<ProjectManager.Data.Models.OrganizationUser, OrganizationUserDtoGen>(context, tree?[nameof(this.User)]);
+                this.User = obj.User.MapToDto<ProjectManager.Data.Models.User, UserDtoGen>(context, tree?[nameof(this.User)]);
 
         }
 
@@ -83,7 +83,7 @@ namespace ProjectManager.Web.Models
 
             if (ShouldMapTo(nameof(ProjectRoleId))) entity.ProjectRoleId = (ProjectRoleId ?? entity.ProjectRoleId);
             if (ShouldMapTo(nameof(ProjectId))) entity.ProjectId = (ProjectId ?? entity.ProjectId);
-            if (ShouldMapTo(nameof(OrganizationUserId))) entity.OrganizationUserId = OrganizationUserId;
+            if (ShouldMapTo(nameof(UserId))) entity.UserId = UserId;
             if (ShouldMapTo(nameof(IsManager))) entity.IsManager = (IsManager ?? entity.IsManager);
         }
     }

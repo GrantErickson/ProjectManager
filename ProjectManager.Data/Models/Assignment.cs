@@ -26,10 +26,10 @@ namespace ProjectManager.Data.Models
         public int AssignmentId { get; set; }
         public int ProjectId { get; set; }
         public Project Project { get; set; } = null!;
-        public string? OrganizationUserId { get; set; }
-        [ForeignKey(nameof(OrganizationUserId))]
+        public string? UserId { get; set; }
+        [ForeignKey(nameof(UserId))]
         [Search]
-        public OrganizationUser? User { get; set; } = null!;
+        public User? User { get; set; } = null!;
         [DisplayName]
         [Search]
         public string Role { get; set; } = null!;
@@ -55,9 +55,9 @@ namespace ProjectManager.Data.Models
             public override ItemResult BeforeSave(SaveKind kind, Assignment? oldItem, Assignment item)
             {
 
-                if (item.OrganizationUserId != null && oldItem?.OrganizationUserId != item.OrganizationUserId)
+                if (item.UserId != null && oldItem?.UserId != item.UserId)
                 {
-                    if (item.Rate == null) item.Rate = Context.DbContext.OrganizationUsers.First(f => f.OrganizationUserId == item.OrganizationUserId).DefaultRate;
+                    if (item.Rate == null) item.Rate = Context.DbContext.Users.First(f => f.UserId == item.UserId).DefaultRate;
                 }
                 return true;
             }

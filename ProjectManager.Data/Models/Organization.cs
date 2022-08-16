@@ -13,7 +13,7 @@ public class Organization
     public string OrganizationId { get; set; } = null!;
     public string Name { get; set; } = null!;
 
-    public ICollection<OrganizationUser> Users { get; set; } = null!;
+    public ICollection<User> Users { get; set; } = null!;
     public ICollection<BillingPeriod> BillingPeriods { get; set; } = null!;
     public ICollection<Client> Clients { get; set; } = null!;
 

@@ -19,7 +19,7 @@ namespace ProjectManager.Web.Models
         private System.DateTime? _StartDate;
         private System.DateTime? _EndDate;
         private string _LeadId;
-        private ProjectManager.Web.Models.OrganizationUserDtoGen _Lead;
+        private ProjectManager.Web.Models.UserDtoGen _Lead;
         private decimal? _Amount;
         private string _Note;
         private string _ContractUrl;
@@ -69,7 +69,7 @@ namespace ProjectManager.Web.Models
             get => _LeadId;
             set { _LeadId = value; Changed(nameof(LeadId)); }
         }
-        public ProjectManager.Web.Models.OrganizationUserDtoGen Lead
+        public ProjectManager.Web.Models.UserDtoGen Lead
         {
             get => _Lead;
             set { _Lead = value; Changed(nameof(Lead)); }
@@ -169,7 +169,7 @@ namespace ProjectManager.Web.Models
                 this.Client = obj.Client.MapToDto<ProjectManager.Data.Models.Client, ClientDtoGen>(context, tree?[nameof(this.Client)]);
 
             if (tree == null || tree[nameof(this.Lead)] != null)
-                this.Lead = obj.Lead.MapToDto<ProjectManager.Data.Models.OrganizationUser, OrganizationUserDtoGen>(context, tree?[nameof(this.Lead)]);
+                this.Lead = obj.Lead.MapToDto<ProjectManager.Data.Models.User, UserDtoGen>(context, tree?[nameof(this.Lead)]);
 
             var propValRoles = obj.Roles;
             if (propValRoles != null && (tree == null || tree[nameof(this.Roles)] != null))

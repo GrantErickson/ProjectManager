@@ -106,23 +106,23 @@ public static class DatabaseSeed
         db.Skills.Add(customerManager);
 
         // Organization Users
-        var grant = new OrganizationUser
+        var grant = new User
         {
             Organization = intellitect,
             AppUser = appGrant,
             DefaultRate = 100,
-            EmploymentStatus = OrganizationUser.EmploymentStatusEnum.FullTime,
+            EmploymentStatus = User.EmploymentStatusEnum.FullTime,
             IsActive = true,
             IsOrganizationAdmin = true,
             Name = "Grant E.",
         };
-        db.OrganizationUsers.Add(grant);
-        var phil = new OrganizationUser
+        db.Users.Add(grant);
+        var phil = new User
         {
             Organization = intellitect,
             AppUser = appPhil,
             DefaultRate = 100,
-            EmploymentStatus = OrganizationUser.EmploymentStatusEnum.FullTime,
+            EmploymentStatus = User.EmploymentStatusEnum.FullTime,
             IsActive = true,
             IsOrganizationAdmin = true,
             Name = "Phil",

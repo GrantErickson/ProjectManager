@@ -14,7 +14,7 @@ namespace ProjectManager.Web.Models
 
         private string _OrganizationId;
         private string _Name;
-        private System.Collections.Generic.ICollection<ProjectManager.Web.Models.OrganizationUserDtoGen> _Users;
+        private System.Collections.Generic.ICollection<ProjectManager.Web.Models.UserDtoGen> _Users;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.BillingPeriodDtoGen> _BillingPeriods;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.ClientDtoGen> _Clients;
 
@@ -28,7 +28,7 @@ namespace ProjectManager.Web.Models
             get => _Name;
             set { _Name = value; Changed(nameof(Name)); }
         }
-        public System.Collections.Generic.ICollection<ProjectManager.Web.Models.OrganizationUserDtoGen> Users
+        public System.Collections.Generic.ICollection<ProjectManager.Web.Models.UserDtoGen> Users
         {
             get => _Users;
             set { _Users = value; Changed(nameof(Users)); }
@@ -61,11 +61,11 @@ namespace ProjectManager.Web.Models
             {
                 this.Users = propValUsers
                     .OrderBy(f => f.Name)
-                    .Select(f => f.MapToDto<ProjectManager.Data.Models.OrganizationUser, OrganizationUserDtoGen>(context, tree?[nameof(this.Users)])).ToList();
+                    .Select(f => f.MapToDto<ProjectManager.Data.Models.User, UserDtoGen>(context, tree?[nameof(this.Users)])).ToList();
             }
             else if (propValUsers == null && tree?[nameof(this.Users)] != null)
             {
-                this.Users = new OrganizationUserDtoGen[0];
+                this.Users = new UserDtoGen[0];
             }
 
             var propValBillingPeriods = obj.BillingPeriods;

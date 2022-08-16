@@ -33,7 +33,7 @@ public class Project : TrackingBase
     [DateType(DateTypeAttribute.DateTypes.DateOnly)]
     public DateTime? EndDate { get; set; }
     public string? LeadId { get; set; }
-    public OrganizationUser? Lead { get; set; }
+    public User? Lead { get; set; }
     public decimal? Amount { get; set; }
     public string? Note { get; set; }
     public string? ContractUrl { get; set; }

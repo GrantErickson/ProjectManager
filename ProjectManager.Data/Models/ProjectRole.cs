@@ -11,8 +11,8 @@ public class ProjectRole
     public int ProjectRoleId { get; set; }
     public int ProjectId { get; set; }
     public Project Project { get; set; } = null!;
-    public string OrganizationUserId { get; set; } = null!;
-    [ForeignKey(nameof(OrganizationUserId))]
-    public OrganizationUser User { get; set; } = null!;
+    public string UserId { get; set; } = null!;
+    [ForeignKey(nameof(UserId))]
+    public User User { get; set; } = null!;
     public bool IsManager { get; set; }
 }
