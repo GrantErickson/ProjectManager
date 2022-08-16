@@ -12,6 +12,9 @@ using ProjectManager.Data;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using ProjectManager.Web.Models;
+using ProjectManager.Data.Services;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
@@ -19,6 +22,10 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
     // Explicit declaration prevents ASP.NET Core from erroring if wwwroot doesn't exist at startup:
     WebRootPath = "wwwroot"
 });
+
+// This exists so that we can access the app in the AAD Login callback.
+// TODO: Maybe there is a better way.
+WebApplication app = null!;
 
 builder.Logging
     .AddConsole()
@@ -32,11 +39,66 @@ builder.Configuration
 var initialScopes = builder.Configuration["DownstreamApi:Scopes"]?.Split(' ') ?? builder.Configuration["MicrosoftGraph:Scopes"]?.Split(' ');
 
 // Add services to the container. AAD Auth
+// TODO: Potentially support auth from any AAD domain.
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"))
-        .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
-            .AddMicrosoftGraph(builder.Configuration.GetSection("MicrosoftGraph"))
-            .AddInMemoryTokenCaches();
+    //.AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"))
+
+    .AddMicrosoftIdentityWebApp(options =>
+    {
+        options.ClientId = "98597cea-972a-409b-98f6-e81af7b3b7d0";
+        options.TenantId = "37321907-14a5-4390-987d-ec0c66c655cd";
+        options.Instance = "https://login.microsoftonline.com/";
+        options.Domain = "IntelliTect.com";
+        options.CallbackPath = "/signin-oidc";
+        options.ClientSecret = "mtH8Q~-_FysagKUBMEEg3DNRwuM94vYjnGxAndhj";
+        options.Events.OnTicketReceived = (TicketReceivedContext trc) =>
+        {
+            // Get Email and check to make sure they are allowed to log in
+            // TODO: This needs to be reworked to support multiple orgs per email (appUser)
+            string? email = trc.Principal?.Identity?.Name;
+            if (email == null) trc.Fail(new Exception("Invalid login"));
+            else
+            {
+                using var scope = app.Services.CreateScope();
+                var serviceScope = scope.ServiceProvider;
+
+                // Set up a database context to handle the database check
+                using var db = serviceScope.GetRequiredService<AppDbContext>();
+                var appUser = db.ApplicationUsers
+                    .Include(f => f.Organizations).ThenInclude(f => f.Organization)
+                    .Include(f => f.Organizations).ThenInclude(f => f.ProjectRoles)
+                    .First(f => f.Email.ToLower() == email.ToLower());
+                if (appUser == null) trc.Fail(new Exception("User not found"));
+                else
+                {
+                    // TODO: This is hard coded for IntelliTect
+                    var orgUser = appUser.Organizations.First(f => f.Organization.Name == "IntelliTect" && f.IsActive);
+                    if (orgUser == null) trc.Fail(new Exception("IntelliTect user not found"));
+                    else
+                    {
+                        trc.Success();
+                        var claims = new List<Claim>();
+                        // Add the AppAdmin Role claim.
+                        if (orgUser.AppUser!.IsAppAdmin) claims.Add(new Claim(ClaimTypes.Role, Roles.AppAdmin));
+                        // Add the OrgAdmin Role claim.
+                        if (orgUser.IsOrganizationAdmin) claims.Add(new Claim(ClaimTypes.Role, Roles.OrgAdmin));
+                        // Add the OrganizationId.
+                        claims.Add(new Claim("OrgId", orgUser.OrganizationId));
+                        // Add CSV list of all projects they are an admin for.
+                        claims.Add(new Claim("ProjectAdminIds", string.Join(",", orgUser.ProjectRoles.Select(f => f.ProjectId))));
+                        trc.Principal!.AddIdentity(new ClaimsIdentity(claims));
+                        Console.WriteLine($"Successfully Logged in user: {trc.Principal.Identity!.Name}");
+                    }
+                }
+            }
+
+            return Task.CompletedTask;
+        };
+
+    })
+    .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
+        .AddMicrosoftGraph(builder.Configuration.GetSection("MicrosoftGraph"))
+        .AddInMemoryTokenCaches();
 
 builder.Services.AddAuthorization(options =>
 {
@@ -71,6 +133,7 @@ services
 
 //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 //        .AddCookie();
+services.AddScoped<UserService>();
 
 #endregion
 
@@ -78,7 +141,7 @@ services
 
 #region Configure HTTP Pipeline
 
-var app = builder.Build();
+app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {

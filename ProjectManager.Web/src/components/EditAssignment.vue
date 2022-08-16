@@ -51,6 +51,17 @@
         <v-chip @click="addSkill"><v-icon>fas fa-plus</v-icon></v-chip>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col>
+        <v-btn @click="showUsers = true"> Matching users </v-btn>
+      </v-col>
+    </v-row>
+    <v-dialog v-if="showUsers" v-model="showUsers" max-width="900px">
+      <AssignmentPeople
+        :assignment="assignment"
+        @close="hideShowUsers"
+      ></AssignmentPeople>
+    </v-dialog>
 
     <v-dialog v-if="editSkill" v-model="editSkillShown" max-width="500px">
       <v-card>
@@ -96,6 +107,7 @@ import * as ViewModels from "@/viewmodels.g";
 export default class EditAssignment extends Vue {
   @Prop() private assignment!: ViewModels.AssignmentViewModel;
   private editSkill: ViewModels.AssignmentSkillViewModel | null = null;
+  private showUsers = false;
 
   addSkill() {
     this.editSkill = this.assignment.addToSkills();
@@ -119,6 +131,10 @@ export default class EditAssignment extends Vue {
       this.editSkill!.$delete();
       this.editSkill = null;
     }
+  }
+
+  public hideShowUsers() {
+    this.showUsers = false;
   }
 }
 </script>

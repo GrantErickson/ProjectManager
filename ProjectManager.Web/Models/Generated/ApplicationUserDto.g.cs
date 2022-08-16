@@ -16,6 +16,7 @@ namespace ProjectManager.Web.Models
         private string _Name;
         private string _Email;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.UserDtoGen> _Organizations;
+        private bool? _IsAppAdmin;
 
         public string Id
         {
@@ -37,6 +38,11 @@ namespace ProjectManager.Web.Models
             get => _Organizations;
             set { _Organizations = value; Changed(nameof(Organizations)); }
         }
+        public bool? IsAppAdmin
+        {
+            get => _IsAppAdmin;
+            set { _IsAppAdmin = value; Changed(nameof(IsAppAdmin)); }
+        }
 
         /// <summary>
         /// Map from the domain object to the properties of the current DTO instance.
@@ -51,6 +57,7 @@ namespace ProjectManager.Web.Models
             this.Id = obj.Id;
             this.Name = obj.Name;
             this.Email = obj.Email;
+            this.IsAppAdmin = obj.IsAppAdmin;
             var propValOrganizations = obj.Organizations;
             if (propValOrganizations != null && (tree == null || tree[nameof(this.Organizations)] != null))
             {
@@ -77,6 +84,7 @@ namespace ProjectManager.Web.Models
             if (ShouldMapTo(nameof(Id))) entity.Id = Id;
             if (ShouldMapTo(nameof(Name))) entity.Name = Name;
             if (ShouldMapTo(nameof(Email))) entity.Email = Email;
+            if (ShouldMapTo(nameof(IsAppAdmin))) entity.IsAppAdmin = (IsAppAdmin ?? entity.IsAppAdmin);
         }
     }
 }

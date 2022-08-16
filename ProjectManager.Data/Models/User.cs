@@ -1,36 +1,42 @@
 ﻿using IntelliTect.Coalesce;
 using IntelliTect.Coalesce.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+using ProjectManager.Data;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectManager.Data.Models;
+
+// TODO: This is insufficient security for a multi-tenant arrangement.
+[Edit(Roles.OrgAdmin)]
+[Create(Roles.OrgAdmin)]
+[Delete(PermissionLevel = SecurityPermissionLevels.DenyAll)]
 public class User : TrackingBase
 {
     public enum EmploymentStatusEnum
     {
-        FullTime,
-        PartTime,
-        Contractor,
+        Unknown = 0,
+        FullTime = 1,
+        PartTime = 2,
+        Contractor = 3,
     }
 
 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public string UserId { get; set; } = null!;
+    [Required]
     public string OrganizationId { get; set; } = null!;
     public Organization Organization { get; set; } = null!;
     public string? AppUserId { get; set; } = null!;
     [ForeignKey(nameof(AppUserId))]
     public ApplicationUser? AppUser { get; set; } = null!;
+    [Edit(Roles = Roles.OrgAdmin)]
+    [Required]
     public string Name { get; set; } = null!;
-    public decimal DefaultRate { get; set; }
+    public decimal? DefaultRate { get; set; }
     public bool IsActive { get; set; } = true;
     public bool IsOrganizationAdmin { get; set; }
+    [Required]
     public EmploymentStatusEnum EmploymentStatus { get; set; }
 
     [InverseProperty(nameof(Assignment.User))]

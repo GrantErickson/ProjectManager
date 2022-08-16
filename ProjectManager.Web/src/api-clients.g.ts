@@ -10,6 +10,14 @@ export class ApplicationUserApiClient extends ModelApiClient<$models.Application
 
 export class AssignmentApiClient extends ModelApiClient<$models.Assignment> {
   constructor() { super($metadata.Assignment) }
+  public getUsersWithSkills(id: number, $config?: AxiosRequestConfig): AxiosPromise<ItemResult<$models.User[]>> {
+    const $method = this.$metadata.methods.getUsersWithSkills
+    const $params =  {
+      id,
+    }
+    return this.$invoke($method, $params, $config)
+  }
+  
 }
 
 
@@ -65,6 +73,18 @@ export class UserApiClient extends ModelApiClient<$models.User> {
 
 export class UserSkillApiClient extends ModelApiClient<$models.UserSkill> {
   constructor() { super($metadata.UserSkill) }
+}
+
+
+export class UserServiceApiClient extends ServiceApiClient<typeof $metadata.UserService> {
+  constructor() { super($metadata.UserService) }
+  public getUserInfo($config?: AxiosRequestConfig): AxiosPromise<ItemResult<$models.UserInfo>> {
+    const $method = this.$metadata.methods.getUserInfo
+    const $params =  {
+    }
+    return this.$invoke($method, $params, $config)
+  }
+  
 }
 
 

@@ -13,9 +13,10 @@ export enum AssignmentStateEnum {
 
 
 export enum EmploymentStatusEnum {
-  FullTime = 0,
-  PartTime = 1,
-  Contractor = 2,
+  Unknown = 0,
+  FullTime = 1,
+  PartTime = 2,
+  Contractor = 3,
 }
 
 
@@ -34,6 +35,7 @@ export interface ApplicationUser extends Model<typeof metadata.ApplicationUser> 
   name: string | null
   email: string | null
   organizations: User[] | null
+  isAppAdmin: boolean | null
 }
 export class ApplicationUser {
   
@@ -413,6 +415,7 @@ export interface UserSkill extends Model<typeof metadata.UserSkill> {
   skillId: number | null
   skill: Skill | null
   level: number | null
+  isAreaOfInterest: boolean | null
   note: string | null
 }
 export class UserSkill {
@@ -430,6 +433,30 @@ export class UserSkill {
   /** Instantiate a new UserSkill, optionally basing it on the given data. */
   constructor(data?: Partial<UserSkill> | {[k: string]: any}) {
       Object.assign(this, UserSkill.map(data || {}));
+  }
+}
+
+
+export interface UserInfo extends Model<typeof metadata.UserInfo> {
+  name: string | null
+  email: string | null
+  roles: string[] | null
+}
+export class UserInfo {
+  
+  /** Mutates the input object and its descendents into a valid UserInfo implementation. */
+  static convert(data?: Partial<UserInfo>): UserInfo {
+    return convertToModel(data || {}, metadata.UserInfo) 
+  }
+  
+  /** Maps the input object and its descendents to a new, valid UserInfo implementation. */
+  static map(data?: Partial<UserInfo>): UserInfo {
+    return mapToModel(data || {}, metadata.UserInfo) 
+  }
+  
+  /** Instantiate a new UserInfo, optionally basing it on the given data. */
+  constructor(data?: Partial<UserInfo> | {[k: string]: any}) {
+      Object.assign(this, UserInfo.map(data || {}));
   }
 }
 

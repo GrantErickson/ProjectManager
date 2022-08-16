@@ -126,7 +126,9 @@
         <v-card-title>
           <v-container>
             <v-row>
-              <v-col><span class="text-h5">Assignment</span> </v-col>
+              <v-col
+                ><span class="text-h5">Assignment: {{ assignment.role }}</span>
+              </v-col>
               <v-spacer></v-spacer>
               <v-col cols="3">
                 <c-input :model="assignment" for="isFlagged"></c-input>

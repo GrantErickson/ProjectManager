@@ -52,19 +52,24 @@ export const EmploymentStatusEnum = domain.enums.EmploymentStatusEnum = {
   name: "EmploymentStatusEnum",
   displayName: "Employment Status Enum",
   type: "enum",
-  ...getEnumMeta<"FullTime"|"PartTime"|"Contractor">([
+  ...getEnumMeta<"Unknown"|"FullTime"|"PartTime"|"Contractor">([
   {
     value: 0,
+    strValue: "Unknown",
+    displayName: "Unknown",
+  },
+  {
+    value: 1,
     strValue: "FullTime",
     displayName: "Full Time",
   },
   {
-    value: 1,
+    value: 2,
     strValue: "PartTime",
     displayName: "Part Time",
   },
   {
-    value: 2,
+    value: 3,
     strValue: "Contractor",
     displayName: "Contractor",
   },
@@ -114,7 +119,7 @@ export const ApplicationUser = domain.types.ApplicationUser = {
   type: "model",
   controllerRoute: "ApplicationUser",
   get keyProp() { return this.props.id }, 
-  behaviorFlags: 7,
+  behaviorFlags: 3,
   props: {
     id: {
       name: "id",
@@ -128,12 +133,18 @@ export const ApplicationUser = domain.types.ApplicationUser = {
       displayName: "Name",
       type: "string",
       role: "value",
+      rules: {
+        required: val => (val != null && val !== '') || "Name is required.",
+      }
     },
     email: {
       name: "email",
       displayName: "Email",
       type: "string",
       role: "value",
+      rules: {
+        required: val => (val != null && val !== '') || "Email is required.",
+      }
     },
     organizations: {
       name: "organizations",
@@ -148,6 +159,12 @@ export const ApplicationUser = domain.types.ApplicationUser = {
       },
       role: "value",
       dontSerialize: true,
+    },
+    isAppAdmin: {
+      name: "isAppAdmin",
+      displayName: "Is App Admin",
+      type: "boolean",
+      role: "value",
     },
   },
   methods: {
@@ -221,6 +238,9 @@ export const Assignment = domain.types.Assignment = {
       displayName: "Role",
       type: "string",
       role: "value",
+      rules: {
+        required: val => (val != null && val !== '') || "Role is required.",
+      }
     },
     rate: {
       name: "rate",
@@ -305,6 +325,34 @@ export const Assignment = domain.types.Assignment = {
     },
   },
   methods: {
+    getUsersWithSkills: {
+      name: "getUsersWithSkills",
+      displayName: "Get Users With Skills",
+      transportType: "item",
+      httpMethod: "POST",
+      params: {
+        id: {
+          name: "id",
+          displayName: "Primary Key",
+          type: "number",
+          role: "value",
+          get source() { return (domain.types.Assignment as ModelType).props.assignmentId },
+        },
+      },
+      return: {
+        name: "$return",
+        displayName: "Result",
+        type: "collection",
+        itemType: {
+          name: "$collectionItem",
+          displayName: "",
+          role: "value",
+          type: "model",
+          get typeDef() { return (domain.types.User as ModelType) },
+        },
+        role: "value",
+      },
+    },
   },
   dataSources: {
   },
@@ -410,6 +458,9 @@ export const BillingPeriod = domain.types.BillingPeriod = {
       get principalType() { return (domain.types.Organization as ModelType) },
       get navigationProp() { return (domain.types.BillingPeriod as ModelType).props.organization as ModelReferenceNavigationProperty },
       hidden: 3,
+      rules: {
+        required: val => (val != null && val !== '') || "Organization is required.",
+      }
     },
     organization: {
       name: "organization",
@@ -427,6 +478,9 @@ export const BillingPeriod = domain.types.BillingPeriod = {
       displayName: "Name",
       type: "string",
       role: "value",
+      rules: {
+        required: val => (val != null && val !== '') || "Name is required.",
+      }
     },
     startDate: {
       name: "startDate",
@@ -435,6 +489,9 @@ export const BillingPeriod = domain.types.BillingPeriod = {
       dateKind: "date",
       noOffset: true,
       role: "value",
+      rules: {
+        required: val => val != null || "Start Date is required.",
+      }
     },
     endDate: {
       name: "endDate",
@@ -443,6 +500,9 @@ export const BillingPeriod = domain.types.BillingPeriod = {
       dateKind: "date",
       noOffset: true,
       role: "value",
+      rules: {
+        required: val => val != null || "End Date is required.",
+      }
     },
   },
   methods: {
@@ -471,6 +531,9 @@ export const Client = domain.types.Client = {
       displayName: "Name",
       type: "string",
       role: "value",
+      rules: {
+        required: val => (val != null && val !== '') || "Name is required.",
+      }
     },
     organizationId: {
       name: "organizationId",
@@ -481,6 +544,9 @@ export const Client = domain.types.Client = {
       get principalType() { return (domain.types.Organization as ModelType) },
       get navigationProp() { return (domain.types.Client as ModelType).props.organization as ModelReferenceNavigationProperty },
       hidden: 3,
+      rules: {
+        required: val => (val != null && val !== '') || "Organization is required.",
+      }
     },
     organization: {
       name: "organization",
@@ -554,6 +620,9 @@ export const Organization = domain.types.Organization = {
       displayName: "Name",
       type: "string",
       role: "value",
+      rules: {
+        required: val => (val != null && val !== '') || "Name is required.",
+      }
     },
     users: {
       name: "users",
@@ -630,6 +699,9 @@ export const Project = domain.types.Project = {
       displayName: "Name",
       type: "string",
       role: "value",
+      rules: {
+        required: val => (val != null && val !== '') || "Name is required.",
+      }
     },
     clientId: {
       name: "clientId",
@@ -862,6 +934,9 @@ export const ProjectNote = domain.types.ProjectNote = {
       displayName: "Note",
       type: "string",
       role: "value",
+      rules: {
+        required: val => (val != null && val !== '') || "Note is required.",
+      }
     },
     documentUrl: {
       name: "documentUrl",
@@ -955,6 +1030,9 @@ export const ProjectRole = domain.types.ProjectRole = {
       get principalType() { return (domain.types.User as ModelType) },
       get navigationProp() { return (domain.types.ProjectRole as ModelType).props.user as ModelReferenceNavigationProperty },
       hidden: 3,
+      rules: {
+        required: val => (val != null && val !== '') || "User is required.",
+      }
     },
     user: {
       name: "user",
@@ -1000,6 +1078,9 @@ export const Skill = domain.types.Skill = {
       displayName: "Name",
       type: "string",
       role: "value",
+      rules: {
+        required: val => (val != null && val !== '') || "Name is required.",
+      }
     },
     users: {
       name: "users",
@@ -1064,6 +1145,9 @@ export const TimeEntry = domain.types.TimeEntry = {
       get principalType() { return (domain.types.User as ModelType) },
       get navigationProp() { return (domain.types.TimeEntry as ModelType).props.user as ModelReferenceNavigationProperty },
       hidden: 3,
+      rules: {
+        required: val => (val != null && val !== '') || "User is required.",
+      }
     },
     user: {
       name: "user",
@@ -1105,12 +1189,18 @@ export const TimeEntry = domain.types.TimeEntry = {
       type: "date",
       dateKind: "datetime",
       role: "value",
+      rules: {
+        required: val => val != null || "Start Date is required.",
+      }
     },
     hours: {
       name: "hours",
       displayName: "Hours",
       type: "number",
       role: "value",
+      rules: {
+        required: val => val != null || "Hours is required.",
+      }
     },
     isBillable: {
       name: "isBillable",
@@ -1144,7 +1234,7 @@ export const User = domain.types.User = {
   type: "model",
   controllerRoute: "User",
   get keyProp() { return this.props.userId }, 
-  behaviorFlags: 7,
+  behaviorFlags: 3,
   props: {
     userId: {
       name: "userId",
@@ -1162,6 +1252,9 @@ export const User = domain.types.User = {
       get principalType() { return (domain.types.Organization as ModelType) },
       get navigationProp() { return (domain.types.User as ModelType).props.organization as ModelReferenceNavigationProperty },
       hidden: 3,
+      rules: {
+        required: val => (val != null && val !== '') || "Organization is required.",
+      }
     },
     organization: {
       name: "organization",
@@ -1199,6 +1292,9 @@ export const User = domain.types.User = {
       displayName: "Name",
       type: "string",
       role: "value",
+      rules: {
+        required: val => (val != null && val !== '') || "Name is required.",
+      }
     },
     defaultRate: {
       name: "defaultRate",
@@ -1224,6 +1320,9 @@ export const User = domain.types.User = {
       type: "enum",
       get typeDef() { return domain.enums.EmploymentStatusEnum },
       role: "value",
+      rules: {
+        required: val => val != null || "Employment Status is required.",
+      }
     },
     assignments: {
       name: "assignments",
@@ -1328,6 +1427,9 @@ export const UserSkill = domain.types.UserSkill = {
       get principalType() { return (domain.types.User as ModelType) },
       get navigationProp() { return (domain.types.UserSkill as ModelType).props.user as ModelReferenceNavigationProperty },
       hidden: 3,
+      rules: {
+        required: val => (val != null && val !== '') || "User is required.",
+      }
     },
     user: {
       name: "user",
@@ -1370,6 +1472,12 @@ export const UserSkill = domain.types.UserSkill = {
       type: "number",
       role: "value",
     },
+    isAreaOfInterest: {
+      name: "isAreaOfInterest",
+      displayName: "Is Area Of Interest",
+      type: "boolean",
+      role: "value",
+    },
     note: {
       name: "note",
       displayName: "Note",
@@ -1380,6 +1488,62 @@ export const UserSkill = domain.types.UserSkill = {
   methods: {
   },
   dataSources: {
+  },
+}
+export const UserInfo = domain.types.UserInfo = {
+  name: "UserInfo",
+  displayName: "User Info",
+  get displayProp() { return this.props.name }, 
+  type: "object",
+  props: {
+    name: {
+      name: "name",
+      displayName: "Name",
+      type: "string",
+      role: "value",
+    },
+    email: {
+      name: "email",
+      displayName: "Email",
+      type: "string",
+      role: "value",
+    },
+    roles: {
+      name: "roles",
+      displayName: "Roles",
+      type: "collection",
+      itemType: {
+        name: "$collectionItem",
+        displayName: "",
+        role: "value",
+        type: "string",
+      },
+      role: "value",
+      dontSerialize: true,
+    },
+  },
+}
+export const UserService = domain.services.UserService = {
+  name: "UserService",
+  displayName: "User Service",
+  type: "service",
+  controllerRoute: "UserService",
+  methods: {
+    getUserInfo: {
+      name: "getUserInfo",
+      displayName: "Get User Info",
+      transportType: "item",
+      httpMethod: "POST",
+      params: {
+      },
+      return: {
+        name: "$return",
+        displayName: "Result",
+        type: "object",
+        get typeDef() { return (domain.types.UserInfo as ObjectType) },
+        role: "value",
+      },
+    },
   },
 }
 
@@ -1402,9 +1566,11 @@ interface AppDomain extends Domain {
     Skill: typeof Skill
     TimeEntry: typeof TimeEntry
     User: typeof User
+    UserInfo: typeof UserInfo
     UserSkill: typeof UserSkill
   }
   services: {
+    UserService: typeof UserService
   }
 }
 

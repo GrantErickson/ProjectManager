@@ -54,20 +54,12 @@ namespace ProjectManager.Web.Api
             => CountImplementation(parameters, dataSource);
 
         [HttpPost("save")]
-        [Authorize]
+        [Authorize(Roles = "AppAdmin")]
         public virtual Task<ItemResult<ApplicationUserDtoGen>> Save(
             ApplicationUserDtoGen dto,
             [FromQuery] DataSourceParameters parameters,
             IDataSource<ProjectManager.Data.Models.ApplicationUser> dataSource,
             IBehaviors<ProjectManager.Data.Models.ApplicationUser> behaviors)
             => SaveImplementation(dto, parameters, dataSource, behaviors);
-
-        [HttpPost("delete/{id}")]
-        [Authorize]
-        public virtual Task<ItemResult<ApplicationUserDtoGen>> Delete(
-            string id,
-            IBehaviors<ProjectManager.Data.Models.ApplicationUser> behaviors,
-            IDataSource<ProjectManager.Data.Models.ApplicationUser> dataSource)
-            => DeleteImplementation(id, new DataSourceParameters(), dataSource, behaviors);
     }
 }

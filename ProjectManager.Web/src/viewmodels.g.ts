@@ -8,6 +8,7 @@ export interface ApplicationUserViewModel extends $models.ApplicationUser {
   name: string | null;
   email: string | null;
   organizations: UserViewModel[] | null;
+  isAppAdmin: boolean | null;
 }
 export class ApplicationUserViewModel extends ViewModel<$models.ApplicationUser, $apiClients.ApplicationUserApiClient, string> implements $models.ApplicationUser  {
   
@@ -49,6 +50,17 @@ export class AssignmentViewModel extends ViewModel<$models.Assignment, $apiClien
   
   public addToSkills() {
     return this.$addChild('skills') as AssignmentSkillViewModel
+  }
+  
+  public get getUsersWithSkills() {
+    const getUsersWithSkills = this.$apiClient.$makeCaller(
+      this.$metadata.methods.getUsersWithSkills,
+      (c) => c.getUsersWithSkills(this.$primaryKey),
+      () => ({}),
+      (c, args) => c.getUsersWithSkills(this.$primaryKey))
+    
+    Object.defineProperty(this, 'getUsersWithSkills', {value: getUsersWithSkills});
+    return getUsersWithSkills
   }
   
   constructor(initialData?: DeepPartial<$models.Assignment> | null) {
@@ -408,6 +420,7 @@ export interface UserSkillViewModel extends $models.UserSkill {
   skillId: number | null;
   skill: SkillViewModel | null;
   level: number | null;
+  isAreaOfInterest: boolean | null;
   note: string | null;
 }
 export class UserSkillViewModel extends ViewModel<$models.UserSkill, $apiClients.UserSkillApiClient, number> implements $models.UserSkill  {
@@ -422,6 +435,25 @@ export class UserSkillListViewModel extends ListViewModel<$models.UserSkill, $ap
   
   constructor() {
     super($metadata.UserSkill, new $apiClients.UserSkillApiClient())
+  }
+}
+
+
+export class UserServiceViewModel extends ServiceViewModel<typeof $metadata.UserService, $apiClients.UserServiceApiClient> {
+  
+  public get getUserInfo() {
+    const getUserInfo = this.$apiClient.$makeCaller(
+      this.$metadata.methods.getUserInfo,
+      (c) => c.getUserInfo(),
+      () => ({}),
+      (c, args) => c.getUserInfo())
+    
+    Object.defineProperty(this, 'getUserInfo', {value: getUserInfo});
+    return getUserInfo
+  }
+  
+  constructor() {
+    super($metadata.UserService, new $apiClients.UserServiceApiClient())
   }
 }
 
@@ -457,5 +489,6 @@ const listViewModelTypeLookup = ListViewModel.typeLookup = {
   UserSkill: UserSkillListViewModel,
 }
 const serviceViewModelTypeLookup = ServiceViewModel.typeLookup = {
+  UserService: UserServiceViewModel,
 }
 

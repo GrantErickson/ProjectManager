@@ -29,12 +29,17 @@
               )
             }}%
             <!-- list skills -->
-            <!-- <v-chip
+            <hr />
+            <v-chip
               v-for="skill in person.skills"
               :key="skill.userSkillId"
+              x-small
               class="mx-1"
               >{{ skill.skill.name }}: {{ skill.level }}
-            </v-chip> -->
+              <v-icon v-if="skill.isAreaOfInterest" class="ml-2" x-small
+                >fa fa-thumbs-up</v-icon
+              >
+            </v-chip>
           </v-card-text>
         </v-card>
       </v-col>
@@ -59,7 +64,9 @@
         <v-card-title>
           <v-container>
             <v-row>
-              <v-col><span class="text-h5">Assignment</span> </v-col>
+              <v-col
+                ><span class="text-h5">Assignment: {{ assignment.role }}</span>
+              </v-col>
               <v-spacer></v-spacer>
               <v-col cols="3">
                 <c-input :model="editAssignment" for="isFlagged"></c-input>
@@ -86,12 +93,6 @@ import { Component, Vue } from "vue-property-decorator";
 //import EditAssignment from "@/components/EditAssignment.vue";
 import * as ViewModels from "@/viewmodels.g";
 import * as $models from "@/models.g";
-
-// TODO: Figure out how to add a prototype correctly.
-// @ts-ignore
-ViewModels.AssignmentViewModel.prototype.state = function () {
-  return $models.AssignmentStateEnum[this.assignmentState!];
-};
 
 @Component
 export default class People extends Vue {

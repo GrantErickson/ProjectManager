@@ -12,8 +12,12 @@ public static class DatabaseSeed
 {
     public static void Seed(AppDbContext db)
     {
-        if (db.ApplicationUsers.Any()) return;
+        if (!db.ApplicationUsers.Any()) InitialSeed(db);
+        if (!db.ApplicationUsers.Any(f => f.IsAppAdmin)) AddAdmins(db);
+    }
 
+    public static void InitialSeed(AppDbContext db)
+    {
         // Users
         var appGrant = new ApplicationUser
         {
@@ -125,7 +129,7 @@ public static class DatabaseSeed
             EmploymentStatus = User.EmploymentStatusEnum.FullTime,
             IsActive = true,
             IsOrganizationAdmin = true,
-            Name = "Phil",
+            Name = "Phil S.",
         };
 
         // UserSkills
@@ -163,12 +167,6 @@ public static class DatabaseSeed
         {
             Level = 8,
             Skill = cs,
-            User = grant
-        });
-        db.UserSkills.Add(new UserSkill
-        {
-            Level = 1,
-            Skill = python,
             User = grant
         });
         db.UserSkills.Add(new UserSkill
@@ -267,7 +265,7 @@ public static class DatabaseSeed
             PercentAllocated = 90,
             Project = p66Midstream,
             User = phil,
-            Role = "PM",
+            Role = "Python PM",
             Rate = 120,
             isLongTerm = true,
         };
@@ -282,7 +280,7 @@ public static class DatabaseSeed
             isLongTerm = true,
         };
         db.Assignments.Add(philWikiSupport);
-        
+
         // Assignment Skills
         db.AssignmentSkills.Add(new AssignmentSkill
         {
@@ -299,7 +297,7 @@ public static class DatabaseSeed
         db.AssignmentSkills.Add(new AssignmentSkill
         {
             Assignment = philP66,
-            Skill = cs,
+            Skill = python,
             Level = 6
         });
         db.AssignmentSkills.Add(new AssignmentSkill
@@ -318,4 +316,18 @@ public static class DatabaseSeed
         db.SaveChanges();
     }
 
+    public static void AddAdmins(AppDbContext db)
+    {
+        db.ApplicationUsers.First(f => f.Email == "grant@intellitect.com").IsAppAdmin = true;
+        db.ApplicationUsers.First(f => f.Email == "phil@intellitect.com").IsAppAdmin = true;
+        foreach (var orgUser in db.ApplicationUsers.Include(f => f.Organizations).First(f => f.Email == "grant@intellitect.com").Organizations)
+        {
+            orgUser.IsOrganizationAdmin = true;
+        }
+        foreach (var orgUser in db.ApplicationUsers.Include(f => f.Organizations).First(f => f.Email == "phil@intellitect.com").Organizations)
+        {
+            orgUser.IsOrganizationAdmin = true;
+        }
+        db.SaveChanges();
+    }
 }
