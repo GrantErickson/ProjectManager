@@ -19,8 +19,13 @@ export default new Router({
     },
     {
       path: "/people",
-      name: "people]",
+      name: "people",
       component: () => import("./views/People.vue"),
+    },
+    {
+      path: "/user/:userId",
+      name: "user",
+      component: () => import("./views/UserDashboard.vue"),
     },
 
     // Coalesce admin routes

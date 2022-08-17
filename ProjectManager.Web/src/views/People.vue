@@ -14,7 +14,13 @@
     <v-row v-for="person in people.$items" :key="person.userId">
       <!-- Person Card -->
       <v-col cols="3">
-        <v-card class="my-card" color="brown lighten-4" elevation="8">
+        <v-card
+          class="my-card"
+          color="brown lighten-4"
+          elevation="8"
+          link
+          :to="userLink(person)"
+        >
           <v-card-title>
             {{ person.name }}
           </v-card-title>
@@ -104,6 +110,10 @@ export default class People extends Vue {
     this.people.$dataSource = this.dataSource;
     this.people.$startAutoLoad(this);
     this.people.$load();
+  }
+
+  userLink(user: $models.User) {
+    return "user/" + user.userId;
   }
 
   get isLoading() {
