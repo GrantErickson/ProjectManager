@@ -304,6 +304,7 @@ export class ProjectRoleListViewModel extends ListViewModel<$models.ProjectRole,
 export interface SkillViewModel extends $models.Skill {
   skillId: number | null;
   name: string | null;
+  description: string | null;
   users: UserSkillViewModel[] | null;
   assignments: AssignmentSkillViewModel[] | null;
 }

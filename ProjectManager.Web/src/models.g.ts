@@ -312,6 +312,7 @@ export class ProjectRole {
 export interface Skill extends Model<typeof metadata.Skill> {
   skillId: number | null
   name: string | null
+  description: string | null
   users: UserSkill[] | null
   assignments: AssignmentSkill[] | null
 }

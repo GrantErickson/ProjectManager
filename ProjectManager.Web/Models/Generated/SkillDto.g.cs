@@ -14,6 +14,7 @@ namespace ProjectManager.Web.Models
 
         private int? _SkillId;
         private string _Name;
+        private string _Description;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.UserSkillDtoGen> _Users;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.AssignmentSkillDtoGen> _Assignments;
 
@@ -26,6 +27,11 @@ namespace ProjectManager.Web.Models
         {
             get => _Name;
             set { _Name = value; Changed(nameof(Name)); }
+        }
+        public string Description
+        {
+            get => _Description;
+            set { _Description = value; Changed(nameof(Description)); }
         }
         public System.Collections.Generic.ICollection<ProjectManager.Web.Models.UserSkillDtoGen> Users
         {
@@ -50,6 +56,7 @@ namespace ProjectManager.Web.Models
 
             this.SkillId = obj.SkillId;
             this.Name = obj.Name;
+            this.Description = obj.Description;
             var propValUsers = obj.Users;
             if (propValUsers != null && (tree == null || tree[nameof(this.Users)] != null))
             {
@@ -87,6 +94,7 @@ namespace ProjectManager.Web.Models
 
             if (ShouldMapTo(nameof(SkillId))) entity.SkillId = (SkillId ?? entity.SkillId);
             if (ShouldMapTo(nameof(Name))) entity.Name = Name;
+            if (ShouldMapTo(nameof(Description))) entity.Description = Description;
         }
     }
 }

@@ -13,6 +13,8 @@ public class Skill
     [Search(SearchMethod = SearchAttribute.SearchMethods.Contains)]
     [Required]
     public string Name { get; set; } = null!;
+    public string? Description { get; set; }
+
     public ICollection<UserSkill> Users { get; set; } = null!;
     public ICollection<AssignmentSkill> Assignments { get; set; } = null!;
 }

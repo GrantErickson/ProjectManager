@@ -1082,6 +1082,12 @@ export const Skill = domain.types.Skill = {
         required: val => (val != null && val !== '') || "Name is required.",
       }
     },
+    description: {
+      name: "description",
+      displayName: "Description",
+      type: "string",
+      role: "value",
+    },
     users: {
       name: "users",
       displayName: "Users",

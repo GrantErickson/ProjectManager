@@ -64,37 +64,7 @@
     </v-dialog>
 
     <v-dialog v-if="editSkill" v-model="editSkillShown" max-width="500px">
-      <v-card>
-        <v-card-title>
-          <v-container>
-            <v-row>
-              <v-col><span class="text-h5">Skill</span> </v-col>
-            </v-row>
-          </v-container>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col cols="12" sm="6" md="6">
-                <c-input :model="editSkill" for="skill"></c-input>
-              </v-col>
-
-              <v-col cols="12" sm="6" md="6">
-                <c-input :model="editSkill" for="level"></c-input>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="red darken-1" text @click="deleteEditSkill">
-            Delete
-          </v-btn>
-          <v-btn color="blue darken-1" text @click="editSkill = null">
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+      <EditSkill :skill="editSkill" @close="editSkill = null"></EditSkill>
     </v-dialog>
   </v-container>
 </template>
@@ -124,13 +94,6 @@ export default class EditAssignment extends Vue {
   public set editSkillShown(value: boolean) {
     // Only used to close the dialog
     this.editSkill = null;
-  }
-
-  public deleteEditSkill() {
-    if (this.editSkill) {
-      this.editSkill!.$delete();
-      this.editSkill = null;
-    }
   }
 
   public hideShowUsers() {
