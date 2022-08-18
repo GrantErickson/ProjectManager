@@ -16,6 +16,7 @@ namespace ProjectManager.Web.Models
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.AssignmentInfoDtoGen> _Assignments;
         private string _Client;
         private ProjectManager.Data.Models.Project.ProjectStateEnum? _State;
+        private string _Lead;
 
         public string Name
         {
@@ -37,6 +38,11 @@ namespace ProjectManager.Web.Models
             get => _State;
             set { _State = value; Changed(nameof(State)); }
         }
+        public string Lead
+        {
+            get => _Lead;
+            set { _Lead = value; Changed(nameof(Lead)); }
+        }
 
         /// <summary>
         /// Map from the domain object to the properties of the current DTO instance.
@@ -51,6 +57,7 @@ namespace ProjectManager.Web.Models
             this.Name = obj.Name;
             this.Client = obj.Client;
             this.State = obj.State;
+            this.Lead = obj.Lead;
             var propValAssignments = obj.Assignments;
             if (propValAssignments != null)
             {

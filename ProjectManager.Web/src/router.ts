@@ -23,6 +23,11 @@ export default new Router({
       component: () => import("./views/People.vue"),
     },
     {
+      path: "/projectList",
+      name: "projectList",
+      component: () => import("./views/ProjectList.vue"),
+    },
+    {
       path: "/user/:userId",
       name: "user",
       component: () => import("./views/UserDashboard.vue"),

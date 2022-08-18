@@ -445,6 +445,7 @@ export interface AssignmentInfo extends Model<typeof metadata.AssignmentInfo> {
   percentAllocated: number | null
   skills: SkillInfo[] | null
   isLongTerm: boolean | null
+  assignmentState: AssignmentStateEnum | null
 }
 export class AssignmentInfo {
   
@@ -470,6 +471,7 @@ export interface ProjectInfo extends Model<typeof metadata.ProjectInfo> {
   assignments: AssignmentInfo[] | null
   client: string | null
   state: ProjectStateEnum | null
+  lead: string | null
 }
 export class ProjectInfo {
   

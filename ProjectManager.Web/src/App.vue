@@ -42,6 +42,15 @@
           </v-list-item-content>
         </v-list-item>
 
+        <v-list-item link to="/ProjectList">
+          <v-list-item-action>
+            <v-icon>fas fa-list</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Project List</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
         <v-list-item>
           <v-divider></v-divider>
         </v-list-item>

@@ -1549,6 +1549,14 @@ export const AssignmentInfo = domain.types.AssignmentInfo = {
       role: "value",
       dontSerialize: true,
     },
+    assignmentState: {
+      name: "assignmentState",
+      displayName: "Assignment State",
+      type: "enum",
+      get typeDef() { return domain.enums.AssignmentStateEnum },
+      role: "value",
+      dontSerialize: true,
+    },
   },
 }
 export const ProjectInfo = domain.types.ProjectInfo = {
@@ -1589,6 +1597,13 @@ export const ProjectInfo = domain.types.ProjectInfo = {
       displayName: "State",
       type: "enum",
       get typeDef() { return domain.enums.ProjectStateEnum },
+      role: "value",
+      dontSerialize: true,
+    },
+    lead: {
+      name: "lead",
+      displayName: "Lead",
+      type: "string",
       role: "value",
       dontSerialize: true,
     },

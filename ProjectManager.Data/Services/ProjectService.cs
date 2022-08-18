@@ -23,7 +23,10 @@ public class ProjectService
             .Include(f => f.Assignments.Where(f => f.IsPublic))
                 .ThenInclude(f => f.Skills)
                     .ThenInclude(f => f.Skill)
+            .Include(f => f.Assignments.Where(f => f.IsPublic))
+                .ThenInclude(f=>f.User)
             .Include(f => f.Client)
+            .Include(f => f.Lead)
             .Select(f => new ProjectInfo(f));
 
         return projects;
@@ -35,12 +38,13 @@ public class ProjectService
         public IEnumerable<AssignmentInfo> Assignments { get; }
         public string Client { get; }
         public Project.ProjectStateEnum State { get; }
-        
+        public string? Lead { get; }
         public ProjectInfo(Project project)
         {
             Name = project.Name;
             Client = project.Client.Name;
             State = project.ProjectState;
+            Lead = project.Lead?.Name;
             Assignments = project.Assignments.Select(a => new AssignmentInfo(a));
         }
     }
@@ -51,6 +55,8 @@ public class ProjectService
         public decimal? PercentAllocated { get; }
         public IEnumerable<SkillInfo> Skills { get; }
         public bool IsLongTerm { get; }
+        public Assignment.AssignmentStateEnum AssignmentState { get; }
+        public string? User { get; }
 
         public AssignmentInfo(Assignment assignment)
         {
@@ -58,6 +64,8 @@ public class ProjectService
             PercentAllocated = assignment.PercentAllocated;
             Skills = assignment.Skills.Select(s => new SkillInfo(s));
             IsLongTerm = assignment.isLongTerm;
+            AssignmentState = assignment.AssignmentState;
+            User = assignment.User?.Name;
         }
     }
 

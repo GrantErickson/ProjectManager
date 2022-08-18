@@ -16,6 +16,7 @@ namespace ProjectManager.Web.Models
         private decimal? _PercentAllocated;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.SkillInfoDtoGen> _Skills;
         private bool? _IsLongTerm;
+        private ProjectManager.Data.Models.Assignment.AssignmentStateEnum? _AssignmentState;
 
         public string Name
         {
@@ -37,6 +38,11 @@ namespace ProjectManager.Web.Models
             get => _IsLongTerm;
             set { _IsLongTerm = value; Changed(nameof(IsLongTerm)); }
         }
+        public ProjectManager.Data.Models.Assignment.AssignmentStateEnum? AssignmentState
+        {
+            get => _AssignmentState;
+            set { _AssignmentState = value; Changed(nameof(AssignmentState)); }
+        }
 
         /// <summary>
         /// Map from the domain object to the properties of the current DTO instance.
@@ -51,6 +57,7 @@ namespace ProjectManager.Web.Models
             this.Name = obj.Name;
             this.PercentAllocated = obj.PercentAllocated;
             this.IsLongTerm = obj.IsLongTerm;
+            this.AssignmentState = obj.AssignmentState;
             var propValSkills = obj.Skills;
             if (propValSkills != null)
             {

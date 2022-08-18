@@ -1,42 +1,7 @@
 <template>
   <tr>
     <td>
-      <span>
-        <!-- Unknown -->
-        <v-icon v-if="assignment.assignmentState == 0" small
-          >fas fa-circle-question</v-icon
-        >
-        <!-- Active -->
-        <v-icon v-if="assignment.assignmentState == 1" small color="green"
-          >fas fa-check-circle</v-icon
-        >
-        <!-- Contracting -->
-        <v-icon
-          v-if="assignment.assignmentState == 2"
-          small
-          color="blue darken-2"
-          >fas fa-file-signature</v-icon
-        >
-        <!-- Completed -->
-        <v-icon v-if="assignment.assignmentState == 3" small
-          >fas fa-clipboard-check</v-icon
-        >
-        <!-- Potential -->
-        <v-icon
-          v-if="assignment.assignmentState == 4"
-          small
-          color="yellow darken-3"
-          >fas fa-face-smile</v-icon
-        >
-        <!-- Lost -->
-        <v-icon v-if="assignment.assignmentState == 5" small
-          >fas fa-face-frown</v-icon
-        >
-        <!-- Paused -->
-        <v-icon v-if="assignment.assignmentState == 6" small color="orange"
-          >fas fa-pause</v-icon
-        >
-      </span>
+      <AssignmentState :state="assignment.assignmentState"></AssignmentState>
       <span class="mx-2">
         {{ assignment.role }}
       </span>

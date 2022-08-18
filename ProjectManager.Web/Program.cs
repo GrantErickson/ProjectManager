@@ -134,6 +134,7 @@ services
 //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 //        .AddCookie();
 services.AddScoped<UserService>();
+services.AddScoped<ProjectService>();
 
 #endregion
 
