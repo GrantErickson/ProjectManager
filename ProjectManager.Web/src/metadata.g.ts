@@ -307,6 +307,12 @@ export const Assignment = domain.types.Assignment = {
       type: "boolean",
       role: "value",
     },
+    isPublic: {
+      name: "isPublic",
+      displayName: "Is Public",
+      type: "boolean",
+      role: "value",
+    },
     skills: {
       name: "skills",
       displayName: "Skills",
@@ -820,6 +826,12 @@ export const Project = domain.types.Project = {
     isBillableDefault: {
       name: "isBillableDefault",
       displayName: "Is Billable Default",
+      type: "boolean",
+      role: "value",
+    },
+    isPublic: {
+      name: "isPublic",
+      displayName: "Is Public",
       type: "boolean",
       role: "value",
     },
@@ -1496,6 +1508,114 @@ export const UserSkill = domain.types.UserSkill = {
   dataSources: {
   },
 }
+export const AssignmentInfo = domain.types.AssignmentInfo = {
+  name: "AssignmentInfo",
+  displayName: "Assignment Info",
+  get displayProp() { return this.props.name }, 
+  type: "object",
+  props: {
+    name: {
+      name: "name",
+      displayName: "Name",
+      type: "string",
+      role: "value",
+      dontSerialize: true,
+    },
+    percentAllocated: {
+      name: "percentAllocated",
+      displayName: "Percent Allocated",
+      type: "number",
+      role: "value",
+      dontSerialize: true,
+    },
+    skills: {
+      name: "skills",
+      displayName: "Skills",
+      type: "collection",
+      itemType: {
+        name: "$collectionItem",
+        displayName: "",
+        role: "value",
+        type: "object",
+        get typeDef() { return (domain.types.SkillInfo as ObjectType) },
+      },
+      role: "value",
+      dontSerialize: true,
+    },
+    isLongTerm: {
+      name: "isLongTerm",
+      displayName: "Is Long Term",
+      type: "boolean",
+      role: "value",
+      dontSerialize: true,
+    },
+  },
+}
+export const ProjectInfo = domain.types.ProjectInfo = {
+  name: "ProjectInfo",
+  displayName: "Project Info",
+  get displayProp() { return this.props.name }, 
+  type: "object",
+  props: {
+    name: {
+      name: "name",
+      displayName: "Name",
+      type: "string",
+      role: "value",
+    },
+    assignments: {
+      name: "assignments",
+      displayName: "Assignments",
+      type: "collection",
+      itemType: {
+        name: "$collectionItem",
+        displayName: "",
+        role: "value",
+        type: "object",
+        get typeDef() { return (domain.types.AssignmentInfo as ObjectType) },
+      },
+      role: "value",
+      dontSerialize: true,
+    },
+    client: {
+      name: "client",
+      displayName: "Client",
+      type: "string",
+      role: "value",
+      dontSerialize: true,
+    },
+    state: {
+      name: "state",
+      displayName: "State",
+      type: "enum",
+      get typeDef() { return domain.enums.ProjectStateEnum },
+      role: "value",
+      dontSerialize: true,
+    },
+  },
+}
+export const SkillInfo = domain.types.SkillInfo = {
+  name: "SkillInfo",
+  displayName: "Skill Info",
+  get displayProp() { return this.props.name }, 
+  type: "object",
+  props: {
+    name: {
+      name: "name",
+      displayName: "Name",
+      type: "string",
+      role: "value",
+      dontSerialize: true,
+    },
+    level: {
+      name: "level",
+      displayName: "Level",
+      type: "number",
+      role: "value",
+      dontSerialize: true,
+    },
+  },
+}
 export const UserInfo = domain.types.UserInfo = {
   name: "UserInfo",
   displayName: "User Info",
@@ -1526,6 +1646,35 @@ export const UserInfo = domain.types.UserInfo = {
       },
       role: "value",
       dontSerialize: true,
+    },
+  },
+}
+export const ProjectService = domain.services.ProjectService = {
+  name: "ProjectService",
+  displayName: "Project Service",
+  type: "service",
+  controllerRoute: "ProjectService",
+  methods: {
+    getProjects: {
+      name: "getProjects",
+      displayName: "Get Projects",
+      transportType: "item",
+      httpMethod: "POST",
+      params: {
+      },
+      return: {
+        name: "$return",
+        displayName: "Result",
+        type: "collection",
+        itemType: {
+          name: "$collectionItem",
+          displayName: "",
+          role: "value",
+          type: "object",
+          get typeDef() { return (domain.types.ProjectInfo as ObjectType) },
+        },
+        role: "value",
+      },
     },
   },
 }
@@ -1562,20 +1711,24 @@ interface AppDomain extends Domain {
   types: {
     ApplicationUser: typeof ApplicationUser
     Assignment: typeof Assignment
+    AssignmentInfo: typeof AssignmentInfo
     AssignmentSkill: typeof AssignmentSkill
     BillingPeriod: typeof BillingPeriod
     Client: typeof Client
     Organization: typeof Organization
     Project: typeof Project
+    ProjectInfo: typeof ProjectInfo
     ProjectNote: typeof ProjectNote
     ProjectRole: typeof ProjectRole
     Skill: typeof Skill
+    SkillInfo: typeof SkillInfo
     TimeEntry: typeof TimeEntry
     User: typeof User
     UserInfo: typeof UserInfo
     UserSkill: typeof UserSkill
   }
   services: {
+    ProjectService: typeof ProjectService
     UserService: typeof UserService
   }
 }

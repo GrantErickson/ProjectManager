@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <v-row>
+      <!-- User and Role -->
       <v-col cols="12" sm="6" md="6">
         <c-input :model="assignment" for="role"></c-input>
       </v-col>
@@ -8,6 +9,7 @@
         <c-input :model="assignment" for="user"></c-input>
       </v-col>
 
+      <!-- Core Settings -->
       <v-col cols="12" sm="3" md="3">
         <c-input :model="assignment" for="percentAllocated"></c-input>
       </v-col>
@@ -21,6 +23,7 @@
         <c-input :model="assignment" for="rateRange"></c-input>
       </v-col>
 
+      <!-- Dates -->
       <v-col cols="12" sm="6" md="6">
         <c-input :model="assignment" for="startDate"></c-input>
       </v-col>
@@ -28,17 +31,23 @@
         <c-input :model="assignment" for="endDate"></c-input>
       </v-col>
 
+      <!-- Settings -->
       <v-col cols="12" sm="3" md="3">
         <c-input :model="assignment" for="isLongTerm"></c-input>
       </v-col>
       <v-col cols="12" sm="3" md="3">
         <c-input :model="assignment" for="isBillable"></c-input>
       </v-col>
+      <v-col cols="3">
+        <c-input :model="assignment" for="isPublic"></c-input>
+      </v-col>
 
+      <!-- Note -->
       <v-col cols="12">
         <c-input :model="assignment" for="note"></c-input>
       </v-col>
 
+      <!-- Skills -->
       <v-col cols="12">
         Skills:
         <v-chip
@@ -63,6 +72,7 @@
       ></AssignmentPeople>
     </v-dialog>
 
+    <!-- Skills Dialog -->
     <v-dialog v-if="editSkill" v-model="editSkillShown" max-width="500px">
       <EditSkill :skill="editSkill" @close="editSkill = null"></EditSkill>
     </v-dialog>

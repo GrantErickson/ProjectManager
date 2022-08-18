@@ -196,7 +196,8 @@ public static class DatabaseSeed
             Name = "IntelliWiki Dev",
             Client = intelliWiki,
             IsBillableDefault = false,
-            ProjectState = Project.ProjectStateEnum.Active
+            ProjectState = Project.ProjectStateEnum.Active,
+            IsPublic = true
         };
         db.Projects.Add(intelliWikiDev);
         var intelliWikiSupport = new Project
@@ -204,7 +205,8 @@ public static class DatabaseSeed
             Name = "IntelliWiki Support",
             Client = intelliWiki,
             IsBillableDefault = false,
-            ProjectState = Project.ProjectStateEnum.Active
+            ProjectState = Project.ProjectStateEnum.Active,
+            IsPublic = true
         };
         db.Projects.Add(intelliWikiSupport);
         var intelliWikiCustomerDev = new Project
@@ -212,7 +214,8 @@ public static class DatabaseSeed
             Name = "IntelliWiki Dev for Customer X",
             Client = intelliWiki,
             IsBillableDefault = true,
-            ProjectState = Project.ProjectStateEnum.Active
+            ProjectState = Project.ProjectStateEnum.Active,
+            IsPublic = true
         };
         db.Projects.Add(intelliWikiCustomerDev);
         var p66Midstream = new Project
@@ -220,7 +223,8 @@ public static class DatabaseSeed
             Name = "Midstream",
             Client = p66,
             IsBillableDefault = true,
-            ProjectState = Project.ProjectStateEnum.Active
+            ProjectState = Project.ProjectStateEnum.Active,
+            IsPublic = true
         };
         db.Projects.Add(p66Midstream);
         var p66NewWork = new Project
@@ -229,7 +233,8 @@ public static class DatabaseSeed
             Client = p66,
             IsBillableDefault = true,
             ProjectState = Project.ProjectStateEnum.Potential,
-            Probability = 50
+            Probability = 50,
+            IsPublic = false
         };
         db.Projects.Add(p66Midstream);
 
@@ -258,6 +263,7 @@ public static class DatabaseSeed
             User = grant,
             Role = "Lead Dev",
             Rate = 100,
+            IsPublic = true,
         };
         db.Assignments.Add(grantWiki);
         var philP66 = new Assignment
@@ -268,6 +274,7 @@ public static class DatabaseSeed
             Role = "Python PM",
             Rate = 120,
             isLongTerm = true,
+            IsPublic = true,
         };
         db.Assignments.Add(philP66);
         var philWikiSupport = new Assignment
@@ -278,6 +285,7 @@ public static class DatabaseSeed
             Role = "PM",
             Rate = 60,
             isLongTerm = true,
+            IsPublic = false,
         };
         db.Assignments.Add(philWikiSupport);
 

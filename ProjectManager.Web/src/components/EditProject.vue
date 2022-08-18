@@ -18,14 +18,29 @@
         <c-input :model="project" for="projectState"></c-input>
       </v-col>
 
+      <!-- Start and End Dates -->
       <v-col cols="12" sm="6" md="6">
         <c-input :model="project" for="startDate"></c-input>
       </v-col>
-
       <v-col cols="12" sm="6" md="6">
         <c-input :model="project" for="endDate"></c-input>
       </v-col>
 
+      <!-- Contract -->
+      <v-col cols="8">
+        <c-input :model="project" for="contractUrl"></c-input>
+      </v-col>
+      <v-col cols="4">
+        <a v-if="contractUrl" :href="project.contractUrl" target="_blank">
+          <v-icon>fas fa-file-pdf</v-icon>
+        </a>
+      </v-col>
+
+      <v-col cols="12">
+        <c-input :model="project" for="isPublic"></c-input>
+      </v-col>
+
+      <!-- Notes -->
       <v-col cols="12">
         <c-input :model="project" for="note"></c-input>
       </v-col>

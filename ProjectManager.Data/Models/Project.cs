@@ -46,6 +46,7 @@ public class Project : TrackingBase
     public string? BillingContact { get; set; }
     public string? BillingInformation { get; set; }
     public bool IsBillableDefault { get; set; }
+    public bool IsPublic { get; set; }
 
 
     public ICollection<ProjectRole> Roles { get; set; } = null!;

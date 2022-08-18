@@ -48,6 +48,7 @@ namespace ProjectManager.Data.Models
         public bool isLongTerm { get; set; }
         public bool IsFlagged { get; set; }
         public bool IsBillable { get; set; } = true;
+        public bool IsPublic { get; set; }
 
         public ICollection<AssignmentSkill> Skills { get; set; } = null!;
 

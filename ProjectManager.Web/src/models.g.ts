@@ -73,6 +73,7 @@ export interface Assignment extends Model<typeof metadata.Assignment> {
   isLongTerm: boolean | null
   isFlagged: boolean | null
   isBillable: boolean | null
+  isPublic: boolean | null
   skills: AssignmentSkill[] | null
 }
 export class Assignment {
@@ -221,6 +222,7 @@ export interface Project extends Model<typeof metadata.Project> {
   billingContact: string | null
   billingInformation: string | null
   isBillableDefault: boolean | null
+  isPublic: boolean | null
   roles: ProjectRole[] | null
   notes: ProjectNote[] | null
   timeEntries: TimeEntry[] | null
@@ -434,6 +436,79 @@ export class UserSkill {
   /** Instantiate a new UserSkill, optionally basing it on the given data. */
   constructor(data?: Partial<UserSkill> | {[k: string]: any}) {
       Object.assign(this, UserSkill.map(data || {}));
+  }
+}
+
+
+export interface AssignmentInfo extends Model<typeof metadata.AssignmentInfo> {
+  name: string | null
+  percentAllocated: number | null
+  skills: SkillInfo[] | null
+  isLongTerm: boolean | null
+}
+export class AssignmentInfo {
+  
+  /** Mutates the input object and its descendents into a valid AssignmentInfo implementation. */
+  static convert(data?: Partial<AssignmentInfo>): AssignmentInfo {
+    return convertToModel(data || {}, metadata.AssignmentInfo) 
+  }
+  
+  /** Maps the input object and its descendents to a new, valid AssignmentInfo implementation. */
+  static map(data?: Partial<AssignmentInfo>): AssignmentInfo {
+    return mapToModel(data || {}, metadata.AssignmentInfo) 
+  }
+  
+  /** Instantiate a new AssignmentInfo, optionally basing it on the given data. */
+  constructor(data?: Partial<AssignmentInfo> | {[k: string]: any}) {
+      Object.assign(this, AssignmentInfo.map(data || {}));
+  }
+}
+
+
+export interface ProjectInfo extends Model<typeof metadata.ProjectInfo> {
+  name: string | null
+  assignments: AssignmentInfo[] | null
+  client: string | null
+  state: ProjectStateEnum | null
+}
+export class ProjectInfo {
+  
+  /** Mutates the input object and its descendents into a valid ProjectInfo implementation. */
+  static convert(data?: Partial<ProjectInfo>): ProjectInfo {
+    return convertToModel(data || {}, metadata.ProjectInfo) 
+  }
+  
+  /** Maps the input object and its descendents to a new, valid ProjectInfo implementation. */
+  static map(data?: Partial<ProjectInfo>): ProjectInfo {
+    return mapToModel(data || {}, metadata.ProjectInfo) 
+  }
+  
+  /** Instantiate a new ProjectInfo, optionally basing it on the given data. */
+  constructor(data?: Partial<ProjectInfo> | {[k: string]: any}) {
+      Object.assign(this, ProjectInfo.map(data || {}));
+  }
+}
+
+
+export interface SkillInfo extends Model<typeof metadata.SkillInfo> {
+  name: string | null
+  level: number | null
+}
+export class SkillInfo {
+  
+  /** Mutates the input object and its descendents into a valid SkillInfo implementation. */
+  static convert(data?: Partial<SkillInfo>): SkillInfo {
+    return convertToModel(data || {}, metadata.SkillInfo) 
+  }
+  
+  /** Maps the input object and its descendents to a new, valid SkillInfo implementation. */
+  static map(data?: Partial<SkillInfo>): SkillInfo {
+    return mapToModel(data || {}, metadata.SkillInfo) 
+  }
+  
+  /** Instantiate a new SkillInfo, optionally basing it on the given data. */
+  constructor(data?: Partial<SkillInfo> | {[k: string]: any}) {
+      Object.assign(this, SkillInfo.map(data || {}));
   }
 }
 

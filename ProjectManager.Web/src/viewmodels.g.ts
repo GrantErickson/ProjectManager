@@ -43,6 +43,7 @@ export interface AssignmentViewModel extends $models.Assignment {
   isLongTerm: boolean | null;
   isFlagged: boolean | null;
   isBillable: boolean | null;
+  isPublic: boolean | null;
   skills: AssignmentSkillViewModel[] | null;
 }
 export class AssignmentViewModel extends ViewModel<$models.Assignment, $apiClients.AssignmentApiClient, number> implements $models.Assignment  {
@@ -212,6 +213,7 @@ export interface ProjectViewModel extends $models.Project {
   billingContact: string | null;
   billingInformation: string | null;
   isBillableDefault: boolean | null;
+  isPublic: boolean | null;
   roles: ProjectRoleViewModel[] | null;
   notes: ProjectNoteViewModel[] | null;
   timeEntries: TimeEntryViewModel[] | null;
@@ -440,6 +442,25 @@ export class UserSkillListViewModel extends ListViewModel<$models.UserSkill, $ap
 }
 
 
+export class ProjectServiceViewModel extends ServiceViewModel<typeof $metadata.ProjectService, $apiClients.ProjectServiceApiClient> {
+  
+  public get getProjects() {
+    const getProjects = this.$apiClient.$makeCaller(
+      this.$metadata.methods.getProjects,
+      (c) => c.getProjects(),
+      () => ({}),
+      (c, args) => c.getProjects())
+    
+    Object.defineProperty(this, 'getProjects', {value: getProjects});
+    return getProjects
+  }
+  
+  constructor() {
+    super($metadata.ProjectService, new $apiClients.ProjectServiceApiClient())
+  }
+}
+
+
 export class UserServiceViewModel extends ServiceViewModel<typeof $metadata.UserService, $apiClients.UserServiceApiClient> {
   
   public get getUserInfo() {
@@ -490,6 +511,7 @@ const listViewModelTypeLookup = ListViewModel.typeLookup = {
   UserSkill: UserSkillListViewModel,
 }
 const serviceViewModelTypeLookup = ServiceViewModel.typeLookup = {
+  ProjectService: ProjectServiceViewModel,
   UserService: UserServiceViewModel,
 }
 

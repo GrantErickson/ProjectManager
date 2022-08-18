@@ -7,6 +7,9 @@
           >:
           {{ project.name }}
           <v-chip small>{{ state }}</v-chip>
+          <v-icon v-if="project.isPublic" small color="blue" class="mx-2"
+            >fas fa-globe</v-icon
+          >
           <v-icon small class="mx-4" @click="showEditor">fas fa-pencil</v-icon>
         </v-col>
         <v-col>
@@ -14,7 +17,6 @@
           <v-chip v-if="!project.lead" small color="yellow">no lead</v-chip>
         </v-col>
 
-        <!-- TODO: Figure out how to add a property to the project to track this -->
         <v-btn
           x-small
           fab

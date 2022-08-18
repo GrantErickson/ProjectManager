@@ -9,6 +9,7 @@
     <v-divider />
     <v-card-text>
       <div>
+        <!-- Icons -->
         <v-icon
           v-if="assignment.isBillable"
           small
@@ -21,6 +22,9 @@
         >
         <v-icon v-if="assignment.isFlagged" small color="red" class="mx-2"
           >fas fa-flag</v-icon
+        >
+        <v-icon v-if="assignment.isPublic" small color="blue" class="mx-2"
+          >fas fa-globe</v-icon
         >
         <v-chip small>{{ state }}</v-chip>
       </div>

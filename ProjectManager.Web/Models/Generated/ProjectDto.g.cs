@@ -29,6 +29,7 @@ namespace ProjectManager.Web.Models
         private string _BillingContact;
         private string _BillingInformation;
         private bool? _IsBillableDefault;
+        private bool? _IsPublic;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.ProjectRoleDtoGen> _Roles;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.ProjectNoteDtoGen> _Notes;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.TimeEntryDtoGen> _TimeEntries;
@@ -119,6 +120,11 @@ namespace ProjectManager.Web.Models
             get => _IsBillableDefault;
             set { _IsBillableDefault = value; Changed(nameof(IsBillableDefault)); }
         }
+        public bool? IsPublic
+        {
+            get => _IsPublic;
+            set { _IsPublic = value; Changed(nameof(IsPublic)); }
+        }
         public System.Collections.Generic.ICollection<ProjectManager.Web.Models.ProjectRoleDtoGen> Roles
         {
             get => _Roles;
@@ -165,6 +171,7 @@ namespace ProjectManager.Web.Models
             this.BillingContact = obj.BillingContact;
             this.BillingInformation = obj.BillingInformation;
             this.IsBillableDefault = obj.IsBillableDefault;
+            this.IsPublic = obj.IsPublic;
             if (tree == null || tree[nameof(this.Client)] != null)
                 this.Client = obj.Client.MapToDto<ProjectManager.Data.Models.Client, ClientDtoGen>(context, tree?[nameof(this.Client)]);
 
@@ -245,6 +252,7 @@ namespace ProjectManager.Web.Models
             if (ShouldMapTo(nameof(BillingContact))) entity.BillingContact = BillingContact;
             if (ShouldMapTo(nameof(BillingInformation))) entity.BillingInformation = BillingInformation;
             if (ShouldMapTo(nameof(IsBillableDefault))) entity.IsBillableDefault = (IsBillableDefault ?? entity.IsBillableDefault);
+            if (ShouldMapTo(nameof(IsPublic))) entity.IsPublic = (IsPublic ?? entity.IsPublic);
         }
     }
 }

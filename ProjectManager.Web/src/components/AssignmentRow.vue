@@ -81,6 +81,7 @@
     <td>{{ daysLeft }}</td>
     <td>{{ assignment.note }}</td>
     <td>
+      <!-- Icons -->
       <v-icon
         v-if="assignment.isBillable"
         small
@@ -112,6 +113,9 @@
           </v-chip>
         </span>
       </v-tooltip>
+      <v-icon v-if="assignment.isPublic" small color="blue" class="mx-2"
+        >fas fa-globe</v-icon
+      >
     </td>
 
     <td class="text-right">
