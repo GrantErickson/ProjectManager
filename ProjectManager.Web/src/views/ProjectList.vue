@@ -4,6 +4,9 @@
       <v-col>
         <h2>Project List</h2>
       </v-col>
+      <v-col
+        ><v-text-field v-model="search" label="Search"></v-text-field
+      ></v-col>
     </v-row>
     <v-progress-linear
       :style="{
@@ -20,9 +23,12 @@
             <b>{{ project.client }}</b
             >:
             {{ project.name }}
-            <v-chip small><c-display model="project" for="projectState"</v-chip>
+            <v-chip small
+              ><c-display :model="project" for="state"></c-display
+            ></v-chip>
           </v-col>
-          <v-col>
+          <v-spacer />
+          <v-col class="text-right">
             <v-chip v-if="project.lead" small>{{ project.lead }}</v-chip>
             <v-chip v-if="!project.lead" small color="yellow"
               >no lead yet</v-chip
@@ -56,7 +62,7 @@
                 </span>
               </td>
               <td>
-                <v-chip v-if="assignment.user">{{ assignment.user }}</v-chip>
+                <span v-if="assignment.user">{{ assignment.user }}</span>
                 <v-chip v-if="!assignment.user" small color="yellow"
                   >needed</v-chip
                 >
@@ -88,7 +94,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import * as ViewModels from "../viewmodels.g";
 import * as $models from "../models.g";
 
@@ -96,9 +102,19 @@ import * as $models from "../models.g";
 export default class Projects extends Vue {
   private projectService = new ViewModels.ProjectServiceViewModel();
   private projects: $models.ProjectInfo[] = null!;
+  private search = "";
+
+  @Watch("search")
+  onSearchChanged() {
+    this.load();
+  }
 
   async created() {
-    await this.projectService.getProjects();
+    await this.load();
+  }
+
+  async load() {
+    await this.projectService.getProjects(this.search);
     if (this.projectService.getProjects != null) {
       this.projects = this.projectService.getProjects.result!;
     }

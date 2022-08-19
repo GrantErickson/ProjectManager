@@ -1557,6 +1557,13 @@ export const AssignmentInfo = domain.types.AssignmentInfo = {
       role: "value",
       dontSerialize: true,
     },
+    user: {
+      name: "user",
+      displayName: "User",
+      type: "string",
+      role: "value",
+      dontSerialize: true,
+    },
   },
 }
 export const ProjectInfo = domain.types.ProjectInfo = {
@@ -1676,6 +1683,12 @@ export const ProjectService = domain.services.ProjectService = {
       transportType: "item",
       httpMethod: "POST",
       params: {
+        search: {
+          name: "search",
+          displayName: "Search",
+          type: "string",
+          role: "value",
+        },
       },
       return: {
         name: "$return",

@@ -78,9 +78,10 @@ export class UserSkillApiClient extends ModelApiClient<$models.UserSkill> {
 
 export class ProjectServiceApiClient extends ServiceApiClient<typeof $metadata.ProjectService> {
   constructor() { super($metadata.ProjectService) }
-  public getProjects($config?: AxiosRequestConfig): AxiosPromise<ItemResult<$models.ProjectInfo[]>> {
+  public getProjects(search: string | null, $config?: AxiosRequestConfig): AxiosPromise<ItemResult<$models.ProjectInfo[]>> {
     const $method = this.$metadata.methods.getProjects
     const $params =  {
+      search,
     }
     return this.$invoke($method, $params, $config)
   }

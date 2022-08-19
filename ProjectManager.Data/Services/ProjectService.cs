@@ -16,20 +16,30 @@ public class ProjectService
     }
 
     [Coalesce]
-    public IEnumerable<ProjectInfo> GetProjects()
+    public IEnumerable<ProjectInfo> GetProjects(string? search = null)
     {
         var projects = Db.Projects
-            .Where(f => f.IsPublic)
             .Include(f => f.Assignments.Where(f => f.IsPublic))
                 .ThenInclude(f => f.Skills)
                     .ThenInclude(f => f.Skill)
             .Include(f => f.Assignments.Where(f => f.IsPublic))
-                .ThenInclude(f=>f.User)
+                .ThenInclude(f => f.User)
             .Include(f => f.Client)
             .Include(f => f.Lead)
-            .Select(f => new ProjectInfo(f));
+            .Where(f => f.IsPublic);
+        if (!string.IsNullOrEmpty(search))
+        {
+            projects = projects.Where(f =>
+                f.Client.Name.StartsWith(search) ||
+                f.Name.Contains(search) ||
+                f.Assignments.Any(a => a.Role.Contains(search) && a.IsPublic) ||
+                f.Assignments.Any(a => a.User!=null && a.User.Name.Contains(search) && a.IsPublic) ||
+                f.Assignments.Any(a => a.Skills.Any(g => g.Skill.Name.StartsWith(search)) && a.IsPublic) ||
+                (f.Lead != null && f.Lead.Name.StartsWith(search))
+            );
+        }
 
-        return projects;
+        return projects.Select(f => new ProjectInfo(f)).ToList();
     }
 
     public class ProjectInfo
@@ -45,7 +55,7 @@ public class ProjectService
             Client = project.Client.Name;
             State = project.ProjectState;
             Lead = project.Lead?.Name;
-            Assignments = project.Assignments.Select(a => new AssignmentInfo(a));
+            Assignments = project.Assignments.Select(a => new AssignmentInfo(a)).ToList();
         }
     }
 
@@ -62,7 +72,7 @@ public class ProjectService
         {
             Name = assignment.Role;
             PercentAllocated = assignment.PercentAllocated;
-            Skills = assignment.Skills.Select(s => new SkillInfo(s));
+            Skills = assignment.Skills.Select(s => new SkillInfo(s)).ToList();
             IsLongTerm = assignment.isLongTerm;
             AssignmentState = assignment.AssignmentState;
             User = assignment.User?.Name;

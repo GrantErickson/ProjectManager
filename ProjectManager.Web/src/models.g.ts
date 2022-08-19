@@ -446,6 +446,7 @@ export interface AssignmentInfo extends Model<typeof metadata.AssignmentInfo> {
   skills: SkillInfo[] | null
   isLongTerm: boolean | null
   assignmentState: AssignmentStateEnum | null
+  user: string | null
 }
 export class AssignmentInfo {
   

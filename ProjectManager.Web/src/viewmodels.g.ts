@@ -447,9 +447,9 @@ export class ProjectServiceViewModel extends ServiceViewModel<typeof $metadata.P
   public get getProjects() {
     const getProjects = this.$apiClient.$makeCaller(
       this.$metadata.methods.getProjects,
-      (c) => c.getProjects(),
-      () => ({}),
-      (c, args) => c.getProjects())
+      (c, search: string | null) => c.getProjects(search),
+      () => ({search: null as string | null, }),
+      (c, args) => c.getProjects(args.search))
     
     Object.defineProperty(this, 'getProjects', {value: getProjects});
     return getProjects

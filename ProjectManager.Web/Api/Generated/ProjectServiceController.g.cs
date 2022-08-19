@@ -36,11 +36,11 @@ namespace ProjectManager.Web.Api
         /// </summary>
         [HttpPost("GetProjects")]
         [Authorize]
-        public virtual ItemResult<System.Collections.Generic.ICollection<ProjectInfoDtoGen>> GetProjects()
+        public virtual ItemResult<System.Collections.Generic.ICollection<ProjectInfoDtoGen>> GetProjects(string search = default)
         {
             IncludeTree includeTree = null;
             var _mappingContext = new MappingContext(User);
-            var _methodResult = Service.GetProjects();
+            var _methodResult = Service.GetProjects(search);
             var _result = new ItemResult<System.Collections.Generic.ICollection<ProjectInfoDtoGen>>();
             _result.Object = _methodResult?.ToList().Select(o => Mapper.MapToDto<ProjectManager.Data.Services.ProjectService.ProjectInfo, ProjectInfoDtoGen>(o, _mappingContext, includeTree)).ToList();
             return _result;
