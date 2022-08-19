@@ -29,10 +29,12 @@
           </v-col>
           <v-spacer />
           <v-col class="text-right">
-            <v-chip v-if="project.lead" small>{{ project.lead }}</v-chip>
-            <v-chip v-if="!project.lead" small color="yellow"
-              >no lead yet</v-chip
-            >
+            <Tooltip text="Project Lead">
+              <v-chip v-if="project.lead" small>{{ project.lead }}</v-chip>
+              <v-chip v-if="!project.lead" small color="yellow"
+                >no lead yet</v-chip
+              >
+            </Tooltip>
           </v-col>
         </v-row>
       </v-card-title>
@@ -67,12 +69,14 @@
                   >needed</v-chip
                 >
               </td>
-              <td>{{ assignment.percentAllocated }}</td>
+              <td>{{ assignment.percentAllocated }}%</td>
               <td>
                 <!-- Icons -->
-                <v-icon v-if="assignment.isLongTerm" small color="green"
-                  >fas fa-road-circle-check</v-icon
-                >
+                <Tooltip text="long-term project">
+                  <v-icon v-if="assignment.isLongTerm" small color="green"
+                    >fas fa-road-circle-check</v-icon
+                  >
+                </Tooltip>
                 <span>
                   <v-chip
                     v-for="skill in assignment.skills"
