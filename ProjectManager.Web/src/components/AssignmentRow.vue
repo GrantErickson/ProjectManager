@@ -11,9 +11,9 @@
         <template #activator="{ on }">
           <span v-on="on">{{ assignment.user?.name }}</span>
         </template>
-        <span v-if="assignment.user.defaultRate"
-          >${{ assignment.user.defaultRate }}</span
-        >
+        <span v-if="assignment.user.defaultRate">{{
+          assignment.user.defaultRate | toCurrency
+        }}</span>
         <span v-else>not set</span>
       </v-tooltip>
       <v-chip v-if="!assignment.user" small color="yellow">needed</v-chip>
@@ -31,14 +31,13 @@
                   : ''
               "
               v-on="on"
-              >${{ assignment.rate }}</span
+              >{{ assignment.rate | toCurrency }}</span
             >
           </span>
         </template>
         <span v-if="assignment.user"
-          >{{ assignment.user.name }} standard rate: ${{
-            assignment.user.defaultRate
-          }}</span
+          >{{ assignment.user.name }} standard rate:
+          {{ assignment.user.defaultRate | toCurrency }}</span
         >
         <span v-else>no user set</span>
       </v-tooltip>

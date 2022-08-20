@@ -28,7 +28,10 @@
         >
         <v-chip small>{{ state }}</v-chip>
       </div>
-      <div>{{ assignment.project.client.name }} @ ${{ assignment.rate }}</div>
+      <div>
+        {{ assignment.project.client.name }} @
+        {{ assignment.rate | toCurrency }}
+      </div>
       <div v-if="assignment.endDate">
         ends in {{ daysLeftText(assignment) }} days
         <v-icon v-if="daysLeft(assignment.endDate) < 25" color="red"

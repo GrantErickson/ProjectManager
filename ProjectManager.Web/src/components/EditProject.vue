@@ -110,7 +110,7 @@
                 <span>{{ contract.name }}</span>
               </td>
               <td><c-display :model="contract" for="state" /></td>
-              <td><c-display :model="contract" for="amount" /></td>
+              <td>{{ contract.amount | toCurrency }}</td>
               <td>
                 <a
                   v-if="contract.contractUrl"

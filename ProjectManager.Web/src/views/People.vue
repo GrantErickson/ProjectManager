@@ -24,7 +24,9 @@
           <v-card-title>
             {{ person.name }}
           </v-card-title>
-          <v-card-subtitle> ${{ person.defaultRate }} </v-card-subtitle>
+          <v-card-subtitle>
+            {{ person.defaultRate | toCurrency }}
+          </v-card-subtitle>
           <v-divider />
           <v-card-text>
             Allocation:

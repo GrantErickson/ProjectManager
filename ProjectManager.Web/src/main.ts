@@ -18,6 +18,19 @@ import $metadata from "@/metadata.g";
 // This global lookup allows the admin page components to function.
 import "@/viewmodels.g";
 
+// Custom currency fomatter
+Vue.filter("toCurrency", function (value: number) {
+  if (typeof value !== "number") {
+    return value;
+  }
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  });
+  return formatter.format(value);
+});
+
 // SETUP: vuetify
 Vue.use(Vuetify);
 const vuetify = new Vuetify({
