@@ -237,7 +237,11 @@ export default class EditProject extends Vue {
   }
   sortContracts() {
     this.project!.contracts!.sort((a, b) => {
-      return b.startDate!.getTime() - a.startDate!.getTime();
+      if (b.startDate != null && a.startDate != null) {
+        return b.startDate.getTime() - a.startDate.getTime();
+      } else {
+        return 0;
+      }
     });
   }
   deleteSelectedContract() {
