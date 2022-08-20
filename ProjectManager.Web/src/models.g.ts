@@ -271,6 +271,7 @@ export interface Project extends Model<typeof metadata.Project> {
   timeEntries: TimeEntry[] | null
   assignments: Assignment[] | null
   contracts: Contract[] | null
+  projectTags: ProjectTag[] | null
 }
 export class Project {
   
@@ -355,6 +356,32 @@ export class ProjectRole {
 }
 
 
+export interface ProjectTag extends Model<typeof metadata.ProjectTag> {
+  projectTagId: number | null
+  projectId: number | null
+  project: Project | null
+  tagId: number | null
+  tag: Tag | null
+}
+export class ProjectTag {
+  
+  /** Mutates the input object and its descendents into a valid ProjectTag implementation. */
+  static convert(data?: Partial<ProjectTag>): ProjectTag {
+    return convertToModel(data || {}, metadata.ProjectTag) 
+  }
+  
+  /** Maps the input object and its descendents to a new, valid ProjectTag implementation. */
+  static map(data?: Partial<ProjectTag>): ProjectTag {
+    return mapToModel(data || {}, metadata.ProjectTag) 
+  }
+  
+  /** Instantiate a new ProjectTag, optionally basing it on the given data. */
+  constructor(data?: Partial<ProjectTag> | {[k: string]: any}) {
+      Object.assign(this, ProjectTag.map(data || {}));
+  }
+}
+
+
 export interface Skill extends Model<typeof metadata.Skill> {
   skillId: number | null
   name: string | null
@@ -377,6 +404,31 @@ export class Skill {
   /** Instantiate a new Skill, optionally basing it on the given data. */
   constructor(data?: Partial<Skill> | {[k: string]: any}) {
       Object.assign(this, Skill.map(data || {}));
+  }
+}
+
+
+export interface Tag extends Model<typeof metadata.Tag> {
+  tagId: number | null
+  name: string | null
+  color: string | null
+  tagProjects: ProjectTag[] | null
+}
+export class Tag {
+  
+  /** Mutates the input object and its descendents into a valid Tag implementation. */
+  static convert(data?: Partial<Tag>): Tag {
+    return convertToModel(data || {}, metadata.Tag) 
+  }
+  
+  /** Maps the input object and its descendents to a new, valid Tag implementation. */
+  static map(data?: Partial<Tag>): Tag {
+    return mapToModel(data || {}, metadata.Tag) 
+  }
+  
+  /** Instantiate a new Tag, optionally basing it on the given data. */
+  constructor(data?: Partial<Tag> | {[k: string]: any}) {
+      Object.assign(this, Tag.map(data || {}));
   }
 }
 

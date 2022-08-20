@@ -1057,6 +1057,31 @@ export const Project = domain.types.Project = {
       get inverseNavigation() { return (domain.types.Contract as ModelType).props.project as ModelReferenceNavigationProperty },
       dontSerialize: true,
     },
+    projectTags: {
+      name: "projectTags",
+      displayName: "Project Tags",
+      type: "collection",
+      itemType: {
+        name: "$collectionItem",
+        displayName: "",
+        role: "value",
+        type: "model",
+        get typeDef() { return (domain.types.ProjectTag as ModelType) },
+      },
+      role: "collectionNavigation",
+      get foreignKey() { return (domain.types.ProjectTag as ModelType).props.projectId as ForeignKeyProperty },
+      get inverseNavigation() { return (domain.types.ProjectTag as ModelType).props.project as ModelReferenceNavigationProperty },
+      manyToMany: {
+        name: "tags",
+        displayName: "Tags",
+        get typeDef() { return (domain.types.Tag as ModelType) },
+        get farForeignKey() { return (domain.types.ProjectTag as ModelType).props.tagId as ForeignKeyProperty },
+        get farNavigationProp() { return (domain.types.ProjectTag as ModelType).props.tag as ModelReferenceNavigationProperty },
+        get nearForeignKey() { return (domain.types.ProjectTag as ModelType).props.projectId as ForeignKeyProperty },
+        get nearNavigationProp() { return (domain.types.ProjectTag as ModelType).props.project as ModelReferenceNavigationProperty },
+      },
+      dontSerialize: true,
+    },
   },
   methods: {
   },
@@ -1227,6 +1252,76 @@ export const ProjectRole = domain.types.ProjectRole = {
   dataSources: {
   },
 }
+export const ProjectTag = domain.types.ProjectTag = {
+  name: "ProjectTag",
+  displayName: "Project Tag",
+  get displayProp() { return this.props.projectTagId }, 
+  type: "model",
+  controllerRoute: "ProjectTag",
+  get keyProp() { return this.props.projectTagId }, 
+  behaviorFlags: 7,
+  props: {
+    projectTagId: {
+      name: "projectTagId",
+      displayName: "Project Tag Id",
+      type: "number",
+      role: "primaryKey",
+      hidden: 3,
+    },
+    projectId: {
+      name: "projectId",
+      displayName: "Project Id",
+      type: "number",
+      role: "foreignKey",
+      get principalKey() { return (domain.types.Project as ModelType).props.projectId as PrimaryKeyProperty },
+      get principalType() { return (domain.types.Project as ModelType) },
+      get navigationProp() { return (domain.types.ProjectTag as ModelType).props.project as ModelReferenceNavigationProperty },
+      hidden: 3,
+      rules: {
+        required: val => val != null || "Project is required.",
+      }
+    },
+    project: {
+      name: "project",
+      displayName: "Project",
+      type: "model",
+      get typeDef() { return (domain.types.Project as ModelType) },
+      role: "referenceNavigation",
+      get foreignKey() { return (domain.types.ProjectTag as ModelType).props.projectId as ForeignKeyProperty },
+      get principalKey() { return (domain.types.Project as ModelType).props.projectId as PrimaryKeyProperty },
+      get inverseNavigation() { return (domain.types.Project as ModelType).props.projectTags as ModelCollectionNavigationProperty },
+      dontSerialize: true,
+    },
+    tagId: {
+      name: "tagId",
+      displayName: "Tag Id",
+      type: "number",
+      role: "foreignKey",
+      get principalKey() { return (domain.types.Tag as ModelType).props.tagId as PrimaryKeyProperty },
+      get principalType() { return (domain.types.Tag as ModelType) },
+      get navigationProp() { return (domain.types.ProjectTag as ModelType).props.tag as ModelReferenceNavigationProperty },
+      hidden: 3,
+      rules: {
+        required: val => val != null || "Tag is required.",
+      }
+    },
+    tag: {
+      name: "tag",
+      displayName: "Tag",
+      type: "model",
+      get typeDef() { return (domain.types.Tag as ModelType) },
+      role: "referenceNavigation",
+      get foreignKey() { return (domain.types.ProjectTag as ModelType).props.tagId as ForeignKeyProperty },
+      get principalKey() { return (domain.types.Tag as ModelType).props.tagId as PrimaryKeyProperty },
+      get inverseNavigation() { return (domain.types.Tag as ModelType).props.tagProjects as ModelCollectionNavigationProperty },
+      dontSerialize: true,
+    },
+  },
+  methods: {
+  },
+  dataSources: {
+  },
+}
 export const Skill = domain.types.Skill = {
   name: "Skill",
   displayName: "Skill",
@@ -1288,6 +1383,65 @@ export const Skill = domain.types.Skill = {
       role: "collectionNavigation",
       get foreignKey() { return (domain.types.AssignmentSkill as ModelType).props.skillId as ForeignKeyProperty },
       get inverseNavigation() { return (domain.types.AssignmentSkill as ModelType).props.skill as ModelReferenceNavigationProperty },
+      dontSerialize: true,
+    },
+  },
+  methods: {
+  },
+  dataSources: {
+  },
+}
+export const Tag = domain.types.Tag = {
+  name: "Tag",
+  displayName: "Tag",
+  get displayProp() { return this.props.name }, 
+  type: "model",
+  controllerRoute: "Tag",
+  get keyProp() { return this.props.tagId }, 
+  behaviorFlags: 7,
+  props: {
+    tagId: {
+      name: "tagId",
+      displayName: "Tag Id",
+      type: "number",
+      role: "primaryKey",
+      hidden: 3,
+    },
+    name: {
+      name: "name",
+      displayName: "Name",
+      type: "string",
+      role: "value",
+    },
+    color: {
+      name: "color",
+      displayName: "Color",
+      type: "string",
+      role: "value",
+    },
+    tagProjects: {
+      name: "tagProjects",
+      displayName: "Tag Projects",
+      type: "collection",
+      itemType: {
+        name: "$collectionItem",
+        displayName: "",
+        role: "value",
+        type: "model",
+        get typeDef() { return (domain.types.ProjectTag as ModelType) },
+      },
+      role: "collectionNavigation",
+      get foreignKey() { return (domain.types.ProjectTag as ModelType).props.tagId as ForeignKeyProperty },
+      get inverseNavigation() { return (domain.types.ProjectTag as ModelType).props.tag as ModelReferenceNavigationProperty },
+      manyToMany: {
+        name: "projects",
+        displayName: "Projects",
+        get typeDef() { return (domain.types.Project as ModelType) },
+        get farForeignKey() { return (domain.types.ProjectTag as ModelType).props.projectId as ForeignKeyProperty },
+        get farNavigationProp() { return (domain.types.ProjectTag as ModelType).props.project as ModelReferenceNavigationProperty },
+        get nearForeignKey() { return (domain.types.ProjectTag as ModelType).props.tagId as ForeignKeyProperty },
+        get nearNavigationProp() { return (domain.types.ProjectTag as ModelType).props.tag as ModelReferenceNavigationProperty },
+      },
       dontSerialize: true,
     },
   },
@@ -1908,8 +2062,10 @@ interface AppDomain extends Domain {
     ProjectInfo: typeof ProjectInfo
     ProjectNote: typeof ProjectNote
     ProjectRole: typeof ProjectRole
+    ProjectTag: typeof ProjectTag
     Skill: typeof Skill
     SkillInfo: typeof SkillInfo
+    Tag: typeof Tag
     TimeEntry: typeof TimeEntry
     User: typeof User
     UserInfo: typeof UserInfo

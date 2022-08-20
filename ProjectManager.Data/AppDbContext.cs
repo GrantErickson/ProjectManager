@@ -21,7 +21,9 @@ public class AppDbContext : DbContext
     public DbSet<BillingPeriod> BillingPeriods => Set<BillingPeriod>();
     public DbSet<TimeEntry> TimeEntries => Set<TimeEntry>();
     public DbSet<Contract> Contracts => Set<Contract>();
-    
+    public DbSet<Tag> Tags => Set<Tag>(); 
+    public DbSet<ProjectTag> ProjectTags => Set<ProjectTag>();
+
     public AppDbContext()
     {
     }

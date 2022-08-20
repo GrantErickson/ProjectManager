@@ -61,8 +61,18 @@ export class ProjectRoleApiClient extends ModelApiClient<$models.ProjectRole> {
 }
 
 
+export class ProjectTagApiClient extends ModelApiClient<$models.ProjectTag> {
+  constructor() { super($metadata.ProjectTag) }
+}
+
+
 export class SkillApiClient extends ModelApiClient<$models.Skill> {
   constructor() { super($metadata.Skill) }
+}
+
+
+export class TagApiClient extends ModelApiClient<$models.Tag> {
+  constructor() { super($metadata.Tag) }
 }
 
 

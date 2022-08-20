@@ -61,6 +61,7 @@ public class User : TrackingBase
             .Include(f => f.Assignments).ThenInclude(f => f.Project.Lead)
             .Include(f => f.Assignments).ThenInclude(f => f.Project.Client)
             .Include(f => f.Assignments).ThenInclude(f => f.Project).ThenInclude(f => f.Client)
+            .Include(f => f.Assignments).ThenInclude(f => f.Project).ThenInclude(f => f.ProjectTags).ThenInclude(f=>f.Tag)
             .Include(f => f.Assignments).ThenInclude(f => f.Skills).ThenInclude(f => f.Skill)
             .Include(f => f.Skills).ThenInclude(f => f.Skill);
 

@@ -14,9 +14,10 @@ public static class DatabaseSeed
     {
         if (!db.ApplicationUsers.Any()) InitialSeed(db);
         if (!db.ApplicationUsers.Any(f => f.IsAppAdmin)) AddAdmins(db);
+        if (!db.Tags.Any()) AddTags(db);
     }
 
-    public static void InitialSeed(AppDbContext db)
+    private static void InitialSeed(AppDbContext db)
     {
         // Users
         var appGrant = new ApplicationUser
@@ -324,7 +325,7 @@ public static class DatabaseSeed
         db.SaveChanges();
     }
 
-    public static void AddAdmins(AppDbContext db)
+    private static void AddAdmins(AppDbContext db)
     {
         db.ApplicationUsers.First(f => f.Email == "grant@intellitect.com").IsAppAdmin = true;
         db.ApplicationUsers.First(f => f.Email == "phil@intellitect.com").IsAppAdmin = true;
@@ -336,6 +337,16 @@ public static class DatabaseSeed
         {
             orgUser.IsOrganizationAdmin = true;
         }
+        db.SaveChanges();
+    }
+
+    private static void AddTags(AppDbContext db)
+    {
+        db.Tags.Add(new Tag { Name = "Fixed Bid", Color = "blue lighten-1" });
+        db.Tags.Add(new Tag { Name = "Internal", Color = "" });
+        db.Tags.Add(new Tag { Name = "Ramping Down", Color = "orange" });
+        db.Tags.Add(new Tag { Name = "Ramping Up", Color = "green darken-1" });
+        db.Tags.Add(new Tag { Name = "Needs Touch", Color = "red lighten-3" });
         db.SaveChanges();
     }
 }

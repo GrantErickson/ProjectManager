@@ -34,6 +34,7 @@ namespace ProjectManager.Web.Models
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.TimeEntryDtoGen> _TimeEntries;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.AssignmentDtoGen> _Assignments;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.ContractDtoGen> _Contracts;
+        private System.Collections.Generic.ICollection<ProjectManager.Web.Models.ProjectTagDtoGen> _ProjectTags;
 
         public int? ProjectId
         {
@@ -145,6 +146,11 @@ namespace ProjectManager.Web.Models
             get => _Contracts;
             set { _Contracts = value; Changed(nameof(Contracts)); }
         }
+        public System.Collections.Generic.ICollection<ProjectManager.Web.Models.ProjectTagDtoGen> ProjectTags
+        {
+            get => _ProjectTags;
+            set { _ProjectTags = value; Changed(nameof(ProjectTags)); }
+        }
 
         /// <summary>
         /// Map from the domain object to the properties of the current DTO instance.
@@ -235,6 +241,18 @@ namespace ProjectManager.Web.Models
             else if (propValContracts == null && tree?[nameof(this.Contracts)] != null)
             {
                 this.Contracts = new ContractDtoGen[0];
+            }
+
+            var propValProjectTags = obj.ProjectTags;
+            if (propValProjectTags != null && (tree == null || tree[nameof(this.ProjectTags)] != null))
+            {
+                this.ProjectTags = propValProjectTags
+                    .OrderBy(f => f.ProjectTagId)
+                    .Select(f => f.MapToDto<ProjectManager.Data.Models.ProjectTag, ProjectTagDtoGen>(context, tree?[nameof(this.ProjectTags)])).ToList();
+            }
+            else if (propValProjectTags == null && tree?[nameof(this.ProjectTags)] != null)
+            {
+                this.ProjectTags = new ProjectTagDtoGen[0];
             }
 
         }

@@ -38,6 +38,16 @@
           >fas fa-circle-exclamation</v-icon
         >
       </div>
+      <div>
+        <v-chip
+          v-for="tag in assignment.project.projectTags"
+          :key="tag.projectTagId"
+          :color="tag.tag.color"
+          x-small
+          class="mx-1"
+          >{{ tag.tag.name }}</v-chip
+        >
+      </div>
     </v-card-text>
     <v-dialog v-if="showEdit" v-model="showEdit" max-width="800px">
       <v-card>

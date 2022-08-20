@@ -13,6 +13,16 @@
           <v-icon small class="mx-4" @click="showEditor">fas fa-pencil</v-icon>
         </v-col>
         <v-col>
+          <v-chip
+            v-for="tag in project.projectTags"
+            :key="tag.projectTagId"
+            :color="tag.tag.color"
+            small
+            class="mx-1"
+            >{{ tag.tag.name }}</v-chip
+          >
+        </v-col>
+        <v-col cols="1">
           <v-chip v-if="project.lead" small>{{ project.lead?.name }}</v-chip>
           <v-chip v-if="!project.lead" small color="yellow">no lead</v-chip>
         </v-col>

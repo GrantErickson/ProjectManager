@@ -54,6 +54,8 @@ public class Project : TrackingBase
     [Search]
     public ICollection<Assignment> Assignments { get; set; } = null!;
     public ICollection<Contract> Contracts { get; set; } = null!;
+    [ManyToMany("Tags")]
+    public ICollection<ProjectTag> ProjectTags { get; set; } = null!;
 
     [DefaultDataSource]
     public class ProjectWithAssignments : StandardDataSource<Project, AppDbContext>
@@ -75,6 +77,7 @@ public class Project : TrackingBase
                 .Include(f => f.Client)
                 .Include(f => f.Notes)
                 .Include(f => f.Lead!.AppUser)
+                .Include(f => f.ProjectTags).ThenInclude(f => f.Tag)
                 .Include(f => f.Contracts);
             if (FilterLeadId != null) result = result.Where(f => f.LeadId == FilterLeadId);
             if (HideCompleted) result = result.Where(f => f.ProjectState != ProjectStateEnum.Completed && f.ProjectState != ProjectStateEnum.Lost);

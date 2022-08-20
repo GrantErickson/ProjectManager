@@ -249,6 +249,7 @@ export interface ProjectViewModel extends $models.Project {
   timeEntries: TimeEntryViewModel[] | null;
   assignments: AssignmentViewModel[] | null;
   contracts: ContractViewModel[] | null;
+  projectTags: ProjectTagViewModel[] | null;
 }
 export class ProjectViewModel extends ViewModel<$models.Project, $apiClients.ProjectApiClient, number> implements $models.Project  {
   
@@ -275,6 +276,15 @@ export class ProjectViewModel extends ViewModel<$models.Project, $apiClients.Pro
   
   public addToContracts() {
     return this.$addChild('contracts') as ContractViewModel
+  }
+  
+  
+  public addToProjectTags() {
+    return this.$addChild('projectTags') as ProjectTagViewModel
+  }
+  
+  get tags(): ReadonlyArray<TagViewModel> {
+    return (this.projectTags || []).map($ => $.tag!).filter($ => $)
   }
   
   constructor(initialData?: DeepPartial<$models.Project> | null) {
@@ -339,6 +349,29 @@ export class ProjectRoleListViewModel extends ListViewModel<$models.ProjectRole,
 }
 
 
+export interface ProjectTagViewModel extends $models.ProjectTag {
+  projectTagId: number | null;
+  projectId: number | null;
+  project: ProjectViewModel | null;
+  tagId: number | null;
+  tag: TagViewModel | null;
+}
+export class ProjectTagViewModel extends ViewModel<$models.ProjectTag, $apiClients.ProjectTagApiClient, number> implements $models.ProjectTag  {
+  
+  constructor(initialData?: DeepPartial<$models.ProjectTag> | null) {
+    super($metadata.ProjectTag, new $apiClients.ProjectTagApiClient(), initialData)
+  }
+}
+defineProps(ProjectTagViewModel, $metadata.ProjectTag)
+
+export class ProjectTagListViewModel extends ListViewModel<$models.ProjectTag, $apiClients.ProjectTagApiClient, ProjectTagViewModel> {
+  
+  constructor() {
+    super($metadata.ProjectTag, new $apiClients.ProjectTagApiClient())
+  }
+}
+
+
 export interface SkillViewModel extends $models.Skill {
   skillId: number | null;
   name: string | null;
@@ -368,6 +401,37 @@ export class SkillListViewModel extends ListViewModel<$models.Skill, $apiClients
   
   constructor() {
     super($metadata.Skill, new $apiClients.SkillApiClient())
+  }
+}
+
+
+export interface TagViewModel extends $models.Tag {
+  tagId: number | null;
+  name: string | null;
+  color: string | null;
+  tagProjects: ProjectTagViewModel[] | null;
+}
+export class TagViewModel extends ViewModel<$models.Tag, $apiClients.TagApiClient, number> implements $models.Tag  {
+  
+  
+  public addToTagProjects() {
+    return this.$addChild('tagProjects') as ProjectTagViewModel
+  }
+  
+  get projects(): ReadonlyArray<ProjectViewModel> {
+    return (this.tagProjects || []).map($ => $.project!).filter($ => $)
+  }
+  
+  constructor(initialData?: DeepPartial<$models.Tag> | null) {
+    super($metadata.Tag, new $apiClients.TagApiClient(), initialData)
+  }
+}
+defineProps(TagViewModel, $metadata.Tag)
+
+export class TagListViewModel extends ListViewModel<$models.Tag, $apiClients.TagApiClient, TagViewModel> {
+  
+  constructor() {
+    super($metadata.Tag, new $apiClients.TagApiClient())
   }
 }
 
@@ -527,7 +591,9 @@ const viewModelTypeLookup = ViewModel.typeLookup = {
   Project: ProjectViewModel,
   ProjectNote: ProjectNoteViewModel,
   ProjectRole: ProjectRoleViewModel,
+  ProjectTag: ProjectTagViewModel,
   Skill: SkillViewModel,
+  Tag: TagViewModel,
   TimeEntry: TimeEntryViewModel,
   User: UserViewModel,
   UserSkill: UserSkillViewModel,
@@ -543,7 +609,9 @@ const listViewModelTypeLookup = ListViewModel.typeLookup = {
   Project: ProjectListViewModel,
   ProjectNote: ProjectNoteListViewModel,
   ProjectRole: ProjectRoleListViewModel,
+  ProjectTag: ProjectTagListViewModel,
   Skill: SkillListViewModel,
+  Tag: TagListViewModel,
   TimeEntry: TimeEntryListViewModel,
   User: UserListViewModel,
   UserSkill: UserSkillListViewModel,

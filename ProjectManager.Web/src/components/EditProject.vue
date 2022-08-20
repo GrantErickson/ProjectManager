@@ -26,7 +26,10 @@
         <c-input :model="project" for="endDate"></c-input>
       </v-col>
 
-      <v-col cols="12">
+      <v-col cols="9">
+        <c-input :model="project" for="projectTags" />
+      </v-col>
+      <v-col cols="3">
         <c-input :model="project" for="isPublic"></c-input>
       </v-col>
 
