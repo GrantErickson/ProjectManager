@@ -22,7 +22,6 @@ namespace ProjectManager.Web.Models
         private ProjectManager.Web.Models.UserDtoGen _Lead;
         private decimal? _Amount;
         private string _Note;
-        private string _ContractUrl;
         private ProjectManager.Data.Models.Project.ProjectStateEnum? _ProjectState;
         private decimal? _Probability;
         private string _PrimaryContact;
@@ -34,6 +33,7 @@ namespace ProjectManager.Web.Models
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.ProjectNoteDtoGen> _Notes;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.TimeEntryDtoGen> _TimeEntries;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.AssignmentDtoGen> _Assignments;
+        private System.Collections.Generic.ICollection<ProjectManager.Web.Models.ContractDtoGen> _Contracts;
 
         public int? ProjectId
         {
@@ -84,11 +84,6 @@ namespace ProjectManager.Web.Models
         {
             get => _Note;
             set { _Note = value; Changed(nameof(Note)); }
-        }
-        public string ContractUrl
-        {
-            get => _ContractUrl;
-            set { _ContractUrl = value; Changed(nameof(ContractUrl)); }
         }
         public ProjectManager.Data.Models.Project.ProjectStateEnum? ProjectState
         {
@@ -145,6 +140,11 @@ namespace ProjectManager.Web.Models
             get => _Assignments;
             set { _Assignments = value; Changed(nameof(Assignments)); }
         }
+        public System.Collections.Generic.ICollection<ProjectManager.Web.Models.ContractDtoGen> Contracts
+        {
+            get => _Contracts;
+            set { _Contracts = value; Changed(nameof(Contracts)); }
+        }
 
         /// <summary>
         /// Map from the domain object to the properties of the current DTO instance.
@@ -164,7 +164,6 @@ namespace ProjectManager.Web.Models
             this.LeadId = obj.LeadId;
             this.Amount = obj.Amount;
             this.Note = obj.Note;
-            this.ContractUrl = obj.ContractUrl;
             this.ProjectState = obj.ProjectState;
             this.Probability = obj.Probability;
             this.PrimaryContact = obj.PrimaryContact;
@@ -226,6 +225,18 @@ namespace ProjectManager.Web.Models
                 this.Assignments = new AssignmentDtoGen[0];
             }
 
+            var propValContracts = obj.Contracts;
+            if (propValContracts != null && (tree == null || tree[nameof(this.Contracts)] != null))
+            {
+                this.Contracts = propValContracts
+                    .OrderBy(f => f.Name)
+                    .Select(f => f.MapToDto<ProjectManager.Data.Models.Contract, ContractDtoGen>(context, tree?[nameof(this.Contracts)])).ToList();
+            }
+            else if (propValContracts == null && tree?[nameof(this.Contracts)] != null)
+            {
+                this.Contracts = new ContractDtoGen[0];
+            }
+
         }
 
         /// <summary>
@@ -245,7 +256,6 @@ namespace ProjectManager.Web.Models
             if (ShouldMapTo(nameof(LeadId))) entity.LeadId = LeadId;
             if (ShouldMapTo(nameof(Amount))) entity.Amount = Amount;
             if (ShouldMapTo(nameof(Note))) entity.Note = Note;
-            if (ShouldMapTo(nameof(ContractUrl))) entity.ContractUrl = ContractUrl;
             if (ShouldMapTo(nameof(ProjectState))) entity.ProjectState = (ProjectState ?? entity.ProjectState);
             if (ShouldMapTo(nameof(Probability))) entity.Probability = Probability;
             if (ShouldMapTo(nameof(PrimaryContact))) entity.PrimaryContact = PrimaryContact;

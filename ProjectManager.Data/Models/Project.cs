@@ -38,7 +38,6 @@ public class Project : TrackingBase
     public User? Lead { get; set; }
     public decimal? Amount { get; set; }
     public string? Note { get; set; }
-    public string? ContractUrl { get; set; }
     public ProjectStateEnum ProjectState { get; set; } = ProjectStateEnum.Unknown;
     [Range(0D, 100D)]
     public Decimal? Probability { get; set; }
@@ -54,6 +53,7 @@ public class Project : TrackingBase
     public ICollection<TimeEntry> TimeEntries { get; set; } = null!;
     [Search]
     public ICollection<Assignment> Assignments { get; set; } = null!;
+    public ICollection<Contract> Contracts { get; set; } = null!;
 
     [DefaultDataSource]
     public class ProjectWithAssignments : StandardDataSource<Project, AppDbContext>
@@ -74,7 +74,8 @@ public class Project : TrackingBase
                 .Include(f => f.Assignments).ThenInclude(f => f.Skills).ThenInclude(f => f.Skill)
                 .Include(f => f.Client)
                 .Include(f => f.Notes)
-                .Include(f => f.Lead!.AppUser);
+                .Include(f => f.Lead!.AppUser)
+                .Include(f => f.Contracts);
             if (FilterLeadId != null) result = result.Where(f => f.LeadId == FilterLeadId);
             if (HideCompleted) result = result.Where(f => f.ProjectState != ProjectStateEnum.Completed && f.ProjectState != ProjectStateEnum.Lost);
             return result;

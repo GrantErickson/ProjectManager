@@ -48,6 +48,43 @@ export const AssignmentStateEnum = domain.enums.AssignmentStateEnum = {
   },
   ]),
 }
+export const ContractStateEnum = domain.enums.ContractStateEnum = {
+  name: "ContractStateEnum",
+  displayName: "Contract State Enum",
+  type: "enum",
+  ...getEnumMeta<"Unknown"|"Draft"|"SentForSignature"|"Active"|"Cancelled"|"Complete">([
+  {
+    value: 0,
+    strValue: "Unknown",
+    displayName: "Unknown",
+  },
+  {
+    value: 1,
+    strValue: "Draft",
+    displayName: "Draft",
+  },
+  {
+    value: 2,
+    strValue: "SentForSignature",
+    displayName: "Sent For Signature",
+  },
+  {
+    value: 3,
+    strValue: "Active",
+    displayName: "Active",
+  },
+  {
+    value: 4,
+    strValue: "Cancelled",
+    displayName: "Cancelled",
+  },
+  {
+    value: 5,
+    strValue: "Complete",
+    displayName: "Complete",
+  },
+  ]),
+}
 export const EmploymentStatusEnum = domain.enums.EmploymentStatusEnum = {
   name: "EmploymentStatusEnum",
   displayName: "Employment Status Enum",
@@ -583,6 +620,12 @@ export const Client = domain.types.Client = {
       type: "string",
       role: "value",
     },
+    contractUrl: {
+      name: "contractUrl",
+      displayName: "Contract Url",
+      type: "string",
+      role: "value",
+    },
     projects: {
       name: "projects",
       displayName: "Projects",
@@ -598,6 +641,111 @@ export const Client = domain.types.Client = {
       get foreignKey() { return (domain.types.Project as ModelType).props.clientId as ForeignKeyProperty },
       get inverseNavigation() { return (domain.types.Project as ModelType).props.client as ModelReferenceNavigationProperty },
       dontSerialize: true,
+    },
+  },
+  methods: {
+  },
+  dataSources: {
+  },
+}
+export const Contract = domain.types.Contract = {
+  name: "Contract",
+  displayName: "Contract",
+  get displayProp() { return this.props.name }, 
+  type: "model",
+  controllerRoute: "Contract",
+  get keyProp() { return this.props.contractId }, 
+  behaviorFlags: 7,
+  props: {
+    contractId: {
+      name: "contractId",
+      displayName: "Contract Id",
+      type: "number",
+      role: "primaryKey",
+      hidden: 3,
+    },
+    projectId: {
+      name: "projectId",
+      displayName: "Project Id",
+      type: "number",
+      role: "foreignKey",
+      get principalKey() { return (domain.types.Project as ModelType).props.projectId as PrimaryKeyProperty },
+      get principalType() { return (domain.types.Project as ModelType) },
+      get navigationProp() { return (domain.types.Contract as ModelType).props.project as ModelReferenceNavigationProperty },
+      hidden: 3,
+      rules: {
+        required: val => val != null || "Project is required.",
+      }
+    },
+    project: {
+      name: "project",
+      displayName: "Project",
+      type: "model",
+      get typeDef() { return (domain.types.Project as ModelType) },
+      role: "referenceNavigation",
+      get foreignKey() { return (domain.types.Contract as ModelType).props.projectId as ForeignKeyProperty },
+      get principalKey() { return (domain.types.Project as ModelType).props.projectId as PrimaryKeyProperty },
+      get inverseNavigation() { return (domain.types.Project as ModelType).props.contracts as ModelCollectionNavigationProperty },
+      dontSerialize: true,
+    },
+    name: {
+      name: "name",
+      displayName: "Name",
+      type: "string",
+      role: "value",
+    },
+    contractUrl: {
+      name: "contractUrl",
+      displayName: "Contract Url",
+      type: "string",
+      role: "value",
+    },
+    amount: {
+      name: "amount",
+      displayName: "Amount",
+      type: "number",
+      role: "value",
+    },
+    state: {
+      name: "state",
+      displayName: "State",
+      type: "enum",
+      get typeDef() { return domain.enums.ContractStateEnum },
+      role: "value",
+    },
+    startDate: {
+      name: "startDate",
+      displayName: "Start Date",
+      type: "date",
+      dateKind: "datetime",
+      noOffset: true,
+      role: "value",
+    },
+    endDate: {
+      name: "endDate",
+      displayName: "End Date",
+      type: "date",
+      dateKind: "datetime",
+      noOffset: true,
+      role: "value",
+    },
+    unusedAmount: {
+      name: "unusedAmount",
+      displayName: "Unused Amount",
+      type: "number",
+      role: "value",
+    },
+    hasMustNotExceed: {
+      name: "hasMustNotExceed",
+      displayName: "Has Must Not Exceed",
+      type: "boolean",
+      role: "value",
+    },
+    notes: {
+      name: "notes",
+      displayName: "Notes",
+      type: "string",
+      role: "value",
     },
   },
   methods: {
@@ -782,12 +930,6 @@ export const Project = domain.types.Project = {
       type: "string",
       role: "value",
     },
-    contractUrl: {
-      name: "contractUrl",
-      displayName: "Contract Url",
-      type: "string",
-      role: "value",
-    },
     projectState: {
       name: "projectState",
       displayName: "Project State",
@@ -897,6 +1039,22 @@ export const Project = domain.types.Project = {
       role: "collectionNavigation",
       get foreignKey() { return (domain.types.Assignment as ModelType).props.projectId as ForeignKeyProperty },
       get inverseNavigation() { return (domain.types.Assignment as ModelType).props.project as ModelReferenceNavigationProperty },
+      dontSerialize: true,
+    },
+    contracts: {
+      name: "contracts",
+      displayName: "Contracts",
+      type: "collection",
+      itemType: {
+        name: "$collectionItem",
+        displayName: "",
+        role: "value",
+        type: "model",
+        get typeDef() { return (domain.types.Contract as ModelType) },
+      },
+      role: "collectionNavigation",
+      get foreignKey() { return (domain.types.Contract as ModelType).props.projectId as ForeignKeyProperty },
+      get inverseNavigation() { return (domain.types.Contract as ModelType).props.project as ModelReferenceNavigationProperty },
       dontSerialize: true,
     },
   },
@@ -1733,6 +1891,7 @@ export const UserService = domain.services.UserService = {
 interface AppDomain extends Domain {
   enums: {
     AssignmentStateEnum: typeof AssignmentStateEnum
+    ContractStateEnum: typeof ContractStateEnum
     EmploymentStatusEnum: typeof EmploymentStatusEnum
     ProjectStateEnum: typeof ProjectStateEnum
   }
@@ -1743,6 +1902,7 @@ interface AppDomain extends Domain {
     AssignmentSkill: typeof AssignmentSkill
     BillingPeriod: typeof BillingPeriod
     Client: typeof Client
+    Contract: typeof Contract
     Organization: typeof Organization
     Project: typeof Project
     ProjectInfo: typeof ProjectInfo

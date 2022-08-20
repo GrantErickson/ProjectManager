@@ -17,7 +17,8 @@ public class Client
     public string? AgreementUrl { get; set; }
     public string? PrimaryContact { get; set; }
     public string? BillingContact { get; set; }
-
+    public string? ContractUrl { get; set; }
+    
     public ICollection<Project> Projects { get; set; } = null!;
 
     

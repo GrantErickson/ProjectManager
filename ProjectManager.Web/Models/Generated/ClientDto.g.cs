@@ -19,6 +19,7 @@ namespace ProjectManager.Web.Models
         private string _AgreementUrl;
         private string _PrimaryContact;
         private string _BillingContact;
+        private string _ContractUrl;
         private System.Collections.Generic.ICollection<ProjectManager.Web.Models.ProjectDtoGen> _Projects;
 
         public int? ClientId
@@ -56,6 +57,11 @@ namespace ProjectManager.Web.Models
             get => _BillingContact;
             set { _BillingContact = value; Changed(nameof(BillingContact)); }
         }
+        public string ContractUrl
+        {
+            get => _ContractUrl;
+            set { _ContractUrl = value; Changed(nameof(ContractUrl)); }
+        }
         public System.Collections.Generic.ICollection<ProjectManager.Web.Models.ProjectDtoGen> Projects
         {
             get => _Projects;
@@ -78,6 +84,7 @@ namespace ProjectManager.Web.Models
             this.AgreementUrl = obj.AgreementUrl;
             this.PrimaryContact = obj.PrimaryContact;
             this.BillingContact = obj.BillingContact;
+            this.ContractUrl = obj.ContractUrl;
             if (tree == null || tree[nameof(this.Organization)] != null)
                 this.Organization = obj.Organization.MapToDto<ProjectManager.Data.Models.Organization, OrganizationDtoGen>(context, tree?[nameof(this.Organization)]);
 
@@ -110,6 +117,7 @@ namespace ProjectManager.Web.Models
             if (ShouldMapTo(nameof(AgreementUrl))) entity.AgreementUrl = AgreementUrl;
             if (ShouldMapTo(nameof(PrimaryContact))) entity.PrimaryContact = PrimaryContact;
             if (ShouldMapTo(nameof(BillingContact))) entity.BillingContact = BillingContact;
+            if (ShouldMapTo(nameof(ContractUrl))) entity.ContractUrl = ContractUrl;
         }
     }
 }

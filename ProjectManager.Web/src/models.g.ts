@@ -12,6 +12,16 @@ export enum AssignmentStateEnum {
 }
 
 
+export enum ContractStateEnum {
+  Unknown = 0,
+  Draft = 1,
+  SentForSignature = 2,
+  Active = 3,
+  Cancelled = 4,
+  Complete = 5,
+}
+
+
 export enum EmploymentStatusEnum {
   Unknown = 0,
   FullTime = 1,
@@ -157,6 +167,7 @@ export interface Client extends Model<typeof metadata.Client> {
   agreementUrl: string | null
   primaryContact: string | null
   billingContact: string | null
+  contractUrl: string | null
   projects: Project[] | null
 }
 export class Client {
@@ -174,6 +185,39 @@ export class Client {
   /** Instantiate a new Client, optionally basing it on the given data. */
   constructor(data?: Partial<Client> | {[k: string]: any}) {
       Object.assign(this, Client.map(data || {}));
+  }
+}
+
+
+export interface Contract extends Model<typeof metadata.Contract> {
+  contractId: number | null
+  projectId: number | null
+  project: Project | null
+  name: string | null
+  contractUrl: string | null
+  amount: number | null
+  state: ContractStateEnum | null
+  startDate: Date | null
+  endDate: Date | null
+  unusedAmount: number | null
+  hasMustNotExceed: boolean | null
+  notes: string | null
+}
+export class Contract {
+  
+  /** Mutates the input object and its descendents into a valid Contract implementation. */
+  static convert(data?: Partial<Contract>): Contract {
+    return convertToModel(data || {}, metadata.Contract) 
+  }
+  
+  /** Maps the input object and its descendents to a new, valid Contract implementation. */
+  static map(data?: Partial<Contract>): Contract {
+    return mapToModel(data || {}, metadata.Contract) 
+  }
+  
+  /** Instantiate a new Contract, optionally basing it on the given data. */
+  constructor(data?: Partial<Contract> | {[k: string]: any}) {
+      Object.assign(this, Contract.map(data || {}));
   }
 }
 
@@ -215,7 +259,6 @@ export interface Project extends Model<typeof metadata.Project> {
   lead: User | null
   amount: number | null
   note: string | null
-  contractUrl: string | null
   projectState: ProjectStateEnum | null
   probability: number | null
   primaryContact: string | null
@@ -227,6 +270,7 @@ export interface Project extends Model<typeof metadata.Project> {
   notes: ProjectNote[] | null
   timeEntries: TimeEntry[] | null
   assignments: Assignment[] | null
+  contracts: Contract[] | null
 }
 export class Project {
   

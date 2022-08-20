@@ -4,9 +4,6 @@
       <v-container>
         <v-row>
           <v-col><span class="text-h5">Skill</span> </v-col>
-          <v-col
-            ><v-text-field v-model="search" label="Search"></v-text-field
-          ></v-col>
         </v-row>
       </v-container>
     </v-card-title>

@@ -36,6 +36,11 @@ export class ClientApiClient extends ModelApiClient<$models.Client> {
 }
 
 
+export class ContractApiClient extends ModelApiClient<$models.Contract> {
+  constructor() { super($metadata.Contract) }
+}
+
+
 export class OrganizationApiClient extends ModelApiClient<$models.Organization> {
   constructor() { super($metadata.Organization) }
 }

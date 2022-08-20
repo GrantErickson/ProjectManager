@@ -20,7 +20,8 @@ public class AppDbContext : DbContext
     public DbSet<AssignmentSkill> AssignmentSkills => Set<AssignmentSkill>();
     public DbSet<BillingPeriod> BillingPeriods => Set<BillingPeriod>();
     public DbSet<TimeEntry> TimeEntries => Set<TimeEntry>();
-
+    public DbSet<Contract> Contracts => Set<Contract>();
+    
     public AppDbContext()
     {
     }

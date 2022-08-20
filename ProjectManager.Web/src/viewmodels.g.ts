@@ -134,6 +134,7 @@ export interface ClientViewModel extends $models.Client {
   agreementUrl: string | null;
   primaryContact: string | null;
   billingContact: string | null;
+  contractUrl: string | null;
   projects: ProjectViewModel[] | null;
 }
 export class ClientViewModel extends ViewModel<$models.Client, $apiClients.ClientApiClient, number> implements $models.Client  {
@@ -153,6 +154,36 @@ export class ClientListViewModel extends ListViewModel<$models.Client, $apiClien
   
   constructor() {
     super($metadata.Client, new $apiClients.ClientApiClient())
+  }
+}
+
+
+export interface ContractViewModel extends $models.Contract {
+  contractId: number | null;
+  projectId: number | null;
+  project: ProjectViewModel | null;
+  name: string | null;
+  contractUrl: string | null;
+  amount: number | null;
+  state: $models.ContractStateEnum | null;
+  startDate: Date | null;
+  endDate: Date | null;
+  unusedAmount: number | null;
+  hasMustNotExceed: boolean | null;
+  notes: string | null;
+}
+export class ContractViewModel extends ViewModel<$models.Contract, $apiClients.ContractApiClient, number> implements $models.Contract  {
+  
+  constructor(initialData?: DeepPartial<$models.Contract> | null) {
+    super($metadata.Contract, new $apiClients.ContractApiClient(), initialData)
+  }
+}
+defineProps(ContractViewModel, $metadata.Contract)
+
+export class ContractListViewModel extends ListViewModel<$models.Contract, $apiClients.ContractApiClient, ContractViewModel> {
+  
+  constructor() {
+    super($metadata.Contract, new $apiClients.ContractApiClient())
   }
 }
 
@@ -206,7 +237,6 @@ export interface ProjectViewModel extends $models.Project {
   lead: UserViewModel | null;
   amount: number | null;
   note: string | null;
-  contractUrl: string | null;
   projectState: $models.ProjectStateEnum | null;
   probability: number | null;
   primaryContact: string | null;
@@ -218,6 +248,7 @@ export interface ProjectViewModel extends $models.Project {
   notes: ProjectNoteViewModel[] | null;
   timeEntries: TimeEntryViewModel[] | null;
   assignments: AssignmentViewModel[] | null;
+  contracts: ContractViewModel[] | null;
 }
 export class ProjectViewModel extends ViewModel<$models.Project, $apiClients.ProjectApiClient, number> implements $models.Project  {
   
@@ -239,6 +270,11 @@ export class ProjectViewModel extends ViewModel<$models.Project, $apiClients.Pro
   
   public addToAssignments() {
     return this.$addChild('assignments') as AssignmentViewModel
+  }
+  
+  
+  public addToContracts() {
+    return this.$addChild('contracts') as ContractViewModel
   }
   
   constructor(initialData?: DeepPartial<$models.Project> | null) {
@@ -486,6 +522,7 @@ const viewModelTypeLookup = ViewModel.typeLookup = {
   AssignmentSkill: AssignmentSkillViewModel,
   BillingPeriod: BillingPeriodViewModel,
   Client: ClientViewModel,
+  Contract: ContractViewModel,
   Organization: OrganizationViewModel,
   Project: ProjectViewModel,
   ProjectNote: ProjectNoteViewModel,
@@ -501,6 +538,7 @@ const listViewModelTypeLookup = ListViewModel.typeLookup = {
   AssignmentSkill: AssignmentSkillListViewModel,
   BillingPeriod: BillingPeriodListViewModel,
   Client: ClientListViewModel,
+  Contract: ContractListViewModel,
   Organization: OrganizationListViewModel,
   Project: ProjectListViewModel,
   ProjectNote: ProjectNoteListViewModel,
