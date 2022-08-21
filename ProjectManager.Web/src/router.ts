@@ -28,6 +28,11 @@ export default new Router({
       component: () => import("./views/ProjectList.vue"),
     },
     {
+      path: "/skillsAdmin",
+      name: "skillsAdmin",
+      component: () => import("./views/SkillsAdmin.vue"),
+    },
+    {
       path: "/user/:userId",
       name: "user",
       component: () => import("./views/UserDashboard.vue"),

@@ -55,7 +55,7 @@
           <v-divider></v-divider>
         </v-list-item>
 
-        <v-list-item link to="/admin/Skill">
+        <v-list-item link to="/skillsAdmin">
           <v-list-item-action>
             <v-icon>fas fa-list</v-icon>
           </v-list-item-action>
