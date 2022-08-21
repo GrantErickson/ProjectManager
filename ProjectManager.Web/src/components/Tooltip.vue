@@ -1,14 +1,19 @@
 <template>
-  <v-tooltip :[location]="true">
-    <template #activator="{ on }">
-      <span v-on="on">
-        <slot></slot>
+  <span>
+    <v-tooltip v-if="text" :[location]="true">
+      <template #activator="{ on }">
+        <span v-on="on">
+          <slot></slot>
+        </span>
+      </template>
+      <span>
+        {{ text }}
       </span>
-    </template>
-    <span>
-      {{ text }}
+    </v-tooltip>
+    <span v-else>
+      <slot></slot>
     </span>
-  </v-tooltip>
+  </span>
 </template>
 
 <script lang="ts">

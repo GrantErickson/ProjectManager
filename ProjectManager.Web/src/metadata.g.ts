@@ -1948,6 +1948,13 @@ export const SkillInfo = domain.types.SkillInfo = {
       role: "value",
       dontSerialize: true,
     },
+    description: {
+      name: "description",
+      displayName: "Description",
+      type: "string",
+      role: "value",
+      dontSerialize: true,
+    },
   },
 }
 export const UserInfo = domain.types.UserInfo = {

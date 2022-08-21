@@ -592,6 +592,7 @@ export class ProjectInfo {
 export interface SkillInfo extends Model<typeof metadata.SkillInfo> {
   name: string | null
   level: number | null
+  description: string | null
 }
 export class SkillInfo {
   

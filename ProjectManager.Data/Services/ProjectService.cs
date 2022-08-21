@@ -83,11 +83,13 @@ public class ProjectService
     {
         public string Name { get; }
         public int? Level { get; }
+        public string? Description { get; }
 
         public SkillInfo(AssignmentSkill skill)
         {
             Name = skill.Skill.Name;
             Level = skill.Level;
+            Description = skill.Skill.Description;
         }
     }
 

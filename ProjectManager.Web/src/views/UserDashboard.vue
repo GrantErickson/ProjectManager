@@ -25,7 +25,7 @@
                   <th>Level</th>
                   <th>Area of Interest</th>
                   <th>Note</th>
-                  <th>
+                  <th class="text-right">
                     <v-icon @click="addSkill(project)"
                       >fas fa-plus-circle</v-icon
                     >

@@ -17,9 +17,12 @@
             <c-input :model="skill" for="level"></c-input>
           </v-col>
         </v-row>
-        <v-row v-if="skill.skill?.description">
+        <v-row>
           <v-col cols="12">
-            {{ skill.skill?.description }}
+            <pre v-if="skill.skill?.description"
+              >{{ skill.skill?.description }}
+            </pre>
+            <span v-else>No Description</span>
           </v-col>
         </v-row>
       </v-container>

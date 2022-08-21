@@ -77,16 +77,12 @@
                     >fas fa-road-circle-check</v-icon
                   >
                 </Tooltip>
-                <span>
-                  <v-chip
-                    v-for="skill in assignment.skills"
-                    :key="skill.name"
-                    small
-                    class="mx-1"
-                  >
-                    {{ skill.name }}:
-                    {{ skill.level }}
-                  </v-chip>
+                <span v-for="skill in assignment.skills" :key="skill.name">
+                  <Tooltip :text="skill.description ? 'click for detail' : ''">
+                    <v-chip small class="mx-1" @click="showSkillDetail(skill)">
+                      {{ skill.name }}: {{ skill.level }}
+                    </v-chip>
+                  </Tooltip>
                 </span>
               </td>
             </tr>
@@ -94,6 +90,35 @@
         </template>
       </v-simple-table>
     </v-card>
+
+    <v-dialog v-if="selectedSkill" v-model="selectedSkill" max-width="400px">
+      <v-card>
+        <v-card-title>
+          <v-container>
+            <v-row>
+              <v-col
+                ><span class="text-h5">Skill: {{ selectedSkill.name }}</span>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-title>
+        <v-card-text>
+          <v-row>
+            <v-col>
+              <pre
+                >{{ selectedSkill.description }}
+              </pre>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="selectedSkill = null">
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -107,6 +132,7 @@ export default class Projects extends Vue {
   private projectService = new ViewModels.ProjectServiceViewModel();
   private projects: $models.ProjectInfo[] = null!;
   private search = "";
+  private selectedSkill: $models.SkillInfo | null = null!;
 
   @Watch("search")
   onSearchChanged() {
@@ -121,6 +147,12 @@ export default class Projects extends Vue {
     await this.projectService.getProjects(this.search);
     if (this.projectService.getProjects != null) {
       this.projects = this.projectService.getProjects.result!;
+    }
+  }
+
+  showSkillDetail(skill: $models.SkillInfo) {
+    if (skill.description) {
+      this.selectedSkill = skill;
     }
   }
 }

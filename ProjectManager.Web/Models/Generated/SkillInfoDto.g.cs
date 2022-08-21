@@ -14,6 +14,7 @@ namespace ProjectManager.Web.Models
 
         private string _Name;
         private int? _Level;
+        private string _Description;
 
         public string Name
         {
@@ -24,6 +25,11 @@ namespace ProjectManager.Web.Models
         {
             get => _Level;
             set { _Level = value; Changed(nameof(Level)); }
+        }
+        public string Description
+        {
+            get => _Description;
+            set { _Description = value; Changed(nameof(Description)); }
         }
 
         /// <summary>
@@ -38,6 +44,7 @@ namespace ProjectManager.Web.Models
 
             this.Name = obj.Name;
             this.Level = obj.Level;
+            this.Description = obj.Description;
         }
 
         /// <summary>
