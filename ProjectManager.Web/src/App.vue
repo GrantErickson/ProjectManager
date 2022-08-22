@@ -144,7 +144,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>
         <router-link to="/" class="white--text" style="text-decoration: none">
-          IntelliManager
+          MiracleMax
         </router-link>
       </v-toolbar-title>
     </v-app-bar>
